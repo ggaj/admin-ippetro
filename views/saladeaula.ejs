@@ -1,0 +1,69 @@
+<% include ./share/header.ejs %>
+<div class="row">
+  <div class="col-md-2 mb-3">
+    <div class="py-2 text-center">
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/cadastros"><i class="fas fa-arrow-left"></i></a>
+    </div>
+  </div>
+  <div class="col-md-8 mb-3">
+    <div class="py-2 text-center">
+      <h2>Cadastro de Sala de aula</h2>
+      <!-- <p class="lead">Below is an example.</p> -->
+    </div>
+  </div>
+</div>
+<% include ./share/msg.ejs %>
+<form class="needs-validation" id="formSaladeAula" method="POST" action="/saladeaula">
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <label for="saladeaula">Sala de Aula:</label>
+      <input type="text" class="form-control" name="saladeaula" id="saladeaula" placeholder="" value="" required>
+      <div class="invalid-feedback">
+        Informe o nome da sala de aula.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <label for="datainicial">Data Inicial:</label>
+      <input type="date" class="form-control" name="datainicial" id="datainicial" placeholder="" value="" required>
+      <div class="invalid-feedback">
+        Informe a data inicial.
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="datafinal">Data Final:</label>
+      <input type="date" class="form-control" name="datafinal" id="datafinal" placeholder="" value="" required>
+      <div class="invalid-feedback">
+        Informe a data final.
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <label for="materiaId">Matéria:</label>
+      <select class="custom-select d-block w-100" name="materiaId" id="materiaId" required>
+        <option value="">Escolha uma opção...</option>
+        <%for(var row in data.materias){%>
+        <option value="<%=data.materias[row].id%>">
+          <%=data.materias[row].materia%>
+        </option>
+        <%}%>
+      </select>
+      <div class="invalid-feedback">
+        Escolha a matéria.
+      </div>
+    </div>
+  </div>
+
+  <hr class="mb-4">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <!-- <a href="javascript:void(0)" class="btn btn-primary btn-lg btn-block btnGravar" id="btnSaladeAula" >Gravar</a> -->
+      <button type="submit" class="btn btn-primary btn-lg btn-block btnGravar" id="btnSaladeAula">Gravar</button>
+    </div>
+    <div class="col-md-6 mb-3">
+      <button class="btn btn-danger btn-lg btn-block" type="reset">Cancelar</button>
+    </div>
+  </div>
+</form>
+<% include ./share/footer.ejs %>

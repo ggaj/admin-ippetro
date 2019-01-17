@@ -1,0 +1,62 @@
+<% include ./share/header.ejs %>
+<div class="row">
+  <div class="col-md-2 mb-3">
+    <div class="py-2 text-center">
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/cadastros"><i class="fas fa-arrow-left"></i></a>
+    </div>
+  </div>
+  <div class="col-md-8 mb-3">
+    <div class="py-2 text-center">
+      <h2>Cadastro de Usuários</h2>
+      <!-- <p class="lead">Below is an example.</p> -->
+    </div>
+  </div>
+</div>
+<% include ./share/msg.ejs %>
+<form class="needs-validation" novalidate method="POST" action="/usuarios">
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <label for="id">Membro:</label>
+      <select class="custom-select d-block w-100" name="id" id="id" required>
+        <option value="">Escolha uma opção...</option>
+        <%for(var row in data){%>
+          <option value="<%=data[row].id%>">
+            <%=data[row].nome%>
+          </option>
+          <%}%>
+        </select>
+        <div class="invalid-feedback">
+          Escolha o membro.
+        </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="id_tipo_membro">Tipo de Usuário:</label>
+      <select class="custom-select d-block w-100" name="id_tipo_membro" id="id_tipo_membro" required>
+        <option value="">Escolha uma opção...</option>
+        <option value="1">Administrador</option>
+        <option value="2">Professor EBD</option>
+        <option value="99">Membro</option>
+      </select>
+      <div class="invalid-feedback">
+        Escolha o tipo de usuário.
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="password">Senha:</label>
+      <input type="password" class="form-control" name="password" id="password" required>    
+      <div class="invalid-feedback">
+        Informe a senha.
+      </div>
+    </div>
+  </div>
+  <hr class="mb-4">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <button class="btn btn-primary btn-lg btn-block" type="submit">Gravar</button>
+    </div>
+    <div class="col-md-6 mb-3">
+      <button class="btn btn-danger btn-lg btn-block" type="reset">Cancelar</button>
+    </div>
+  </div>
+</form>
+<% include ./share/footer.ejs %>

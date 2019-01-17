@@ -1,0 +1,26 @@
+{
+  "development"       : {
+    "username"        : "root",
+    "password"        : "root",
+    "database"        : "ippetro",
+    "host"            : "127.0.0.1",
+    "dialect"         : "mysql",
+    "port"            : "3306",
+    "port_api"        : "3001",
+    "logging"         : false,
+    "define"          : {
+      "freezeTableName": true
+    },
+    "jwt_encryption"  : "jesus_cristo_IPP",
+    "jwt_expiration"  : "10000"
+  },
+  
+  "production": {
+    "username": "root",
+    "password": "root",
+    "database": "btr",
+    "host"    : "192.168.32.2",
+    "dialect" : "mysql",
+    "port"    : "3000"
+  }
+}

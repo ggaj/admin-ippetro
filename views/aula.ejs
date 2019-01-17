@@ -1,0 +1,61 @@
+<% include ./share/header.ejs %>
+<div class="row">
+  <div class="col-md-2 mb-3">
+    <div class="py-2 text-center">
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/ebd"><i class="fas fa-arrow-left"></i></a>
+    </div>
+  </div>
+  <div class="col-md-8 mb-3">
+    <div class="py-2 text-center">
+      <div id="saladeaulaId" hidden><%=data.saladeaulaId%></div>
+      <h2>
+        <%=data.sala%>
+      </h2>
+    </div>
+  </div>
+  <div class="col-md-2 mb-3"></div>
+</div>
+<form class="needs-validation" novalidate method="post" action="/diadeaula">
+  <div class="row">
+    <div class="col-md-12 mb-3">
+      <div class="input-group">
+        <input type="date" class="form-control" id="diadeaula" value="<%=dia%>" name="diadeaula" required>
+        <div class="input-group-append">
+          <button class="btn btn-primary" type="button" id="btnDataAula">Data da Aula</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <input type="text" id="saladeaulaId" name="saladeaulaId" value="<%=data.saladeaulaId%>" hidden>
+  </div>
+  <div class="row">
+    <div class="col-md-12 order-md-1">
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col" width="75%">Nome</th>
+            <th scope="col" width="75%">Tipo de membro</th>
+            <th scope="col" width="10%">Presença</th>
+          </tr>
+        </thead>
+
+        <tbody id="presentesdodia">
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <hr class="mb-4">
+  <div class="row">
+    <div class="col-6 mb-3">
+      <!-- <a href="javascript:void(0)" class="btn btn-primary btn-lg btn-block btnGravar" id="btnLicao" >Gravar</a> -->
+      <button type="submit" class="btn btn-primary btn-lg btn-block btnGravar" >Gravar</button>
+    </div>
+    <div class="col-6 mb-3">
+      <button class="btn btn-danger btn-lg btn-block" type="reset">Cancelar</button>
+    </div>
+  </div>
+</form>
+
+<% include ./share/footer.ejs %>

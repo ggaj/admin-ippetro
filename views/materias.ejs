@@ -1,0 +1,51 @@
+<% include ./share/header.ejs %>
+<div class="row">
+  <div class="col-md-2 mb-3">
+    <div class="py-2 text-center">
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/cadastros"><i class="fas fa-arrow-left"></i></a>
+    </div>
+  </div>
+  <div class="col-md-8 mb-3">
+    <div class="py-2 text-center">
+      <h2>Cadastro de Matérias</h2>
+      <!-- <p class="lead">Below is an example.</p> -->
+    </div>
+  </div>
+</div>
+<% include ./share/msg.ejs %>
+<form class="needs-validation" novalidate id="formMateria" method="POST" action="/materias">
+  <div class="row">
+    <div class="col-md-4 mb-3">
+      <label for="moduloId">Módulo:</label>
+      <select class="custom-select d-block w-100" name="moduloId" id="moduloId" required>
+        <option value="">Escolha uma opção...</option>
+        <%for(var row in data){%>
+        <option value="<%=data[row].id%>">
+          <%=data[row].modulo%>
+        </option>
+        <%}%>
+      </select>
+      <div class="invalid-feedback">
+        Escolha o módulo.
+      </div>
+    </div>
+    <div class="col-md-8 mb-3">
+      <label for="materia">Matéria:</label>
+      <input type="text" class="form-control" name="materia" id="materia" placeholder="" value="" required>
+      <div class="invalid-feedback">
+        Informe o nome da matéria.
+      </div>
+    </div>
+  </div>
+  <hr class="mb-4">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <!-- <a href="javascript:void(0)" class="btn btn-primary btn-lg btn-block btnGravar" id="btnMateria" >Gravar</a> -->
+      <button class="btn btn-primary btn-lg btn-block btnGravar" type="submit" >Gravar</button>
+    </div>
+    <div class="col-md-6 mb-3">
+      <button class="btn btn-danger btn-lg btn-block" type="reset">Cancelar</button>
+    </div>
+  </div>
+</form>
+<% include ./share/footer.ejs %>

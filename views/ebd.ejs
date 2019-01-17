@@ -1,0 +1,27 @@
+<% include ./share/header.ejs %>
+<div class="row">
+  <div class="col-md-2 mb-3">
+    <div class="py-2 text-center">
+      <a class="btn btn-outline-secondary btn-lg btn-block" href="/"><i class="fas fa-home"></i></a>
+    </div>
+  </div>
+  <div class="col-md-8 mb-3">
+    <div class="py-2 text-center">
+      <h2>Sala de Aula</h2>
+      <!-- <p class="lead">Below is an example.</p> -->
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <%for(var row in data){%>
+  <div class="col-md-6 mb-3">
+    <a class="btn btn-secondary btn-lg btn-block" href="/ebd/<%=data[row].id%>">
+      <%=data[row].saladeaula%></a>
+  </div>
+  <%}%>
+  <div class="col-md-6 mb-3">
+    <a class="btn btn-secondary btn-lg btn-block" href="/ebd/relatorios">Relatórios</a>
+  </div>
+</div>
+<% include ./share/footer.ejs %>

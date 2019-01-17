@@ -1,0 +1,133 @@
+<% include ./share/header.ejs %>
+<div class="row">
+  <div class="col-md-2 mb-3">
+    <div class="py-2 text-center">
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/cadastros"><i class="fas fa-arrow-left"></i></a>
+    </div>
+  </div>
+  <div class="col-md-8 mb-3">
+    <div class="py-2 text-center">
+      <h2>Cadastro de Membros</h2>
+      <!-- <p class="lead">Below is an example.</p> -->
+    </div>
+  </div>
+</div>
+<% include ./share/msg.ejs %>
+<form class="needs-validation" novalidate id="formMembro" method="POST" action="/membros">
+  <div class="row">
+    <div class="col-md-5 mb-3">
+      <label for="nome">Nome:</label>
+      <input type="text" class="form-control" name="nome" id="nome" placeholder="" value="" required>
+      <div class="invalid-feedback">
+        Informe o nome.
+      </div>
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="igrejaId">Igreja:</label>
+      <select class="custom-select d-block w-100" name="igrejaId" id="igrejaId" required>
+        <option value="">Escolha uma opção...</option>
+        <%for(var row in data){%>
+          <option value="<%=data[row].id%>">
+            <%=data[row].nome%>
+          </option>
+        <%}%>
+      </select>
+      <div class="invalid-feedback">
+        Escolha a Igreja.
+      </div>
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="tipodemembro">Tipo de membro:</label>
+      <select class="custom-select d-block w-100" name="tipodemembro" id="tipodemembro" required>
+        <option value="">Escolha uma opção...</option>
+        <option value="1">Comungante</option>
+        <option value="2">Não Comungante</option>
+        <option value="3">Congregado</option>
+      </select>
+      <div class="invalid-feedback">
+        Escolha o tipo de membro.
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3 mb-3">
+      <label for="cpf">CPF:</label>
+      <input type="tel" class="form-control" name="cpf" id="cpf" placeholder="" value="">
+      <div class="invalid-feedback">
+        Informe o CPF.
+      </div>
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="datadenascto">Data de Nascto:</label>
+      <input type="date" class="form-control" name="datadenascto" id="datadenascto" placeholder="" value="">
+    </div>
+    <div class="col-md-3 mb-3">
+      <label for="telefone">Telefone:</label>
+      <input type="text" class="form-control" name="telefone" id="telefone" placeholder="" value="">
+    </div>
+    <div class="col-md-4 mb-3">
+      <label for="email">E-mail:</label>
+      <div class="input-group">
+        <div class="input-group-prepend">
+          <span class="input-group-text">@</span>
+        </div>
+        <input type="text" class="form-control" name="email" id="email" placeholder="">
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="nomePai">Nome do Pai:</label>
+      <input type="text" class="form-control" name="nomePai" id="nomePai" placeholder="" value="">
+    </div>
+
+    <div class="col-md-6 mb-3">
+      <label for="nomeMae">Nome da Mãe:</label>
+      <input type="text" class="form-control" name="nomeMae" id="nomeMae" placeholder="" value="">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-11 mb-3">
+      <label for="logradouro">Endereço:</label>
+      <input type="text" class="form-control" name="logradouro" id="logradouro" placeholder="">
+    </div>
+
+    <div class="col-md-1 mb-3">
+      <label for="numero">Número:</label>
+      <input type="text" class="form-control" name="numero" id="numero" placeholder="">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-5 mb-3">
+      <label for="cidade">Cidade:</label>
+      <input type="text" class="form-control" name="cidade" id="cidade" placeholder="">
+    </div>
+    <div class="col-md-5 mb-3">
+      <label for="estado">Estado:</label>
+      <input type="text" class="form-control" name="estado" id="estado" placeholder="">
+    </div>
+    <div class="col-md-2 mb-3">
+      <label for="cep">Cep:</label>
+      <input type="text" class="form-control" name="cep" id="cep" placeholder="">
+    </div>
+  </div>
+  <div class="mb-3">
+    <label for="complemento">Complemento:</label>
+    <input type="text" class="form-control" name="complemento" id="complemento" placeholder="">
+  </div>
+  <hr class="mb-4">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <!-- <a href="javascript:void(0)" class="btn btn-primary btn-lg btn-block btnGravar" id="btnMembro" >Gravar</a> -->
+      <button type="submit" class="btn btn-primary btn-lg btn-block btnGravar" >Gravar</button>
+    </div>
+    <div class="col-md-6 mb-3">
+      <button class="btn btn-danger btn-lg btn-block" type="reset">Cancelar</button>
+    </div>
+  </div>
+</form>
+<% include ./share/footer.ejs %>
