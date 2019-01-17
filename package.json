@@ -11,6 +11,7 @@
   "license": "ISC",
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.6.3",
+    "bcrypt": "^3.0.3",
     "bcrypt-promise": "^2.0.0",
     "body-parser": "^1.18.3",
     "bootstrap": "^4.2.1",
@@ -22,6 +23,8 @@
     "firebase-admin": "^6.4.0",
     "flash": "^1.1.0",
     "jsonwebtoken": "^8.4.0",
+    "morgan": "^1.9.1",
+    "mysql2": "^1.6.4",
     "nodemon": "^1.18.9",
     "passport": "^0.4.0",
     "passport-local": "^1.0.0",
