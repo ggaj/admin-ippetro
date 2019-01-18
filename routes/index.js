@@ -17,7 +17,7 @@ module.exports = (router, passport) => {
         res.render('index')
     })
 
-    router.get('/cadastros', isLoggedIn, function (req, res) {
+    router.get('/cadastros', function (req, res) {
         res.render('cadastros');
     })
 
@@ -84,7 +84,20 @@ module.exports = (router, passport) => {
             });
     })
 
+    router.get('/membros-list', function (req, res) {
+
+        membroController
+            .getAllMembros()
+            .then((membros) => {
+                res.render('membros-list',{
+                    data: membros,
+                    message: req.flash('membros-list')
+                })
+            })
+    })
+
     router.get('/membros', function (req, res) {
+        
         igrejaController
             .getAllIgrejas()
             .then(( igrejas ) => {
