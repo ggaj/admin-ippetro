@@ -268,6 +268,17 @@ $(function () {
         getDiaDeAula($("#diadeaula").val());
     });
 
+    $("#saladeaulaId").change(function () {
+        let sala = $( "#saladeaulaId option:selected" ).val();
+        $.ajax({
+            type: 'GET',
+            url: `/matriculas/${sala}`,
+            success: function (result) {
+                $('#matriculasTable').html(result);
+            },
+        });
+    })
+
     $("#pesquisaMembro").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $("#membros-list tr").filter(function () {
@@ -281,7 +292,7 @@ $(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
-    
+
     function getDiaDeAula(date) {
         let saladeaulaId = $("#saladeaulaId").text();
         $.ajax({
