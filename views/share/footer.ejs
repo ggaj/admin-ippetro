@@ -1,57 +1,35 @@
 </div>
-<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA=" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.1.1.js" integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+    crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut"
     crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k"
     crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.0/jquery.mask.js"></script>
 
-<script src="/js/main.js"></script>    
+<script src="/js/main.js"></script>
 <script>
-    $("#saladeaulaId").change(function () {
-        let sala = $( "#saladeaulaId option:selected" ).val();
-        $.ajax({
-            type: 'GET',
-            url: `/matriculas/${sala}`,
-            success: function (result) {
-                $('#matriculas').html(result);
-            },
-        });
-    })
-    // $("#diadeaula").change(function () {
-    //     let sala      = $("#id_sala").text(); 
-    //     let diadeaula = $( "#diadeaula option:selected" ).val();
-    //     $.ajax({
-    //         type: 'GET',
-    //         url: `/diadeaula/${sala}/${diadeaula}`,
-    //         success: function (result) {
-    //             $('#presentesdodia').html(result);
-    //         },
-    //     });
-    // }).change();
-</script>
-<script>
-        // Example starter JavaScript for disabling form submissions if there are invalid fields
-        (function() {
-          'use strict';
-  
-          window.addEventListener('load', function() {
+    // Example starter JavaScript for disabling form submissions if there are invalid fields
+    (function () {
+        'use strict';
+
+        window.addEventListener('load', function () {
             // Fetch all the forms we want to apply custom Bootstrap validation styles to
             var forms = document.getElementsByClassName('needs-validation');
-  
+
             // Loop over them and prevent submission
-            var validation = Array.prototype.filter.call(forms, function(form) {
-              form.addEventListener('submit', function(event) {
-                if (form.checkValidity() === false) {
-                  event.preventDefault();
-                  event.stopPropagation();
-                }
-                form.classList.add('was-validated');
-              }, false);
+            var validation = Array.prototype.filter.call(forms, function (form) {
+                form.addEventListener('submit', function (event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
             });
-          }, false);
-        })();
-      </script>
+        }, false);
+    })();
+</script>
 </body>
 
 </html>
