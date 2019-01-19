@@ -24,16 +24,19 @@
     <tr>
       <th scope="col" class="col">Nome</th>
       <th scope="col" class="col-1"></th>
-      <th scope="col" class="col-1"></th>
+      <!-- <th scope="col" class="col-1"></th> -->
     </tr>
   </thead>
   <tbody>
     <%for(var row in data){%>
       <tr>
         <td><%=data[row].nome%></td>
-        <td><a href="#" class="btn btn-outline-danger">Editar</a></td>
-        <td><a href="#" class="btn btn-danger">Excluir</a></td>
-      </tr>
+        <td><a href="/membros-edit/<%=data[row].id%>" class="btn btn-outline-danger">Editar</a></td>
+        <!-- <td><a href="/membros-delete/<%=data[row].id%>" onclick="return confirm('Deseja realmente excluir este registro?')"
+          class="btn btn-danger">
+          <i class="fa fa-trash"></i> 
+          Excluir</a></td>
+      </tr> -->
     <%}%>
   </tbody>
 </table>

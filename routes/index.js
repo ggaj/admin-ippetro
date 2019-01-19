@@ -30,7 +30,7 @@ module.exports = (router, passport) => {
         });
     });
 
-    router.post('/modulos', (req, res) => {
+    router.post('/modulos', isLoggedIn, (req, res) => {
 
         moduloController
             .gravaModulo(req.body)
@@ -52,7 +52,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.post('/materias', (req, res) => {
+    router.post('/materias', isLoggedIn, (req, res) => {
 
         materiaController
             .gravaMateria(req.body)
@@ -74,7 +74,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/licoes', (req, res) => {
+    router.post('/licoes', isLoggedIn, (req, res) => {
 
         licaoController
             .gravaLicao(req.body)
@@ -84,7 +84,20 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/membros-list', function (req, res) {
+    router.get('/membros-edit/:id', isLoggedIn, function (req, res) {
+        let id = req.params.id;
+        membroController
+            .getMembro(id)
+            .then((membro) => {
+                res.render('membros-edit',{
+                    data: membro,
+                    igrejas: {},
+                    message: req.flash('membros-edit')
+                })
+            })
+    })
+
+    router.get('/membros-list', isLoggedIn, function (req, res) {
 
         membroController
             .getAllMembros()
@@ -96,7 +109,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/membros', function (req, res) {
+    router.get('/membros', isLoggedIn, function (req, res) {
         
         igrejaController
             .getAllIgrejas()
@@ -108,7 +121,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/membros', (req, res) => {
+    router.post('/membros', isLoggedIn, (req, res) => {
         membroController
             .gravaMembro(req.body)
             .then((result) => {
@@ -117,7 +130,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/professores', (req, res) => {
+    router.get('/professores', isLoggedIn, (req, res) => {
 
         materiaController
             .getMaterias()
@@ -138,7 +151,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/professores', (req, res) => {
+    router.post('/professores', isLoggedIn, (req, res) => {
 
         professorController
             .gravaProfessor(req.body)
@@ -148,7 +161,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/saladeaula', (req, res) => {
+    router.get('/saladeaula', isLoggedIn, (req, res) => {
 
         let saladeaula = {}
         let professoresArray = []
@@ -186,7 +199,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/saladeaula', (req, res) => {
+    router.post('/saladeaula', isLoggedIn, (req, res) => {
         saladeaulaController
             .gravaSaladeaula(req.body)
             .then((result) => {
@@ -195,7 +208,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/matriculas', (req, res) => {
+    router.get('/matriculas', isLoggedIn, (req, res) => {
 
         let matriculas = {};
 
@@ -219,7 +232,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/matriculas/:sala', (req, res) => {
+    router.get('/matriculas/:sala', isLoggedIn, (req, res) => {
 
         let matriculasArray = []
         let tpMembro = ''
@@ -314,7 +327,7 @@ module.exports = (router, passport) => {
         }
     })
 
-    router.post('/matriculas', (req, res) => {
+    router.post('/matriculas', isLoggedIn, (req, res) => {
         if (req.body.saladeaulaId > 0) {
 
             matriculaController
@@ -330,7 +343,7 @@ module.exports = (router, passport) => {
 
     })
 
-    router.get('/usuarios', async (req, res) => {
+    router.get('/usuarios', isLoggedIn, (req, res) => {
 
         membroController
             .getAllMembros()
@@ -342,7 +355,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/usuarios', (req, res) => {
+    router.post('/usuarios', isLoggedIn, (req, res) => {
 
         usuarioController
             .gravarUsuario(req.body)
@@ -352,13 +365,13 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/igrejas', (req, res) => {
+    router.get('/igrejas', isLoggedIn, (req, res) => {
         res.render('igreja', {
             message: req.flash('igrejas')
         });
     })
 
-    router.post('/igrejas', (req, res) => {
+    router.post('/igrejas', isLoggedIn, (req, res) => {
 
         igrejaController
             .gravarIgreja(req.body)
@@ -386,7 +399,7 @@ module.exports = (router, passport) => {
 
     // ------------------- Escola Dominical Page ---------------------- -//
 
-    router.get('/ebd', function (req, res) {
+    router.get('/ebd', isLoggedIn, function (req, res) {
         saladeaulaController
             .getAllSalasdeaula()
             .then(saladeaula => {
@@ -396,17 +409,17 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/ebd/relatorios', (req, res) => {
+    router.get('/ebd/relatorios', isLoggedIn, (req, res) => {
 
         res.render(`ebd-relatorios`)
     })
 
-    router.get('/ebd/relatorios/presenca', (req, res) => {
+    router.get('/ebd/relatorios/presenca', isLoggedIn, (req, res) => {
 
         res.render(`ebd-presenca`);
     })
 
-    router.get('/ebd/relatorios/aniversariantes', (req, res) => {
+    router.get('/ebd/relatorios/aniversariantes', isLoggedIn, (req, res) => {
         let dataF = new Date();
             let month = String(dataF.getMonth() + 1);
             let day = String(dataF.getDate());
@@ -425,7 +438,7 @@ module.exports = (router, passport) => {
         })
     })
 
-    router.get('/ebd/:sala', function (req, res) {
+    router.get('/ebd/:sala', isLoggedIn, function (req, res) {
 
         let sala = req.params.sala;
         let saladeaula = {}
@@ -466,7 +479,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.post('/diadeaula', (req, res) => {
+    router.post('/diadeaula', isLoggedIn, (req, res) => {
         diadeaulaController
             .gravarAlunosPresentes(req.body)
             .then(() => {
@@ -475,7 +488,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/diadeaula/:sala/:diadeaula', (req, res) => {
+    router.get('/diadeaula/:sala/:diadeaula', isLoggedIn, (req, res) => {
 
         let sala = req.params.sala;
         let dia = req.params.diadeaula;
@@ -596,7 +609,7 @@ module.exports = (router, passport) => {
 
 
 
-    router.get('/usuarios', (req, res) => {
+    router.get('/usuarios', isLoggedIn, (req, res) => {
 
         membroController
             .getAllMembros()
@@ -607,11 +620,11 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/signup', (req, res) => {
+    router.get('/signup', isLoggedIn, (req, res) => {
         // res.render('signup', { message: req.flash('signupMessage') });
     })
 
-    router.post('/signup', function (req, res, next) {
+    router.post('/signup', isLoggedIn, function (req, res, next) {
         passport.authenticate('local-signup', (err, user, info) => {
             if (err) {
                 return next(err);
