@@ -1,6 +1,14 @@
 const { membros } = require('../model');
 const mensagemTemplate = require('./../../views/template/mensagem.template');
 
+lastWeek = async () => {
+    let dates = {}
+    var today = new Date();
+    var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+    dates.today = today;
+    dates.lastWeek = lastWeek;
+    return dates;
+  }
 class MembrosController{
 
     getMembro(id){
@@ -30,7 +38,7 @@ class MembrosController{
         let tipo, result;
         let template = {}
 
-        membro.aniversario = membro.datadenascto.substring(5,10);;
+        membro.aniversario = membro.datadenascto.substring(5,10);
         
         if (membro.id) {
             result = await membros.update(membro, {where: { id :membro.id }});
@@ -47,22 +55,32 @@ class MembrosController{
         return template;
     }
 
-    getAniversariantes(dataF){
-        
-        var data = new Date();
+    async getAniversariantes(){
 
+        // let dataI, dataF, 
+        let mesI, mesF, dates;
+        let aniverArray = [];
 
-
-        console.log(data.toLocaleString());
-        var dataF = new Date() 
-        dataF.setDate(data.getDate() - 14);
-
-        console.log(dataF.toLocaleString());
+        dates = await lastWeek();
+        mesI = ("00" + (dates.lastWeek.getMonth() + 1).toString()).slice(-2) + "-" + ("00" + dates.lastWeek.getDate()).slice(-2);
+        mesF = ("00" + (dates.today.getMonth() + 1).toString()).slice(-2) + "-" + ("00" + dates.today.getDate()).slice(-2);
 
         return membros
-            .findAll({ where: { datadenascto :  { $like : '%02-25'}}})
+            .findAll({ where: 
+                { aniversario :
+                    {
+                        $between: [mesI, mesF]
+                    }
+                }
+                ,order: [
+                ['aniversario', 'ASC'],
+            ]})
             .then( result => {
-                return result;
+                result.forEach(aniver => {
+                    aniver.dataValues.aniversario_pt = `${aniver.aniversario.toString().substring(3,5)}-${aniver.aniversario.toString().substring(0,2)}`
+                    aniverArray.push(aniver.dataValues)
+                }); 
+                return aniverArray;
             });
     }
 }

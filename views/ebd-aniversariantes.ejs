@@ -7,7 +7,7 @@
   </div>
   <div class="col-md-8 mb-3">
     <div class="py-2 text-center">
-      <h2>Relatório de Aniversáriantes</h2>
+      <h2>Aniversariantes</h2>
       <!-- <p class="lead">Below is an example.</p> -->
     </div>
   </div>
@@ -15,26 +15,16 @@
 <table class="table">
     <thead>
       <tr>
-        <th scope="col">Nome</th>
-        <th scope="col">Data</th>
-        <th scope="col">Idade</th>
+        <th scope="col" class="col">Nome</th>
+        <th scope="col" class="col-1 text-center">Aniversário</th>
       </tr>
     </thead>
     <tbody>
-      <tr>
-        <td>Jesis em tua presença</td>
-        <td>25.02.1986</td>
-        <td>33</td>
-      </tr>
-      <tr>
-          <td>Jesis em tua presença</td>
-          <td>25.02.1986</td>
-          <td>33</td>
-      </tr>
-      <tr>
-          <td>Jesis em tua presença</td>
-          <td>25.02.1986</td>
-          <td>33</td>
-      </tr>
+      <%for(var row in aniversariantes){%>
+        <tr>
+          <td><%=aniversariantes[row].nome%></td>
+          <td class="text-center"><%=aniversariantes[row].aniversario_pt%></td>
+        </tr>
+      <%}%>
     </tbody>
   </table>
