@@ -218,7 +218,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/matriculas', isLoggedIn, (req, res) => {
+    router.get('/matriculas', (req, res) => {
 
         let matriculas = {};
 
@@ -242,7 +242,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/matriculas/:sala', isLoggedIn, (req, res) => {
+    router.get('/matriculas/:sala', (req, res) => {
 
         let matriculasArray = []
         let tpMembro = ''

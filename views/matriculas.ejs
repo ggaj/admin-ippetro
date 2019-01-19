@@ -15,7 +15,7 @@
 <% include ./share/msg.ejs %>
 <form class="needs-validation" novalidate id="formMatricula" method="POST" action="/matriculas">
   <div class="row">
-    <div class="col-md-12 mb-3">
+    <div class="col-md-6 mb-3">
       <label for="saladeaulaId">Sala de Aula:</label>
       <select class="custom-select d-block w-100" name="saladeaulaId" id="saladeaulaId" required>
         <option value="">Escolha uma opção...</option>
@@ -29,8 +29,12 @@
         Escolha a sala de aula.
       </div>
     </div>
+    <div class="col-md-6 mb-3">
+        <label for="saladeaulaId">Nome para pesquisa:</label>
+        <input type="text" class="form-control" name="pesquisaMatriculas" id="pesquisaMatriculas" placeholder="Informe o nome para a pesquisa...">        
+      </div>
     <div class="col-md-12 mb-3">
-      <table class="table">
+      <table class="table table-hover">
         <thead>
           <tr>
             <th scope="col" width="75%">Nome</th>
@@ -39,7 +43,7 @@
           </tr>
         </thead>
 
-        <tbody id="matriculas">
+        <tbody id="matriculasTable">
           <!-- <%for(var row in data.membros){%>
               <tr>
                 <td class="align-middle">
@@ -61,11 +65,11 @@
 
   <hr class="mb-4">
   <div class="row">
-    <div class="col-md-6 mb-3">
+    <div class="col-6 mb-3">
       <!-- <a href="javascript:void(0)" class="btn btn-primary btn-lg btn-block btnGravar" id="btnMatricula" >Gravar</a> -->
       <button type="submit" class="btn btn-primary btn-lg btn-block btnGravar" id="btnMatricula" >Gravar</button>
     </div>
-    <div class="col-md-6 mb-3">
+    <div class="col-6 mb-3">
       <button class="btn btn-danger btn-lg btn-block" type="reset">Cancelar</button>
     </div>
   </div>

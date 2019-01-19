@@ -7,7 +7,7 @@
   </div>
   <div class="col-md-8 mb-md-3 order-1 secound">
     <div class="py-2 text-center">
-      <h2>Listagem de Membros</h2>
+      <h2>Membresia</h2>
     </div>
   </div>
   <div class="col-md-2 mb-md-3 order-2">
@@ -24,19 +24,19 @@
   </div>
 </div>
 <table class="table table-hover" id="membros-list">
-  <thead>
+  <!-- <thead>
     <tr>
       <th scope="col" class="col">Nome</th>
       <th scope="col" class="col-1"></th>
     </tr>
-  </thead>
+  </thead> -->
   <tbody>
     <%for(var row in data){%>
     <tr>
-      <td>
+      <td class="col">
         <%=data[row].nome%>
       </td>
-      <td><a href="/membros-edit/<%=data[row].id%>" class="btn btn-outline-danger">Editar</a></td>
+      <td class="col-1"><a href="/membros-edit/<%=data[row].id%>" class="btn btn-outline-danger">Editar</a></td>
       <%}%>
   </tbody>
 </table>

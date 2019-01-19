@@ -275,6 +275,13 @@ $(function () {
         });
     });
 
+    $("#pesquisaMatriculas").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#matriculasTable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+    
     function getDiaDeAula(date) {
         let saladeaulaId = $("#saladeaulaId").text();
         $.ajax({
