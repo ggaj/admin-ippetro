@@ -84,32 +84,42 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/membros-edit/:id', isLoggedIn, function (req, res) {
+    router.get('/membros-edit/:id', (req, res) => {
+        
         let id = req.params.id;
+
         membroController
             .getMembro(id)
             .then((membro) => {
-                res.render('membros-edit',{
-                    data: membro,
-                    igrejas: {},
-                    message: req.flash('membros-edit')
-                })
+
+                let igrejas;
+
+                igrejaController
+                    .getAllIgrejas()
+                    .then((resultIgrejas) => { igrejas = resultIgrejas; })
+                    .then(() =>{
+                        res.render('membros-edit',{
+                            membro,
+                            igrejas,
+                            message: req.flash('membros-edit')
+                        })
+                    });
             })
     })
 
-    router.get('/membros-list', isLoggedIn, function (req, res) {
+    router.get('/membros-list', (req, res) => {
 
         membroController
             .getAllMembros()
             .then((membros) => {
                 res.render('membros-list',{
                     data: membros,
-                    message: req.flash('membros-list')
+                    message: req.flash('membros')
                 })
             })
     })
 
-    router.get('/membros', isLoggedIn, function (req, res) {
+    router.get('/membros', function (req, res) {
         
         igrejaController
             .getAllIgrejas()
@@ -121,12 +131,12 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/membros', isLoggedIn, (req, res) => {
+    router.post('/membros', (req, res) => {
         membroController
             .gravaMembro(req.body)
             .then((result) => {
                 req.flash('membros', [result.tipo, result.texto]);
-                res.redirect('/membros');
+                res.redirect('/membros-list');
             });
     })
 
@@ -343,7 +353,7 @@ module.exports = (router, passport) => {
 
     })
 
-    router.get('/usuarios', isLoggedIn, (req, res) => {
+    router.get('/usuarios', (req, res) => {
 
         membroController
             .getAllMembros()
@@ -355,7 +365,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/usuarios', isLoggedIn, (req, res) => {
+    router.post('/usuarios', (req, res) => {
 
         usuarioController
             .gravarUsuario(req.body)
@@ -365,13 +375,13 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/igrejas', isLoggedIn, (req, res) => {
+    router.get('/igrejas', (req, res) => {
         res.render('igreja', {
             message: req.flash('igrejas')
         });
     })
 
-    router.post('/igrejas', isLoggedIn, (req, res) => {
+    router.post('/igrejas', (req, res) => {
 
         igrejaController
             .gravarIgreja(req.body)

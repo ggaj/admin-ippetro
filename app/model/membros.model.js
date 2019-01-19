@@ -22,7 +22,6 @@ module.exports = (sequelize, DataTypes) => {
   })
 
   membros.associate = (models) => {
-
     membros.belongsTo(models.igrejas);
   };
 

@@ -26,22 +26,25 @@ class MembrosController{
             });
     }
 
-    gravaMembro(membro){
-        let tipo;
+    async gravaMembro(membro){
+        let tipo, result;
         let template = {}
 
-        return membros
-            .create(membro)
-            .then( result => {
-                if (result){
-
-                    tipo = 's';
-                }else{
-                    tipo = 'e';
-                }
-                template = mensagemTemplate.tTipo(tipo);
-                return template;
-            });
+        membro.aniversario = membro.datadenascto.substring(5,10);;
+        
+        if (membro.id) {
+            result = await membros.update(membro, {where: { id :membro.id }});
+        } else {
+            result = await membros.create(membro);
+        }
+        
+        if (result){
+            tipo = 's';
+        }else{
+            tipo = 'e';
+        }
+        template = mensagemTemplate.tTipo(tipo);
+        return template;
     }
 
     getAniversariantes(dataF){

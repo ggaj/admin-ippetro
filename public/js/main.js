@@ -1,8 +1,8 @@
-$(function() {
+$(function () {
 
-    
 
-    $( "#btnLogin" ).click(function() {
+
+    $("#btnLogin").click(function () {
         let dados = $('#formLogin').serialize();
         console.log(dados);
         $.ajax({
@@ -13,9 +13,9 @@ $(function() {
             success: ((result) => {
                 console.log(result);
                 if (result.status) {
-                    window.location.href = window.location.origin;    
-                }else{
-                    $("#msg").fadeIn( "slow" );
+                    window.location.href = window.location.origin;
+                } else {
+                    $("#msg").fadeIn("slow");
                 }
             }),
             error: ((e) => {
@@ -24,8 +24,8 @@ $(function() {
         });
     });
 
-    $( '#btnModulo' ).click((e) =>{
-        
+    $('#btnModulo').click((e) => {
+
         validatedForm(e)
             .then((result) => {
 
@@ -37,7 +37,7 @@ $(function() {
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
-                                                        
+
                             limpaDados();
                             mensagemRetorno("#msg", result.mensagem);
 
@@ -50,8 +50,8 @@ $(function() {
             })
     })
 
-    $( '#btnMateria' ).click((e) =>{
-        
+    $('#btnMateria').click((e) => {
+
         validatedForm(e)
             .then((result) => {
 
@@ -64,7 +64,7 @@ $(function() {
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
-                                                        
+
                             limpaDados();
                             mensagemRetorno("#msg", result.mensagem);
 
@@ -77,8 +77,8 @@ $(function() {
             })
     })
 
-    $( '#btnLicao' ).click((e) =>{
-        
+    $('#btnLicao').click((e) => {
+
         validatedForm(e)
             .then((result) => {
 
@@ -91,7 +91,7 @@ $(function() {
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
-                                                        
+
                             limpaDados();
                             mensagemRetorno("#msg", result.mensagem);
 
@@ -104,8 +104,8 @@ $(function() {
             })
     })
 
-    $( '#btnMembro' ).click((e) =>{
-        
+    $('#btnMembro').click((e) => {
+
         validatedForm(e)
             .then((result) => {
 
@@ -118,7 +118,7 @@ $(function() {
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
-                                                        
+
                             limpaDados();
                             mensagemRetorno("#msg", result.mensagem);
 
@@ -131,8 +131,8 @@ $(function() {
             })
     })
 
-    $( '#btnProfessor' ).click((e) =>{
-        
+    $('#btnProfessor').click((e) => {
+
         validatedForm(e)
             .then((result) => {
 
@@ -145,7 +145,7 @@ $(function() {
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
-                                                        
+
                             limpaDados();
                             mensagemRetorno("#msg", result.mensagem);
 
@@ -158,8 +158,8 @@ $(function() {
             })
     })
 
-    $( '#btnSaladeAula' ).click((e) =>{
-        
+    $('#btnSaladeAula').click((e) => {
+
         validatedForm(e)
             .then((result) => {
 
@@ -172,7 +172,7 @@ $(function() {
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
-                                                        
+
                             limpaDados();
                             mensagemRetorno("#msg", result.mensagem);
 
@@ -185,8 +185,8 @@ $(function() {
             })
     })
 
-    $( '#btnMatricula' ).click((e) =>{
-        
+    $('#btnMatricula').click((e) => {
+
         validatedForm(e)
             .then((result) => {
 
@@ -199,7 +199,7 @@ $(function() {
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
-                                                        
+
                             limpaDados();
                             mensagemRetorno("#msg", result.mensagem);
 
@@ -213,7 +213,7 @@ $(function() {
     })
 
 
-    $(':reset').click((e) =>{
+    $(':reset').click((e) => {
 
         let inputs = document.querySelectorAll("input, select, textarea");
         let forms = $('.needs-validation');
@@ -223,30 +223,38 @@ $(function() {
         });
     })
 
-    setTimeout(() => { $('.alert').fadeOut( "slow" ); }, 2000);
+    setTimeout(() => {
+        $('.alert').fadeOut("slow");
+    }, 2000);
 
     if ($("#telefone").length) {
-        
-        $("#telefone").mask('00000-0000', {reverse: true});
+
+        $("#telefone").mask('00000-0000', {
+            reverse: true
+        });
     }
 
     if ($("#cpf").length) {
-        
-        $("#cpf").mask('000.000.000-00', {reverse: true});
+
+        $("#cpf").mask('000.000.000-00', {
+            reverse: true
+        });
     }
 
     if ($("#cep").length) {
-        
-        $("#cep").mask('00000-000', {reverse: true});
+
+        $("#cep").mask('00000-000', {
+            reverse: true
+        });
     }
 
     if ($('#diadeaula').length) {
-        
+
         let date = getDomingo();
 
         if (($('#diadeaula').val() != date) && ($('#diadeaula').val())) {
             date = $('#diadeaula').val();
-        }else{
+        } else {
             $('#diadeaula').val(date);
         }
         getDiaDeAula(date);
@@ -255,13 +263,20 @@ $(function() {
     $("#btnDataAula").click(function () {
         getDiaDeAula($("#diadeaula").val());
     });
-    
-    $("#diadeaula").change(function() {
+
+    $("#diadeaula").change(function () {
         getDiaDeAula($("#diadeaula").val());
     });
 
+    $("#pesquisaMembro").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#membros-list tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+
     function getDiaDeAula(date) {
-        let saladeaulaId  = $("#saladeaulaId").text();
+        let saladeaulaId = $("#saladeaulaId").text();
         $.ajax({
             type: 'GET',
             url: `/diadeaula/${saladeaulaId}/${date}`,
@@ -271,8 +286,8 @@ $(function() {
         });
     }
 
-    function getDomingo(){
-        let dt = new Date(); 
+    function getDomingo() {
+        let dt = new Date();
         var lastday = dt.getDate() - (dt.getDay() - 1) + 6;
         return toDate(new Date(dt.setDate(lastday)));
     }
@@ -281,33 +296,33 @@ $(function() {
         let month = String(date.getMonth() + 1);
         let day = String(date.getDate());
         const year = String(date.getFullYear());
-      
+
         if (month.length < 2) month = '0' + month;
         if (day.length < 2) day = '0' + day;
-      
+
         return `${year}-${month}-${day}`;
-      }
+    }
 
     function validatedForm(e) {
 
         let validatedForm = true;
 
-        return new Promise((resolve,reject) =>{
+        return new Promise((resolve, reject) => {
 
             let inputs = document.querySelectorAll("input, select, textarea");
             let forms = $('.needs-validation');
-        
+
             Array.prototype.filter.call(inputs, (form) => {
-                if (form.checkValidity() == false ) {
+                if (form.checkValidity() == false) {
                     validatedForm = false;
                     e.preventDefault();
-                    e.stopPropagation(); 
+                    e.stopPropagation();
                 }
                 forms.addClass('was-validated');
-            }, false)   
-    
+            }, false)
+
             return resolve(validatedForm)
-    
+
         })
     }
 
@@ -323,9 +338,11 @@ $(function() {
     }
 
     function mensagemRetorno(element, mensagem) {
-        
-        $($(element)).html(mensagem).fadeIn( "slow" );
-        setTimeout(() => { $($(element)).fadeOut( "slow" ); }, 1500);   
+
+        $($(element)).html(mensagem).fadeIn("slow");
+        setTimeout(() => {
+            $($(element)).fadeOut("slow");
+        }, 1500);
     }
 
 

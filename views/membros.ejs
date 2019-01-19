@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-2 mb-3">
     <div class="py-2 text-center">
-      <a class="btn btn-outline-primary btn-lg btn-block" href="/cadastros"><i class="fas fa-arrow-left"></i></a>
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/membros-list"><i class="fas fa-arrow-left"></i></a>
     </div>
   </div>
   <div class="col-md-8 mb-3">
@@ -15,9 +15,10 @@
 <% include ./share/msg.ejs %>
 <form class="needs-validation" novalidate id="formMembro" method="POST" action="/membros">
   <div class="row">
+    <input type="text" class="form-control" name="id" id="id"  hidden>
     <div class="col-md-5 mb-3">
       <label for="nome">Nome:</label>
-      <input type="text" class="form-control" name="nome" id="nome" placeholder="" value="" required>
+      <input type="text" class="form-control" name="nome" id="nome"   required>
       <div class="invalid-feedback">
         Informe o nome.
       </div>
@@ -40,7 +41,7 @@
       <label for="tipodemembro">Tipo de membro:</label>
       <select class="custom-select d-block w-100" name="tipodemembro" id="tipodemembro" required>
         <option value="">Escolha uma opção...</option>
-        <option value="1">Comungante</option>
+        <option value="1" >Comungante</option>
         <option value="2">Não Comungante</option>
         <option value="3">Congregado</option>
       </select>
@@ -51,20 +52,21 @@
   </div>
 
   <div class="row">
-    <div class="col-md-3 mb-3">
+    <div class="col-md-2 mb-3">
+      <label for="rg">RG:</label>
+      <input type="tel" class="form-control" name="rg" id="rg">
+    </div>
+    <div class="col-md-2 mb-3">
       <label for="cpf">CPF:</label>
-      <input type="tel" class="form-control" name="cpf" id="cpf" placeholder="" value="">
-      <div class="invalid-feedback">
-        Informe o CPF.
-      </div>
+      <input type="tel" class="form-control" name="cpf" id="cpf"  >
     </div>
     <div class="col-md-2 mb-3">
       <label for="datadenascto">Data de Nascto:</label>
-      <input type="date" class="form-control" name="datadenascto" id="datadenascto" placeholder="" value="">
+      <input type="date" class="form-control" name="datadenascto" id="datadenascto"  >
     </div>
-    <div class="col-md-3 mb-3">
+    <div class="col-md-2 mb-3">
       <label for="telefone">Telefone:</label>
-      <input type="text" class="form-control" name="telefone" id="telefone" placeholder="" value="">
+      <input type="tel" class="form-control" name="telefone" id="telefone"  >
     </div>
     <div class="col-md-4 mb-3">
       <label for="email">E-mail:</label>
@@ -72,7 +74,7 @@
         <div class="input-group-prepend">
           <span class="input-group-text">@</span>
         </div>
-        <input type="text" class="form-control" name="email" id="email" placeholder="">
+        <input type="text" class="form-control" name="email" id="email" >
       </div>
     </div>
   </div>
@@ -80,44 +82,44 @@
   <div class="row">
     <div class="col-md-6 mb-3">
       <label for="nomePai">Nome do Pai:</label>
-      <input type="text" class="form-control" name="nomePai" id="nomePai" placeholder="" value="">
+      <input type="text" class="form-control" name="nomePai" id="nomePai"  >
     </div>
 
     <div class="col-md-6 mb-3">
       <label for="nomeMae">Nome da Mãe:</label>
-      <input type="text" class="form-control" name="nomeMae" id="nomeMae" placeholder="" value="">
+      <input type="text" class="form-control" name="nomeMae" id="nomeMae"  >
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-11 mb-3">
       <label for="logradouro">Endereço:</label>
-      <input type="text" class="form-control" name="logradouro" id="logradouro" placeholder="">
+      <input type="text" class="form-control" name="logradouro" id="logradouro" >
     </div>
 
     <div class="col-md-1 mb-3">
       <label for="numero">Número:</label>
-      <input type="text" class="form-control" name="numero" id="numero" placeholder="">
+      <input type="text" class="form-control" name="numero" id="numero" >
     </div>
   </div>
 
   <div class="row">
     <div class="col-md-5 mb-3">
       <label for="cidade">Cidade:</label>
-      <input type="text" class="form-control" name="cidade" id="cidade" placeholder="">
+      <input type="text" class="form-control" name="cidade" id="cidade" >
     </div>
     <div class="col-md-5 mb-3">
       <label for="estado">Estado:</label>
-      <input type="text" class="form-control" name="estado" id="estado" placeholder="">
+      <input type="text" class="form-control" name="estado" id="estado" >
     </div>
     <div class="col-md-2 mb-3">
       <label for="cep">Cep:</label>
-      <input type="text" class="form-control" name="cep" id="cep" placeholder="">
+      <input type="text" class="form-control" name="cep" id="cep" >
     </div>
   </div>
   <div class="mb-3">
     <label for="complemento">Complemento:</label>
-    <input type="text" class="form-control" name="complemento" id="complemento" placeholder="">
+    <input type="text" class="form-control" name="complemento" id="complemento" >
   </div>
   <hr class="mb-4">
   <div class="row">
