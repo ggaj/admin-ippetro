@@ -7,36 +7,40 @@
   </div>
   <div class="col-md-8 col-12 mb-md-3 order-md-1 order-3">
     <div class="py-2 text-center">
-      <h2>Membresia</h2>
+      <h2>Módulos</h2>
     </div>
   </div>
   <div class="col-md-2 col-6 mb-md-3 order-2">
     <div class="py-2 text-center">
-      <a class="btn btn-outline-primary btn-lg btn-block" href="/membros"><i class="fas fa-file"></i></a>
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/modulos"><i class="fas fa-file"></i></a>
     </div>
   </div>
 </div>
 <% include ./share/msg.ejs %>
-<div class="row">
+<!-- <div class="row">
   <div class="col-12 mb-3">
-    <!-- <label for="nome">Nome:</label> -->
+    <label for="nome">Nome:</label>
     <input type="text" class="form-control" name="pesquisaMembro" id="pesquisaMembro" placeholder="Informe o nome para a pesquisa...">
   </div>
-</div>
+</div> -->
 <table class="table table-hover" id="membros-list">
-  <!-- <thead>
+  <thead>
     <tr>
       <th scope="col" class="col">Nome</th>
+      <th scope="col" class="col-1 text-center">Ativo</th>
       <th scope="col" class="col-1"></th>
     </tr>
-  </thead> -->
+  </thead>
   <tbody>
-    <%for(var row in data){%>
+    <%for(var row in modulos){%>
     <tr>
       <td class="col">
-        <%=data[row].nome%>
+        <%=modulos[row].modulo%>
       </td>
-      <td class="col-1"><a href="/membros-edit/<%=data[row].id%>" class="btn btn-outline-danger">Editar</a></td>
+      <td class="col text-center">
+          <%= modulos[row].ativo == '1' ? 'Sim' : 'Não'%>
+      </td>
+      <td class="col-1"><a href="/modulos-edit/<%=modulos[row].id%>" class="btn btn-outline-danger">Editar</a></td>
       <%}%>
   </tbody>
 </table>

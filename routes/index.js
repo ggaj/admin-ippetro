@@ -9,6 +9,7 @@ const {
     diadeaulaController,
     usuarioController,
     igrejaController,
+    ebdrelatorios,
 } = require('./../app/controller');
 
 module.exports = (router, passport) => {
@@ -17,11 +18,33 @@ module.exports = (router, passport) => {
         res.render('index')
     })
 
-    router.get('/cadastros', function (req, res) {
+    router.get('/cadastros', isLoggedIn, function (req, res) {
         res.render('cadastros');
     })
 
     // --------------------------Routes de Cadastros----------------------------- //
+
+    router.get('/modulos-list', isLoggedIn, function (req, res) {
+        moduloController
+            .getModulos()
+            .then(( modulos ) => {
+                res.render('modulos-list', {
+                    modulos,
+                    message: req.flash('modulos')
+                });
+            })
+    });
+
+    router.get('/modulos-edit/:id', isLoggedIn, function (req, res) {
+        moduloController
+            .getModulo(req.params.id)
+            .then(( modulo ) => {
+                res.render('modulos-edit', {
+                    modulo,
+                    message: req.flash('modulos')
+                });
+            })
+    });
 
     router.get('/modulos', isLoggedIn, function (req, res) {
 
@@ -36,7 +59,7 @@ module.exports = (router, passport) => {
             .gravaModulo(req.body)
             .then((result) => {
                 req.flash('modulos', [result.tipo, result.texto]);
-                res.redirect('/modulos')
+                res.redirect('/modulos-list')
             });
     });
 
@@ -365,7 +388,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/usuarios',isLoggedIn,  (req, res) => {
+    router.post('/usuarios', isLoggedIn, (req, res) => {
 
         usuarioController
             .gravarUsuario(req.body)
@@ -425,7 +448,12 @@ module.exports = (router, passport) => {
     })
 
     router.get('/ebd/relatorios/presenca', (req, res) => {
-
+        let data = new Date();
+        ebdrelatorios
+            .getPresencaSalasDia(data)
+            .then((presenca) => {
+                console.log(presenca);
+            })
         res.render(`ebd-presenca`);
     })
 
@@ -619,21 +647,21 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/signup', isLoggedIn, (req, res) => {
-        // res.render('signup', { message: req.flash('signupMessage') });
-    })
+    // router.get('/signup', (req, res) => {
+    //     // res.render('signup', { message: req.flash('signupMessage') });
+    // })
 
-    router.post('/signup', isLoggedIn, function (req, res, next) {
-        passport.authenticate('local-signup', (err, user, info) => {
-            if (err) {
-                return next(err);
-            }
-            if (!user) {
-                return res.redirect('/login');
-            }
-            return res.redirect('/');
-        })(req, res, next);
-    });
+    // router.post('/signup', function (req, res, next) {
+    //     passport.authenticate('local-signup', (err, user, info) => {
+    //         if (err) {
+    //             return next(err);
+    //         }
+    //         if (!user) {
+    //             return res.redirect('/login');
+    //         }
+    //         return res.redirect('/');
+    //     })(req, res, next);
+    // });
 }
 
 function sleep(ms) {
