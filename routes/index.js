@@ -74,10 +74,27 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/materias', isLoggedIn, function (req, res) {
+    router.get('/materias-edit/:id', isLoggedIn, function (req, res) {
+        materiaController
+            .getMateria(req.params.id)
+            .then((materia) => {
 
+                moduloController
+                    .getModulosAtivos()
+                    .then((modulos) => {
+                        res.render('materias-edit', {
+                            modulos,
+                            materia,
+                            message: req.flash('materias')
+                        })
+                    })
+
+            });
+    })
+
+    router.get('/materias', isLoggedIn, function (req, res) {
         moduloController
-            .getModulos()
+            .getModulosAtivos()
             .then(modulos => {
                 res.render('materias', {
                     data: modulos,

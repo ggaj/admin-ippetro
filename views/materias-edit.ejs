@@ -15,13 +15,14 @@
 <% include ./share/msg.ejs %>
 <form class="needs-validation" novalidate id="formMateria" method="POST" action="/materias">
   <div class="row">
+    <input type="text" class="form-control" name="id" id="id" placeholder="" value="<%=materia.id%>" required hidden>
     <div class="col-md-4 mb-3">
       <label for="moduloId">Módulo:</label>
       <select class="custom-select d-block w-100" name="moduloId" id="moduloId" required>
         <option value="">Escolha uma opção...</option>
-        <%for(var row in data){%>
-        <option value="<%=data[row].id%>">
-          <%=data[row].modulo%>
+        <%for(var row in modulos){%>
+        <option value="<%=modulos[row].id%>" <%= materia.moduloId == modulos[row].id ? 'selected' : '' %>>
+          <%=modulos[row].modulo%>
         </option>
         <%}%>
       </select>
@@ -31,13 +32,13 @@
     </div>
     <div class="col-md-7 col-9 mb-3">
       <label for="materia">Matéria:</label>
-      <input type="text" class="form-control" name="materia" id="materia" placeholder="" value="" required>
+      <input type="text" class="form-control" name="materia" id="materia" placeholder="" value="<%=materia.materia%>" required>
       <div class="invalid-feedback">
         Informe o nome da matéria.
       </div>
     </div>
     <div class="custom-control custom-checkbox col-md-1 col-2" style="margin-top:37px;">
-      <input type="checkbox" class="custom-control-input" id="ativo" name="ativo">
+      <input type="checkbox" class="custom-control-input" id="ativo" name="ativo" <%= materia.ativo == '1' ? 'checked' : ''%>> 
       <label class="custom-control-label" for="ativo">Ativo</label>
     </div>
   </div>

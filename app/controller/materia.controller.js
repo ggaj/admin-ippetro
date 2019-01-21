@@ -4,6 +4,15 @@ const mensagemTemplate = require('./../../views/template/mensagem.template');
 
 class MateriaController{
     
+    getMateria(id){
+        return materias
+            .findByPk(id, { include:[ modulos ]})
+            .then((materia) => {
+                console.log(materia);
+                return materia;
+            })
+    }
+
     getMateriasModulos(){
         let materiasArray = [];
         return materias
@@ -11,8 +20,6 @@ class MateriaController{
             .then((materias) => {
                 materias.forEach(materia => {
                     materia.dataValues.modulo = materia.dataValues.modulo.dataValues;
-                    // console.log(materia.dataValues);
-                    // console.log(materia.dataValues.modulo.dataValues);
                     materiasArray.push(materia.dataValues)
                 }); 
                 return materiasArray;
@@ -32,23 +39,30 @@ class MateriaController{
             });
     }
 
-    gravaMateria(materia){
+    async gravaMateria(materia){
 
-        let tipo;
+        let tipo, result;
         let template = {}
 
-        return materias
-            .create(materia)
-            .then( result => {
-                if (result){
+        if (materia.ativo == 'on') {
+            materia.ativo = 1;
+        } else {
+            materia.ativo = 0;
+        }
 
-                    tipo = 's';
-                }else{
-                    tipo = 'e';
-                }
-                template = mensagemTemplate.tTipo(tipo);
-                return template;
-            });
+        if (materia.id) {
+            result = await materias.update(materia, {where: { id :materia.id }});
+        } else {
+            result = await materias.create(materia);
+        }
+
+        if (result){
+            tipo = 's';
+        }else{
+            tipo = 'e';
+        }
+        template = mensagemTemplate.tTipo(tipo);
+        return template;
     }
 }
 
