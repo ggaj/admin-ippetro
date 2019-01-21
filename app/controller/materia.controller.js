@@ -1,8 +1,24 @@
 const { materias } = require('../model');
+const { modulos } = require('../model');
 const mensagemTemplate = require('./../../views/template/mensagem.template');
 
 class MateriaController{
     
+    getMateriasModulos(){
+        let materiasArray = [];
+        return materias
+            .findAll({ include:[ modulos ]})
+            .then((materias) => {
+                materias.forEach(materia => {
+                    materia.dataValues.modulo = materia.dataValues.modulo.dataValues;
+                    // console.log(materia.dataValues);
+                    // console.log(materia.dataValues.modulo.dataValues);
+                    materiasArray.push(materia.dataValues)
+                }); 
+                return materiasArray;
+            });
+    }
+
     getMaterias(){
 
         let materiasArray = [];

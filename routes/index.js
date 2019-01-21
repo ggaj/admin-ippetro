@@ -63,6 +63,17 @@ module.exports = (router, passport) => {
             });
     });
 
+    router.get('/materias-list', isLoggedIn, function (req, res) {
+        materiaController
+            .getMateriasModulos()
+            .then((materias) => {
+                res.render('materias-list', {
+                    materias,
+                    message: req.flash('materias')
+                })
+            });
+    })
+
     router.get('/materias', isLoggedIn, function (req, res) {
 
         moduloController

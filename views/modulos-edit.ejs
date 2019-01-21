@@ -23,17 +23,17 @@
 <form class="needs-validation" novalidate id="formModulo" method="POST" action="/modulos">
   <div class="row">
     <input type="text" class="form-control" name="id" id="id" value="<%=modulo.id%>" required hidden>
-    <div class="col-md-11 col-9 mb-3">
+    <div class="col-md-11 col-9 mb-md-3">
       <label for="modulo">Módulo:</label>
       <input type="text" class="form-control" name="modulo" id="modulo" value="<%=modulo.modulo%>" required>
       <div class="invalid-feedback">
         Informe o nome do módulo.
       </div>
     </div>
-      <div class="custom-control custom-checkbox col-md-1 col-2" style="margin-top:37px;">
-        <input type="checkbox" class="custom-control-input" id="ativo" name="ativo" <%= modulo.ativo == '1' ? 'checked' : ''%>>
-        <label class="custom-control-label" for="ativo">Ativo</label>
-      </div>
+    <div class="custom-control custom-checkbox col-md-1 col-2" style="margin-top:37px;">
+      <input type="checkbox" class="custom-control-input" id="ativo" name="ativo" <%= modulo.ativo == '1' ? 'checked' : ''%>>
+      <label class="custom-control-label" for="ativo">Ativo</label>
+    </div>
   </div>
   <hr class="mb-4">
   <div class="row">

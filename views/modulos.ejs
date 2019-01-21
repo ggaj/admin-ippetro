@@ -1,11 +1,11 @@
 <% include ./share/header.ejs %>
 <div class="row">
-  <div class="col-md-2 mb-3">
+  <div class="col-md-2 mb-md-3">
     <div class="py-2 text-center">
       <a class="btn btn-outline-primary btn-lg btn-block" href="/modulos-list"><i class="fas fa-arrow-left"></i></a>
     </div>
   </div>
-  <div class="col-md-8 mb-3">
+  <div class="col-md-8 mb-md-3">
     <div class="py-2 text-center">
       <h2>Novo Módulo</h2>
       <!-- <p class="lead">Below is an example.</p> -->
@@ -22,12 +22,16 @@
 <% } %>
 <form class="needs-validation" novalidate id="formModulo" method="POST" action="/modulos">
   <div class="row">
-    <div class="col-md-12 mb-3">
+    <div class="col-md-11 col-9 mb-md-3">
       <label for="modulo">Módulo:</label>
       <input type="text" class="form-control" name="modulo" id="modulo" required>
       <div class="invalid-feedback">
         Informe o nome do módulo.
       </div>
+    </div>
+    <div class="custom-control custom-checkbox col-md-1 col-2" style="margin-top:37px;">
+      <input type="checkbox" class="custom-control-input" id="ativo" name="ativo">
+      <label class="custom-control-label" for="ativo">Ativo</label>
     </div>
   </div>
   <hr class="mb-4">
