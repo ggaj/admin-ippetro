@@ -1,9 +1,9 @@
 {
   "development": {
-    "username": "root",
-    "password": "root",
+    "username": "ippetro",
+    "password": "F0reverjc",
     "database": "ippetro",
-    "host": "127.0.0.1",
+    "host": "mysql.ippetro.com.br",
     "dialect": "mysql",
     "port": "3306",
     "port_api": "21175",
