@@ -7,7 +7,7 @@
   </div>
   <div class="col-md-8 mb-md-3">
     <div class="py-2 text-center">
-      <h2>Nova Lições</h2>
+      <h2>Editar Lições</h2>
       <!-- <p class="lead">Below is an example.</p> -->
     </div>
   </div>
@@ -15,13 +15,14 @@
 <% include ./share/msg.ejs %>
 <form class="needs-validation" id="formLicao" method="POST" action="/licoes">
   <div class="row">
+    <input type="text" class="form-control" name="id" id="id" value="<%=licao.id%>" hidden>
     <div class="col-md-4 mb-3">
       <label for="materiaId">Matéria:</label>
       <select class="custom-select d-block w-100" name="materiaId" id="materiaId" required>
         <option value="">Escolha uma opção...</option>
-        <%for(var row in data){%>
-        <option value="<%=data[row].id%>">
-          <%=data[row].materia%>
+        <%for(var row in materias){%>
+        <option value="<%=materias[row].id%>" <%= licao.materiaId == materias[row].id ? 'selected' : '' %>>
+          <%=materias[row].materia%>
         </option>
         <%}%>
       </select>
@@ -31,13 +32,13 @@
     </div>
     <div class="col-md-7 col-9 mb-3">
       <label for="licao">Lição:</label>
-      <input type="text" class="form-control" name="licao" id="licao" placeholder="" value="" required>
+      <input type="text" class="form-control" name="licao" id="licao" value="<%=licao.licao%>" required>
       <div class="invalid-feedback">
         Informe o nome da lição.
       </div>
     </div>
     <div class="custom-control custom-checkbox col-md-1 col-2" style="margin-top:37px;">
-      <input type="checkbox" class="custom-control-input" id="ativo" name="ativo">
+      <input type="checkbox" class="custom-control-input" id="ativo" name="ativo" <%= licao.ativo == '1' ? 'checked' : ''%>>
       <label class="custom-control-label" for="ativo">Ativa</label>
     </div>
   </div>

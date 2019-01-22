@@ -1,0 +1,46 @@
+<% include ./share/header.ejs %>
+<div class="row">
+  <div class="col-md-2 col-6 mb-md-3 order-0">
+    <div class="py-2 text-center">
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/cadastros"><i class="fas fa-arrow-left"></i></a>
+    </div>
+  </div>
+  <div class="col-md-8 col-12 mb-md-3 order-md-1 order-3">
+    <div class="py-2 text-center">
+      <h2>Lições</h2>
+    </div>
+  </div>
+  <div class="col-md-2 col-6 mb-md-3 order-2">
+    <div class="py-2 text-center">
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/licoes"><i class="fas fa-file"></i></a>
+    </div>
+  </div>
+</div>
+<% include ./share/msg.ejs %>
+<table class="table table-hover" id="materias-table">
+  <thead>
+    <tr>
+      <th scope="col" class="col-7">Lição</th>
+      <th scope="col" class="col-3">Matéria</th>
+      <th scope="col" class="col-1 text-center">Ativo</th>
+      <th scope="col" class="col-1"></th>
+    </tr>
+  </thead>
+  <tbody>
+    <%for(var row in licoes){%>
+    <tr>
+      <td class="col">
+        <%=licoes[row].licao%>
+      </td>
+      <td class="col-4">
+        <%=licoes[row].materia.materia%>
+      </td>
+      <td class="col-1 text-center">
+          <%= licoes[row].ativo == '1' ? 'Sim' : 'Não'%>
+      </td>
+      <td class="col-1"><a href="/licoes-edit/<%=licoes[row].id%>" class="btn btn-outline-danger">Editar</a></td>
+      <%}%>
+  </tbody>
+</table>
+
+<% include ./share/footer.ejs %>

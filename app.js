@@ -1,15 +1,17 @@
-var express         = require('express');
-var app             = express();
-var passport        = require('passport');
-var flash           = require('connect-flash');
+const http          = require('http');
+const express       = require('express');
+const app           = express();
+const passport      = require('passport');
+const flash         = require('connect-flash');
+const path          = require('path');
+const morgan        = require('morgan');
+const cookieParser  = require('cookie-parser');
+const bodyParser    = require('body-parser');
+const session       = require('express-session');
+const models        = require('./app/model');
 const env           = process.env.NODE_ENV || 'development';
 const config        = require('./config/config.json')[env];
-const path          = require('path');
-var morgan          = require('morgan');
-var cookieParser    = require('cookie-parser');
-var bodyParser      = require('body-parser');
-var session         = require('express-session');
-var models          = require('./app/model');
+const port          = config.port_api;
 
 // configuration ===============================================================
 // //DATABASE
@@ -46,4 +48,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // routes ======================================================================
 require('./routes')(app, passport); // load our routes and pass in our app and fully configured passport
 
-module.exports = app;
+
+const server = http.createServer(app);
+server.listen(port, () => {
+  console.log(`Serivdor executando na porta: ${port}`);
+});
+// module.exports = app;

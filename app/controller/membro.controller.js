@@ -4,7 +4,7 @@ const mensagemTemplate = require('./../../views/template/mensagem.template');
 lastWeek = async () => {
     let dates = {}
     var today = new Date();
-    var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 7);
+    var lastWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() - 6);
     dates.today = today;
     dates.lastWeek = lastWeek;
     return dates;

@@ -6,7 +6,7 @@
     "host"            : "127.0.0.1",
     "dialect"         : "mysql",
     "port"            : "3306",
-    "port_api"        : "3001",
+    "port_api"        : "21175",
     "logging"         : false,
     "define"          : {
       "freezeTableName": true

@@ -109,9 +109,41 @@ module.exports = (router, passport) => {
             .gravaMateria(req.body)
             .then((result) => {
                 req.flash('materias', [result.tipo, result.texto]);
-                res.redirect('/materias');
+                res.redirect('/materias-list');
             });
     })
+
+    router.get('/licoes-list', isLoggedIn, function (req, res) {
+
+        licaoController
+            .getLicoesMaterias()
+            .then(licoes => {
+                res.render('licoes-list', {
+                    licoes,
+                    message: req.flash('licoes')
+                })
+            })
+    })
+
+    router.get('/licoes-edit/:id', isLoggedIn, function (req, res) {
+
+        licaoController
+            .getLicao(req.params.id)
+            .then((licao) => {
+                console.log(licao);
+                materiaController
+                    .getMateriasAtivas()
+                    .then((materias) => {
+                        console.log(materias);
+                        res.render('licoes-edit', {
+                            licao,
+                            materias,
+                            message: req.flash('materias')
+                        })
+                    })        
+            });
+    })
+
 
     router.get('/licoes', isLoggedIn, function (req, res) {
 

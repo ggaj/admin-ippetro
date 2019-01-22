@@ -8,7 +8,6 @@ class MateriaController{
         return materias
             .findByPk(id, { include:[ modulos ]})
             .then((materia) => {
-                console.log(materia);
                 return materia;
             })
     }
@@ -20,6 +19,18 @@ class MateriaController{
             .then((materias) => {
                 materias.forEach(materia => {
                     materia.dataValues.modulo = materia.dataValues.modulo.dataValues;
+                    materiasArray.push(materia.dataValues)
+                }); 
+                return materiasArray;
+            });
+    }
+
+    getMateriasAtivas(){
+        let materiasArray = [];
+        return materias
+            .findAll({ where : { ativo : true } })
+            .then( result => {
+                result.forEach(materia => {
                     materiasArray.push(materia.dataValues)
                 }); 
                 return materiasArray;
