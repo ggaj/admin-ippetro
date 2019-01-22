@@ -163,7 +163,7 @@ module.exports = (router, passport) => {
             .gravaLicao(req.body)
             .then((result) => {
                 req.flash('licoes', [result.tipo, result.texto]);
-                res.redirect('/licoes');
+                res.redirect('/licoes-list');
             });
     })
 
