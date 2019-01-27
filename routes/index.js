@@ -10,6 +10,7 @@ const {
     usuarioController,
     igrejaController,
     ebdrelatorios,
+    gf_matriculasController,
 } = require('./../app/controller');
 
 module.exports = (router, passport) => {
@@ -423,109 +424,6 @@ module.exports = (router, passport) => {
         }
     })
 
-    router.get('/matriculas_gf', (req, res) => {
-        membroController
-            .getAllMembros()
-            .then(membros => {
-                res.render('matriculas_gf', {
-                    membros,
-                    message: req.flash('matriculas_gf')
-                })
-            })
-
-        // let matriculasArray = []
-        // let tpMembro = ''
-        // let content = []
-        // let sala = req.params.sala;
-
-        // if (sala > 0) {
-
-        //     membroController
-        //         .getAllMembros()
-        //         .then(membros => {
-                    
-        //             matriculaController
-        //             .getAllMatriculas()
-        //             .then(async matriculas => {
-                        
-        //                     await membros.forEach(membro => {
-
-        //                         let matriculasRow = {};
-        //                         if (membro.tipodemembro == '1') {
-        //                             tpMembro = 'Comungante';
-        //                         } else if (membro.tipodemembro == '2') {
-        //                             tpMembro = 'Não Comungante';
-        //                         } else {
-        //                             tpMembro = 'Congregado';
-        //                         }
-        //                         if (matriculas.length > 0) {
-
-        //                             if (matriculas.some(f => f.membroId == membro.id)) {
-        //                                 matriculas.filter(matricula => {
-        //                                     if (matricula.membroId == membro.id) {
-        //                                         if (matricula.saladeaulaId == sala) {
-        //                                             matriculasRow.id = membro.id;
-        //                                             matriculasRow.nome = membro.nome;
-        //                                             matriculasRow.matriculado = "checked";
-        //                                             matriculasRow.value = 1;
-        //                                             matriculasRow.tipomembro = tpMembro;
-        //                                             matriculasArray.push(matriculasRow);
-        //                                         }
-        //                                     }
-        //                                 })
-        //                             } else {
-        //                                 matriculasRow.id = membro.id;
-        //                                 matriculasRow.nome = membro.nome;
-        //                                 matriculasRow.matriculado = "unchecked";
-        //                                 matriculasRow.value = 0;
-        //                                 matriculasRow.tipomembro = tpMembro;
-        //                                 matriculasArray.push(matriculasRow);
-        //                             }
-        //                         } else {
-        //                             matriculasRow.id = membro.id;
-        //                             matriculasRow.nome = membro.nome;
-        //                             matriculasRow.matriculado = "unchecked";
-        //                             matriculasRow.value = 0;
-        //                             matriculasRow.tipomembro = tpMembro;
-        //                             matriculasArray.push(matriculasRow);
-        //                         }
-        //                     })
-
-        //                 })
-        //                 .then(() => {
-        //                     if (matriculasArray.length > 0) {
-                                
-        //                         matriculasArray.forEach(matriculas => {
-        //                             let template = `<tr>
-        //                                 <td class="align-middle">
-        //                                     ${matriculas.nome}
-        //                                 </td>
-        //                                 <td class="align-middle">
-        //                                     ${matriculas.tipomembro}
-        //                                 </td>
-        //                                 <td class="align-middle">
-        //                                     <label class="switch">
-        //                                     <input type="checkbox" name="${matriculas.id}" data-user="${matriculas.id}" id="${matriculas.id}" ${matriculas.matriculado}>
-        //                                     <span class="slider round"></span>
-        //                                     </label>
-        //                                 </td>
-        //                             </tr>`
-        //                             content.push(template);
-        //                         });
-        //                     }else{
-        //                         let template = `<tr>
-        //                                 <td colspan="3" class="align-middle text-center text-muted pb-0 mb-0">Não há matriculados na sala.</td>
-        //                             </tr>`
-        //                             content.push(template);
-        //                     }
-        //                     res.send(content);
-        //                 });
-        //         })
-        // } else {
-        //     res.send("");
-        // }
-    })
-
     router.post('/matriculas', isLoggedIn, isAccessControl, (req, res) => {
         if (req.body.saladeaulaId > 0) {
 
@@ -783,8 +681,54 @@ module.exports = (router, passport) => {
         })
 
     // ------------------------------------------------------------------//
+    
+    // ------------------- Geracao Futuro Page --------------------------//
+    router.get('/geracao_futuro', (req, res) => {
+        res.render(`geracao_futuro`);
+    })    
 
+    router.get('/gf_matriculas', (req, res) => {
 
+        let membros = []
+        membroController
+            .getAllMembros()
+            .then( membrosResult => {
+
+                gf_matriculasController
+                    .getGFMatriculas()
+                    .then( async (gf_matriculados) => {
+
+                        await membrosResult.forEach( membro => {
+
+                            let membros_aux  = {}
+                            membros_aux.id   = membro.id
+                            membros_aux.nome = membro.nome
+
+                            if (gf_matriculados.some(gf => gf.membroId == membro.id)) {
+                                membros_aux.matriculado = "checked";
+                            }else{
+                                membros_aux.matriculado = "unchecked";
+                            }
+                            membros.push(membros_aux);
+                        });
+                        
+                        res.render('gf_matriculas', {
+                            membros,
+                            message: req.flash('matriculas_gf')
+                        })
+
+                    })
+            })
+    })
+
+    router.post('/gf_matriculas', (req, res) => {
+        gf_matriculasController
+            .gravaGFMatricula(req.body)
+            .then(() => {
+                res.redirect(`gf_matriculas`);''
+            })
+    })    
+    // ------------------------------------------------------------------//
 
 
 

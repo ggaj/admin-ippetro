@@ -13,12 +13,15 @@
   </div>
 </div>
 <% include ./share/msg.ejs %>
-<form class="needs-validation" novalidate id="formMatricula_gf" method="POST" action="/matriculas_gf">
-  <div class="row">
+<div class="row">
     <div class="col mb-3">
       <label for="pesquisaMatriculas_gf">Nome para pesquisa:</label>
       <input type="text" class="form-control" name="pesquisaMatriculas_gf" id="pesquisaMatriculas_gf" placeholder="Informe o nome para a pesquisa...">
     </div>
+</div>
+<form class="needs-validation" novalidate id="formMatricula_gf" method="POST" action="/matriculas_gf">
+<div class="row">
+  
     <div class="col-md-12 mb-3">
       <table class="table table-hover">
         <thead>
@@ -36,7 +39,7 @@
             </td>
             <td class="align-middle text-center">
               <label class="switch">
-                <input type="checkbox" name="<%=membros[row].id%>" id="<%=membros[row].id%>" value="0">
+                <input type="checkbox" name="<%=membros[row].id%>" id="<%=membros[row].id%>" <%=membros[row].matriculado%>>
                 <span class="slider round"></span>
               </label>
             </td>
