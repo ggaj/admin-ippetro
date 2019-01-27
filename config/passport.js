@@ -22,13 +22,20 @@ module.exports = function(passport) {
     // console.log(User.usuarios);
     // used to serialize the user for the session
     passport.serializeUser(function(user, done) {
-        console.log(user)
         done(null, user.id);
     });
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        User.usuarios.findByPk(id).then(usuario => {done(null, usuario.dataValues)}).catch((err) => {console.log(err)});
+        User.usuarios
+            .findByPk(id)
+            .then((usuario) => {
+                
+                done(null, usuario.dataValues)
+            })
+            .catch((err) => {
+                console.log(err)
+            });
     });
 
     // =========================================================================

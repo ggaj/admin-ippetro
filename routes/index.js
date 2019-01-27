@@ -14,17 +14,18 @@ const {
 
 module.exports = (router, passport) => {
 
-    router.get('/', isLoggedIn, function (req, res) {
-        res.render('index')
+    router.get('/', isLoggedIn, isAccessControl, function (req, res) {
+        // console.log(req.user);
+        res.render('index', {access: req.user.id_tipo_membro})
     })
 
-    router.get('/cadastros', isLoggedIn, function (req, res) {
+    router.get('/cadastros', isLoggedIn, isAccessControl, function (req, res) {
         res.render('cadastros');
     })
 
     // --------------------------Routes de Cadastros----------------------------- //
 
-    router.get('/modulos-list', isLoggedIn, function (req, res) {
+    router.get('/modulos-list', isLoggedIn, isAccessControl, function (req, res) {
         moduloController
             .getModulos()
             .then(( modulos ) => {
@@ -35,7 +36,7 @@ module.exports = (router, passport) => {
             })
     });
 
-    router.get('/modulos-edit/:id', isLoggedIn, function (req, res) {
+    router.get('/modulos-edit/:id', isLoggedIn, isAccessControl, function (req, res) {
         moduloController
             .getModulo(req.params.id)
             .then(( modulo ) => {
@@ -46,14 +47,14 @@ module.exports = (router, passport) => {
             })
     });
 
-    router.get('/modulos', isLoggedIn, function (req, res) {
+    router.get('/modulos', isLoggedIn, isAccessControl, function (req, res) {
 
         res.render('modulos', {
             message: req.flash('modulos')
         });
     });
 
-    router.post('/modulos', isLoggedIn, (req, res) => {
+    router.post('/modulos', isLoggedIn, isAccessControl, (req, res) => {
 
         moduloController
             .gravaModulo(req.body)
@@ -63,7 +64,7 @@ module.exports = (router, passport) => {
             });
     });
 
-    router.get('/materias-list', isLoggedIn, function (req, res) {
+    router.get('/materias-list', isLoggedIn, isAccessControl, function (req, res) {
         materiaController
             .getMateriasModulos()
             .then((materias) => {
@@ -74,7 +75,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/materias-edit/:id', isLoggedIn, function (req, res) {
+    router.get('/materias-edit/:id', isLoggedIn, isAccessControl, function (req, res) {
         materiaController
             .getMateria(req.params.id)
             .then((materia) => {
@@ -92,7 +93,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/materias', isLoggedIn, function (req, res) {
+    router.get('/materias', isLoggedIn, isAccessControl, function (req, res) {
         moduloController
             .getModulosAtivos()
             .then(modulos => {
@@ -103,7 +104,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.post('/materias', isLoggedIn, (req, res) => {
+    router.post('/materias', isLoggedIn, isAccessControl, (req, res) => {
 
         materiaController
             .gravaMateria(req.body)
@@ -113,7 +114,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/licoes-list', isLoggedIn, function (req, res) {
+    router.get('/licoes-list', isLoggedIn, isAccessControl, function (req, res) {
 
         licaoController
             .getLicoesMaterias()
@@ -125,7 +126,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/licoes-edit/:id', isLoggedIn, function (req, res) {
+    router.get('/licoes-edit/:id', isLoggedIn, isAccessControl, function (req, res) {
 
         licaoController
             .getLicao(req.params.id)
@@ -145,7 +146,7 @@ module.exports = (router, passport) => {
     })
 
 
-    router.get('/licoes', isLoggedIn, function (req, res) {
+    router.get('/licoes', isLoggedIn, isAccessControl, function (req, res) {
 
         materiaController
             .getMaterias()
@@ -157,7 +158,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/licoes', isLoggedIn, (req, res) => {
+    router.post('/licoes', isLoggedIn, isAccessControl, (req, res) => {
 
         licaoController
             .gravaLicao(req.body)
@@ -167,7 +168,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/membros-edit/:id', isLoggedIn, (req, res) => {
+    router.get('/membros-edit/:id', isLoggedIn, isAccessControl, (req, res) => {
         
         let id = req.params.id;
 
@@ -190,7 +191,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/membros-list', isLoggedIn, (req, res) => {
+    router.get('/membros-list', isLoggedIn, isAccessControl, (req, res) => {
 
         membroController
             .getAllMembros()
@@ -202,7 +203,8 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/membros', isLoggedIn, (req, res) => {
+    // router.get('/membros', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/membros', (req, res) => {
         
         igrejaController
             .getAllIgrejas()
@@ -214,7 +216,8 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/membros', isLoggedIn, (req, res) => {
+    // router.post('/membros', isLoggedIn, isAccessControl, (req, res) => {
+    router.post('/membros', (req, res) => {
         membroController
             .gravaMembro(req.body)
             .then((result) => {
@@ -223,7 +226,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/professores', isLoggedIn, (req, res) => {
+    router.get('/professores', isLoggedIn, isAccessControl, (req, res) => {
 
         materiaController
             .getMaterias()
@@ -244,7 +247,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/professores', isLoggedIn, (req, res) => {
+    router.post('/professores', isLoggedIn, isAccessControl, (req, res) => {
 
         professorController
             .gravaProfessor(req.body)
@@ -254,7 +257,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/saladeaula', isLoggedIn, (req, res) => {
+    router.get('/saladeaula', isLoggedIn, isAccessControl, (req, res) => {
 
         let saladeaula = {}
         let professoresArray = []
@@ -292,7 +295,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/saladeaula', isLoggedIn, (req, res) => {
+    router.post('/saladeaula', isLoggedIn, isAccessControl, (req, res) => {
         saladeaulaController
             .gravaSaladeaula(req.body)
             .then((result) => {
@@ -301,7 +304,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/matriculas', isLoggedIn, (req, res) => {
+    router.get('/matriculas', isLoggedIn, isAccessControl, (req, res) => {
 
         let matriculas = {};
 
@@ -325,7 +328,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/matriculas/:sala', isLoggedIn, (req, res) => {
+    router.get('/matriculas/:sala', isLoggedIn, isAccessControl, (req, res) => {
 
         let matriculasArray = []
         let tpMembro = ''
@@ -420,7 +423,110 @@ module.exports = (router, passport) => {
         }
     })
 
-    router.post('/matriculas', isLoggedIn, (req, res) => {
+    router.get('/matriculas_gf', (req, res) => {
+        membroController
+            .getAllMembros()
+            .then(membros => {
+                res.render('matriculas_gf', {
+                    membros,
+                    message: req.flash('matriculas_gf')
+                })
+            })
+
+        // let matriculasArray = []
+        // let tpMembro = ''
+        // let content = []
+        // let sala = req.params.sala;
+
+        // if (sala > 0) {
+
+        //     membroController
+        //         .getAllMembros()
+        //         .then(membros => {
+                    
+        //             matriculaController
+        //             .getAllMatriculas()
+        //             .then(async matriculas => {
+                        
+        //                     await membros.forEach(membro => {
+
+        //                         let matriculasRow = {};
+        //                         if (membro.tipodemembro == '1') {
+        //                             tpMembro = 'Comungante';
+        //                         } else if (membro.tipodemembro == '2') {
+        //                             tpMembro = 'Não Comungante';
+        //                         } else {
+        //                             tpMembro = 'Congregado';
+        //                         }
+        //                         if (matriculas.length > 0) {
+
+        //                             if (matriculas.some(f => f.membroId == membro.id)) {
+        //                                 matriculas.filter(matricula => {
+        //                                     if (matricula.membroId == membro.id) {
+        //                                         if (matricula.saladeaulaId == sala) {
+        //                                             matriculasRow.id = membro.id;
+        //                                             matriculasRow.nome = membro.nome;
+        //                                             matriculasRow.matriculado = "checked";
+        //                                             matriculasRow.value = 1;
+        //                                             matriculasRow.tipomembro = tpMembro;
+        //                                             matriculasArray.push(matriculasRow);
+        //                                         }
+        //                                     }
+        //                                 })
+        //                             } else {
+        //                                 matriculasRow.id = membro.id;
+        //                                 matriculasRow.nome = membro.nome;
+        //                                 matriculasRow.matriculado = "unchecked";
+        //                                 matriculasRow.value = 0;
+        //                                 matriculasRow.tipomembro = tpMembro;
+        //                                 matriculasArray.push(matriculasRow);
+        //                             }
+        //                         } else {
+        //                             matriculasRow.id = membro.id;
+        //                             matriculasRow.nome = membro.nome;
+        //                             matriculasRow.matriculado = "unchecked";
+        //                             matriculasRow.value = 0;
+        //                             matriculasRow.tipomembro = tpMembro;
+        //                             matriculasArray.push(matriculasRow);
+        //                         }
+        //                     })
+
+        //                 })
+        //                 .then(() => {
+        //                     if (matriculasArray.length > 0) {
+                                
+        //                         matriculasArray.forEach(matriculas => {
+        //                             let template = `<tr>
+        //                                 <td class="align-middle">
+        //                                     ${matriculas.nome}
+        //                                 </td>
+        //                                 <td class="align-middle">
+        //                                     ${matriculas.tipomembro}
+        //                                 </td>
+        //                                 <td class="align-middle">
+        //                                     <label class="switch">
+        //                                     <input type="checkbox" name="${matriculas.id}" data-user="${matriculas.id}" id="${matriculas.id}" ${matriculas.matriculado}>
+        //                                     <span class="slider round"></span>
+        //                                     </label>
+        //                                 </td>
+        //                             </tr>`
+        //                             content.push(template);
+        //                         });
+        //                     }else{
+        //                         let template = `<tr>
+        //                                 <td colspan="3" class="align-middle text-center text-muted pb-0 mb-0">Não há matriculados na sala.</td>
+        //                             </tr>`
+        //                             content.push(template);
+        //                     }
+        //                     res.send(content);
+        //                 });
+        //         })
+        // } else {
+        //     res.send("");
+        // }
+    })
+
+    router.post('/matriculas', isLoggedIn, isAccessControl, (req, res) => {
         if (req.body.saladeaulaId > 0) {
 
             matriculaController
@@ -436,7 +542,21 @@ module.exports = (router, passport) => {
 
     })
 
-    router.get('/usuarios', isLoggedIn, (req, res) => {
+    // router.get('/usuarios-list', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/usuarios-list', (req, res) => {
+
+        usuarioController
+            .getUsuarios()
+            .then((usuarios) => {
+                console.log(usuarios);
+                res.render('usuarios-list', {
+                    usuarios
+                });
+            })
+    })
+
+    // router.get('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/usuarios', (req, res) => {
 
         membroController
             .getAllMembros()
@@ -448,7 +568,20 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/usuarios', isLoggedIn, (req, res) => {
+    router.get('/usuarios-edit/:id', (req, res) => {
+
+        usuarioController
+            .getUsuario( req.params.id )
+            .then( usuario => {
+                res.render('usuarios-edit', {
+                    usuario,
+                    message: req.flash('usuarios')
+                });
+            })
+    })
+
+    // router.post('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
+    router.post('/usuarios', (req, res) => {
 
         usuarioController
             .gravarUsuario(req.body)
@@ -458,13 +591,13 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/igrejas', isLoggedIn, (req, res) => {
+    router.get('/igrejas', isLoggedIn, isAccessControl, (req, res) => {
         res.render('igreja', {
             message: req.flash('igrejas')
         });
     })
 
-    router.post('/igrejas', isLoggedIn, (req, res) => {
+    router.post('/igrejas', isLoggedIn, isAccessControl, (req, res) => {
 
         igrejaController
             .gravarIgreja(req.body)
@@ -492,7 +625,7 @@ module.exports = (router, passport) => {
 
     // ------------------- Escola Dominical Page ---------------------- -//
 
-    router.get('/ebd', isLoggedIn, function (req, res) {
+    router.get('/ebd', isLoggedIn, isAccessControl, function (req, res) {
         saladeaulaController
             .getAllSalasdeaula()
             .then(saladeaula => {
@@ -525,7 +658,7 @@ module.exports = (router, passport) => {
         })
     })
 
-    router.get('/ebd/:sala', isLoggedIn, function (req, res) {
+    router.get('/ebd/:sala', isLoggedIn, isAccessControl, function (req, res) {
 
         let sala = req.params.sala;
         let saladeaula = {}
@@ -566,7 +699,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.post('/diadeaula', isLoggedIn, (req, res) => {
+    router.post('/diadeaula', isLoggedIn, isAccessControl, (req, res) => {
         diadeaulaController
             .gravarAlunosPresentes(req.body)
             .then(() => {
@@ -575,7 +708,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/diadeaula/:sala/:diadeaula', isLoggedIn, (req, res) => {
+    router.get('/diadeaula/:sala/:diadeaula', isLoggedIn, isAccessControl, (req, res) => {
 
         let sala = req.params.sala;
         let dia = req.params.diadeaula;
@@ -696,16 +829,21 @@ module.exports = (router, passport) => {
 
 
 
-    router.get('/usuarios', isLoggedIn, (req, res) => {
+    // router.get('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
+    // router.get('/usuarios', (req, res) => {
 
-        membroController
-            .getAllMembros()
-            .then(membros => {
-                res.render('usuarios', {
-                    data: membros
-                });
-            })
-    })
+    //     membroController
+    //         .getAllMembros()
+    //         .then(membros => {
+    //             res.render('usuarios', {
+    //                 data: membros
+    //             });
+    //         })
+    // })
+
+    router.get('/401', isLoggedIn, (req, res) => {
+        res.render('401')
+    });
 
     // router.get('/signup', (req, res) => {
     //     // res.render('signup', { message: req.flash('signupMessage') });
@@ -735,4 +873,14 @@ function isLoggedIn(req, res, next) {
         return next();
 
     res.redirect('/login');
+}
+
+function isAccessControl(req, res, next) {
+
+    const path = req.route.path;
+    const ac = require('./../config/accessControl.json')[req.user.id_tipo_membro]
+    if (ac.includes(path))
+        return next();
+
+    res.redirect('/401')    
 }

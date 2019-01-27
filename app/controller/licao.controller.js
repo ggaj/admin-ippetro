@@ -33,13 +33,7 @@ class LicoesController{
             .findAll({ include: materias })
             .then( licoes => {
                 licoes.forEach(licao => {
-                    console.log('---------------1');
                     licao.dataValues.materia = licao.dataValues.materia.dataValues;
-                    console.log(licao.dataValues);
-                    // console.log('---------------2');
-                    // console.log(licao.dataValues);
-                    // console.log('---------------3');
-                    // console.log(licao.dataValues);
                     licoesArray.push(licao.dataValues)
                 }); 
                 return licoesArray;

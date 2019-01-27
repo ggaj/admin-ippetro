@@ -8,12 +8,19 @@ const config      = require('./../../config/config.json')[env];
 
 module.exports = (sequelize, DataTypes) => {
   const usuarios = sequelize.define('usuarios', {
-    id       : { primaryKey: true, type: DataTypes.INTEGER },
+    id              : { primaryKey: true, type: DataTypes.INTEGER },
     id_tipo_membro  : DataTypes.INTEGER,
-    cpf             : DataTypes.STRING,
+    cpf             : DataTypes.CHAR(14),
+    nome            : DataTypes.STRING,
     email           : DataTypes.STRING,
-    password           : DataTypes.STRING,
+    password        : DataTypes.STRING,
   })
+
+  // usuarios.associate = (models) => {
+  //   // usuarios.belongsTo(models.membros, {otherKey: 'cpf'});
+  //   usuarios.belongsTo(models.membros, {foreignKey : { field : 'cpf' }});
+  //   // User.belongsTo(Company, {foreignKey: 'fk_company'});
+  // };
 
   usuarios.beforeSave(async (usuario, options) => {
     

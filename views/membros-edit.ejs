@@ -107,11 +107,15 @@
   </div>
 
   <div class="row">
-    <div class="col-md-5 mb-3">
+    <div class="col-md-4 mb-3">
+      <label for="bairro">Bairro:</label>
+      <input type="text" class="form-control" name="bairro" id="bairro" placeholder="" value="<%=membro.bairro%>">
+    </div>
+    <div class="col-md-4 mb-3">
       <label for="cidade">Cidade:</label>
       <input type="text" class="form-control" name="cidade" id="cidade" placeholder="" value="<%=membro.cidade%>">
     </div>
-    <div class="col-md-5 mb-3">
+    <div class="col-md-2 mb-3">
       <label for="estado">Estado:</label>
       <input type="text" class="form-control" name="estado" id="estado" placeholder="" value="<%=membro.estado%>">
     </div>
@@ -126,11 +130,11 @@
   </div>
   <hr class="mb-4">
   <div class="row">
-    <div class="col-md-6 mb-3">
+    <div class="col-6 mb-3">
       <!-- <a href="javascript:void(0)" class="btn btn-primary btn-lg btn-block btnGravar" id="btnMembro" >Gravar</a> -->
       <button type="submit" class="btn btn-primary btn-lg btn-block btnGravar" >Gravar</button>
     </div>
-    <div class="col-md-6 mb-3">
+    <div class="col-6 mb-3">
       <button class="btn btn-danger btn-lg btn-block" type="reset">Cancelar</button>
     </div>
   </div>

@@ -1,0 +1,61 @@
+<% include ./share/header.ejs %>
+<div class="row">
+  <div class="col-md-2 mb-md-3">
+    <div class="py-2 text-center">
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/cadastros"><i class="fas fa-arrow-left"></i></a>
+    </div>
+  </div>
+  <div class="col-md-8 mb-md-3">
+    <div class="py-2 text-center">
+      <h2>Matrículados Geração Futuro</h2>
+      <!-- <p class="lead">Below is an example.</p> -->
+    </div>
+  </div>
+</div>
+<% include ./share/msg.ejs %>
+<form class="needs-validation" novalidate id="formMatricula_gf" method="POST" action="/matriculas_gf">
+  <div class="row">
+    <div class="col mb-3">
+      <label for="pesquisaMatriculas_gf">Nome para pesquisa:</label>
+      <input type="text" class="form-control" name="pesquisaMatriculas_gf" id="pesquisaMatriculas_gf" placeholder="Informe o nome para a pesquisa...">
+    </div>
+    <div class="col-md-12 mb-3">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col" class="col">Nome</th>
+            <th scope="col" class="col-1">Matriculado</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <%for(var row in membros){%>
+          <tr>
+            <td class="align-middle">
+              <%=membros[row].nome%>
+            </td>
+            <td class="align-middle text-center">
+              <label class="switch">
+                <input type="checkbox" name="<%=membros[row].id%>" id="<%=membros[row].id%>" value="0">
+                <span class="slider round"></span>
+              </label>
+            </td>
+          </tr>
+          <%}%>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <hr class="mb-4">
+  <div class="row">
+    <div class="col-6 mb-3">
+      <button type="submit" class="btn btn-primary btn-lg btn-block btnGravar" id="btnMatricula">Gravar</button>
+    </div>
+    <div class="col-6 mb-3">
+      <button class="btn btn-danger btn-lg btn-block" type="reset">Cancelar</button>
+    </div>
+  </div>
+</form>
+<% include ./share/footer.ejs %>

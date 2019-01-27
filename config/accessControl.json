@@ -1,0 +1,19 @@
+{
+    "1" : [
+        "/","/cadastros",
+        "/modulos","/modulos-list","/modulos-edit/:id",
+        "/materias","/materias-list","/materias-edit/:id",
+        "/licoes","/licoes-list", "/licoes-edit/:id",
+        "/membros","/membros-list", "/membros-edit/:id",
+        "/professores","/professores-list", "/professores-edit/:id",
+        "/saladeaula","/saladeaula-list", "/saladeaula-edit/:id",
+        "/matriculas","/matriculas-list", "/matriculas-edit/:id", "/matriculas/:sala",
+        "/usuarios","/usuarios-list", "/usuarios-edit/:id",
+        "/igrejas","/igrejas-list", "/igrejas-edit/:id",
+        "/ebd","/ebd/:sala", "/diadeaula/:sala/:diadeaula"
+    ],
+    "2" : [
+        "/",
+        "/ebd","/ebd/:sala", "/diadeaula/:sala/:diadeaula"
+    ]
+}

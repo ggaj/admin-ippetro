@@ -5,11 +5,25 @@ const mensagemTemplate = require('./../../views/template/mensagem.template');
 
 class Usuarios {
 
-    getAllUsuarios(){
+    getUsuarios(){
+        let usuariosArray = [];
+
         return usuarios
             .findAll()
             .then( result => {
-                return result.dataValues;
+                result.forEach( usuario => {
+                    usuariosArray.push(usuario).dataValues;
+                });
+                return usuariosArray;
+            })
+    }
+
+    getUsuario(id){
+
+        return usuarios
+            .findByPk(id)
+            .then( usuario => {
+                return usuario.dataValues;
             })
     }
 
@@ -17,11 +31,16 @@ class Usuarios {
 
         let user = usuario;
         let mensagem = {};
-        let tipo = '';
 
         return membroController
             .getMembro(usuario.id)
             .then( async membro => {
+
+                if (!membro.email) {
+                    mensagem.tipo  = 'alert alert-danger alert-dismissible fade show';
+                    mensagem.texto = `Usuário -> ${membro.nome} não possui e-mail cadastrado.`;
+                    return mensagem
+                }
 
                 let u = await usuarios.findByPk(usuario.id)
 
@@ -32,11 +51,22 @@ class Usuarios {
                 }
                 user.cpf = membro.cpf;
                 user.email = membro.email;
-                await usuarios
-                    .create(user);
+                user.nome = membro.nome;
+
+                if (usuario.id) {
+                    result = await usuarios.update(user, {where: { id :usuario.id }});
+                } else {
+                    result = await usuarios.create(user);
+                }
+
+                if (result){
+                    mensagem.tipo  = 'alert alert-info alert-dismissible fade show';
+                    mensagem.texto = `Dados gravados com sucesso`;  
+                }else{
+                    mensagem.tipo  = 'alert alert-info alert-dismissible fade show';
+                    mensagem.texto = `Falha na atualização dos dados.`;  
+                }
                 
-                mensagem.tipo  = 'alert alert-info alert-dismissible fade show';
-                mensagem.texto = `Dados gravados com sucesso`;
                 return mensagem
             })
     }

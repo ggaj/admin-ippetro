@@ -15,28 +15,22 @@
 <% include ./share/msg.ejs %>
 <form class="needs-validation" novalidate method="POST" action="/usuarios">
   <div class="row">
+    <input type="text" class="form-control" name="id" id="id" value="<%=usuario.id%>" readonly hidden>      
     <div class="col-md-4 mb-3">
-      <label for="id">Membro:</label>
-      <select class="custom-select d-block w-100" name="id" id="id" required>
-        <option value="">Escolha uma opção...</option>
-        <%for(var row in data){%>
-          <option value="<%=data[row].id%>">
-            <%=data[row].nome%>
-          </option>
-          <%}%>
-        </select>
-        <div class="invalid-feedback">
-          Escolha o membro.
-        </div>
+      <label for="nome">Nome:</label>
+      <input type="text" class="form-control" name="nome" id="nome" value="<%=usuario.nome%>" readonly>      
+      <div class="invalid-feedback">
+        Escolha o membro.
+      </div>
     </div>
     <div class="col-md-4 mb-3">
       <label for="id_tipo_membro">Tipo de Usuário:</label>
       <select class="custom-select d-block w-100" name="id_tipo_membro" id="id_tipo_membro" required>
         <option value="">Escolha uma opção...</option>
-        <option value="1">Administrador</option>
-        <option value="2">Professor EBD</option>
-        <option value="3">Professor GF</option>
-        <option value="99">Membro</option>
+        <option value="1" <%= usuario.id_tipo_membro == '1' ? 'selected' : '' %>>Administrador</option>
+        <option value="2" <%= usuario.id_tipo_membro == '2' ? 'selected' : '' %>>Professor EBD</option>
+        <option value="3" <%= usuario.id_tipo_membro == '3' ? 'selected' : '' %>>Professor GF</option>
+        <option value="99" <%= usuario.id_tipo_membro == '99' ? 'selected' : '' %>>Membro</option>
       </select>
       <div class="invalid-feedback">
         Escolha o tipo de usuário.
@@ -44,7 +38,7 @@
     </div>
     <div class="col-md-4 mb-3">
       <label for="password">Senha:</label>
-      <input type="password" class="form-control" name="password" id="password" required>    
+      <input type="password" class="form-control" name="password" id="password" placeholder="Informe a nova senha" required>    
       <div class="invalid-feedback">
         Informe a senha.
       </div>
