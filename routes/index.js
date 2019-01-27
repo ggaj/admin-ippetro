@@ -440,8 +440,8 @@ module.exports = (router, passport) => {
 
     })
 
-    // router.get('/usuarios-list', isLoggedIn, isAccessControl, (req, res) => {
-    router.get('/usuarios-list', (req, res) => {
+    router.get('/usuarios-list', isLoggedIn, isAccessControl, (req, res) => {
+    // router.get('/usuarios-list', (req, res) => {
 
         usuarioController
             .getUsuarios()
@@ -453,8 +453,8 @@ module.exports = (router, passport) => {
             })
     })
 
-    // router.get('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
-    router.get('/usuarios', (req, res) => {
+    router.get('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
+    // router.get('/usuarios', (req, res) => {
 
         membroController
             .getAllMembros()
@@ -466,7 +466,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/usuarios-edit/:id', (req, res) => {
+    router.get('/usuarios-edit/:id', isLoggedIn, isAccessControl, (req, res) => {
 
         usuarioController
             .getUsuario( req.params.id )
@@ -478,8 +478,8 @@ module.exports = (router, passport) => {
             })
     })
 
-    // router.post('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
-    router.post('/usuarios', (req, res) => {
+    router.post('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
+    // router.post('/usuarios', (req, res) => {
 
         usuarioController
             .gravarUsuario(req.body)
@@ -683,16 +683,16 @@ module.exports = (router, passport) => {
     // ------------------------------------------------------------------//
     
     // ------------------- Geracao Futuro Page --------------------------//
-    router.get('/geracao_futuro', (req, res) => {
+    router.get('/geracao_futuro', isLoggedIn, isAccessControl, (req, res) => {
         res.render(`geracao_futuro`);
     })    
 
-    router.get('/gf_matriculas', (req, res) => {
+    router.get('/gf_matriculas', isLoggedIn, isAccessControl, (req, res) => {
 
         let membros = []
         membroController
             .getAllMembros()
-            .then( membrosResult => {
+            .then( async (membrosResult) => {
 
                 gf_matriculasController
                     .getGFMatriculas()
@@ -711,21 +711,21 @@ module.exports = (router, passport) => {
                             }
                             membros.push(membros_aux);
                         });
-                        
+                    })
+                    .then(() =>{
                         res.render('gf_matriculas', {
                             membros,
                             message: req.flash('matriculas_gf')
                         })
-
                     })
             })
     })
 
-    router.post('/gf_matriculas', (req, res) => {
+    router.post('/gf_matriculas', isLoggedIn, isAccessControl, (req, res) => {
         gf_matriculasController
             .gravaGFMatricula(req.body)
             .then(() => {
-                res.redirect(`gf_matriculas`);''
+                res.redirect(`gf_matriculas`);
             })
     })    
     // ------------------------------------------------------------------//

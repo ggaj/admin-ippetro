@@ -24,7 +24,7 @@ class MatriculasController{
 
         let template = {}
         
-        this.removeGFMatriculas()
+        await this.removeGFMatriculas()
             .then( async () => {
                 for (const k in matricula) {
                    
@@ -32,8 +32,9 @@ class MatriculasController{
                     matriculados.membroId   = k;
                     await gf_matriculas.create(matriculados)
                 }
-
-                template = await mensagemTemplate.tTipo('s');
+            })
+            .then(() => {
+                template = mensagemTemplate.tTipo('s');
                 return template;
             })
     }

@@ -7,21 +7,20 @@
   </div>
   <div class="col-md-8 mb-md-3">
     <div class="py-2 text-center">
-      <h2>Matrículados Geração Futuro</h2>
+      <h2>Matrículas Geração Futuro</h2>
       <!-- <p class="lead">Below is an example.</p> -->
     </div>
   </div>
 </div>
 <% include ./share/msg.ejs %>
 <div class="row">
-    <div class="col mb-3">
-      <label for="pesquisaMatriculas_gf">Nome para pesquisa:</label>
-      <input type="text" class="form-control" name="pesquisaMatriculas_gf" id="pesquisaMatriculas_gf" placeholder="Informe o nome para a pesquisa...">
-    </div>
+  <div class="col mb-3">
+    <label for="gf_pesquisaMatriculas">Nome para pesquisa:</label>
+    <input type="text" class="form-control" name="gf_pesquisaMatriculas" id="gf_pesquisaMatriculas" placeholder="Informe o nome para a pesquisa...">
+  </div>
 </div>
-<form class="needs-validation" novalidate id="formMatricula_gf" method="POST" action="/matriculas_gf">
-<div class="row">
-  
+<form class="needs-validation" novalidate id="gf_formMatricula" method="POST" action="/gf_matriculas">
+  <div class="row">
     <div class="col-md-12 mb-3">
       <table class="table table-hover">
         <thead>
@@ -31,7 +30,7 @@
           </tr>
         </thead>
 
-        <tbody>
+        <tbody id="gf_matriculasTable">
           <%for(var row in membros){%>
           <tr>
             <td class="align-middle">

@@ -1,7 +1,4 @@
 $(function () {
-
-
-
     $("#btnLogin").click(function () {
         let dados = $('#formLogin').serialize();
         console.log(dados);
@@ -289,6 +286,13 @@ $(function () {
     $("#pesquisaMatriculas").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $("#matriculasTable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+
+    $("#gf_pesquisaMatriculas").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#gf_matriculasTable tr").filter(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
