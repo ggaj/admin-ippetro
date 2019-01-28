@@ -10,7 +10,8 @@
         "/matriculas","/matriculas-list", "/matriculas-edit/:id", "/matriculas/:sala",
         "/usuarios","/usuarios-list", "/usuarios-edit/:id",
         "/igrejas","/igrejas-list", "/igrejas-edit/:id",
-        "/ebd","/ebd/:sala", "/diadeaula/:sala/:diadeaula"
+        "/ebd","/ebd/:sala", "/diadeaula/:sala/:diadeaula",
+        "/geracao_futuro"
     ],
     "2" : [
         "/",
