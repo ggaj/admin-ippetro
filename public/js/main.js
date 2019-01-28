@@ -311,7 +311,7 @@ $(function () {
     function getDomingo() {
         let dt = new Date();
         let dayOfWeek = dt.getDay();
-        let lastday = dayOfWeek == 7 ? dt : dt.getDate() - (dt.getDay() - 1) + 6;
+        let lastday = dayOfWeek == 0 ? dt : dt.getDate() - (dt.getDay() - 1) + 6;
         return toDate(new Date(dt.setDate(lastday)));
     }
 
