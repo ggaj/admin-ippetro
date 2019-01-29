@@ -15,6 +15,7 @@
 <% include ./share/msg.ejs %>
 <form class="needs-validation" novalidate method="POST" action="/usuarios">
   <div class="row">
+    <input type="text" class="form-control" name="membroId" id="membroId" value="<%=usuario.membroId%>" readonly hidden>      
     <input type="text" class="form-control" name="id" id="id" value="<%=usuario.id%>" readonly hidden>      
     <div class="col-md-4 mb-3">
       <label for="nome">Nome:</label>

@@ -29,45 +29,62 @@ class Usuarios {
 
     gravarUsuario(usuario) {
 
-        let user = usuario;
-        let mensagem = {};
-
+        
+        let user = {}, mensagem = {}
+        let result, tipo, template;
+        
         return membroController
-            .getMembro(usuario.id)
+            .getMembro(usuario.membroId)
             .then( async membro => {
+            
+                // console.log(usuario);
+                // console.log(membro);
 
-                if (!membro.email) {
-                    mensagem.tipo  = 'alert alert-danger alert-dismissible fade show';
-                    mensagem.texto = `Usuário -> ${membro.nome} não possui e-mail cadastrado.`;
-                    return mensagem
-                }
+                // if (!membro.email) {
+                //     mensagem.tipo  = 'alert alert-danger alert-dismissible fade show';
+                //     mensagem.texto = `Usuário -> ${membro.nome} não possui e-mail cadastrado.`;
+                //     return mensagem
+                // }
 
-                let u = await usuarios.findByPk(usuario.id)
+                // let u = await usuarios.findByPk(usuario.id)
+                // console.log(`${usuario.id_tipo_membro} - ${usuario.id}`);
 
-                if ( u ) {
-                    mensagem.tipo  = 'alert alert-danger alert-dismissible fade show';
-                    mensagem.texto = `Usuário já cadastrado -> ${membro.nome}`;
-                    return mensagem
-                }
-                user.cpf = membro.cpf;
-                user.email = membro.email;
-                user.nome = membro.nome;
+                // if ( u ) {
+                //     mensagem.tipo  = 'alert alert-danger alert-dismissible fade show';
+                //     mensagem.texto = `Usuário já cadastrado -> ${membro.nome}`;
+                //     return mensagem
+                // }
 
+                user.id_tipo_membro = usuario.id_tipo_membro;
+                user.cpf            = membro.cpf;
+                user.nome           = membro.nome;
+                user.email          = membro.email;
+                user.password       = usuario.password;
+                user.membroId       = membro.id;
+                
                 if (usuario.id) {
+                    user.id = usuario.id;
                     result = await usuarios.update(user, {where: { id :usuario.id }});
                 } else {
                     result = await usuarios.create(user);
                 }
 
                 if (result){
-                    mensagem.tipo  = 'alert alert-info alert-dismissible fade show';
-                    mensagem.texto = `Dados gravados com sucesso`;  
+                    tipo = 's';
                 }else{
-                    mensagem.tipo  = 'alert alert-info alert-dismissible fade show';
-                    mensagem.texto = `Falha na atualização dos dados.`;  
+                    tipo = 'e';
                 }
-                
-                return mensagem
+                template = mensagemTemplate.tTipo(tipo);
+                return template;
+                // if (result){
+                //     mensagem.tipo  = 'alert alert-info alert-dismissible fade show';
+                //     mensagem.texto = `Dados gravados com sucesso`;  
+                // }else{
+                //     mensagem.tipo  = 'alert alert-info alert-dismissible fade show';
+                //     mensagem.texto = `Falha na atualização dos dados.`;  
+                // }
+                // console.log('3');
+                // return mensagem
             })
     }
 

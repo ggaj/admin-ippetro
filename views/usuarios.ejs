@@ -16,12 +16,12 @@
 <form class="needs-validation" novalidate method="POST" action="/usuarios">
   <div class="row">
     <div class="col-md-4 mb-3">
-      <label for="id">Membro:</label>
-      <select class="custom-select d-block w-100" name="id" id="id" required>
+      <label for="membroId">Membro:</label>
+      <select class="custom-select d-block w-100" name="membroId" id="membroId" required>
         <option value="">Escolha uma opção...</option>
-        <%for(var row in data){%>
-          <option value="<%=data[row].id%>">
-            <%=data[row].nome%>
+        <%for(var row in membros){%>
+          <option value="<%=membros[row].id%>">
+            <%=membros[row].nome%>
           </option>
           <%}%>
         </select>

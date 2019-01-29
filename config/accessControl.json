@@ -15,5 +15,9 @@
     "2" : [
         "/",
         "/ebd","/ebd/:sala", "/diadeaula/:sala/:diadeaula"
+    ],
+    "3" : [
+        "/",
+        "/geracao_futuro"
     ]
 }

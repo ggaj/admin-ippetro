@@ -442,13 +442,12 @@ module.exports = (router, passport) => {
 
     router.get('/usuarios-list', isLoggedIn, isAccessControl, (req, res) => {
     // router.get('/usuarios-list', (req, res) => {
-
         usuarioController
             .getUsuarios()
             .then((usuarios) => {
-                console.log(usuarios);
                 res.render('usuarios-list', {
-                    usuarios
+                    usuarios,
+                    message: req.flash('usuarios')
                 });
             })
     })
@@ -456,11 +455,21 @@ module.exports = (router, passport) => {
     router.get('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
     // router.get('/usuarios', (req, res) => {
 
+        let membros = []
+
         membroController
             .getAllMembros()
-            .then(membros => {
+            .then( async (membrosResult) => {
+
+                let usuarios = await usuarioController.getUsuarios();
+
+                membrosResult.forEach( membro => {
+                    if (!usuarios.some((usuario) => (usuario.membroId == membro.id))){
+                        membros.push(membro);
+                    }  
+                });
                 res.render('usuarios', {
-                    data: membros,
+                    membros,
                     message: req.flash('usuarios')
                 });
             })
@@ -479,13 +488,11 @@ module.exports = (router, passport) => {
     })
 
     router.post('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
-    // router.post('/usuarios', (req, res) => {
-
         usuarioController
             .gravarUsuario(req.body)
             .then((result) => {
                 req.flash('usuarios', [result.tipo, result.texto]);
-                res.redirect('/usuarios');
+                res.redirect('/usuarios-list');
             });
     })
 
