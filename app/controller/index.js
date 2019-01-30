@@ -9,7 +9,8 @@ const diadeaulaController       = require('./diadeaula.controller');
 const usuarioController         = require('./usuario.controller');
 const igrejaController          = require('./igreja.controller');
 const ebdrelatorios             = require('./ebd-relatorios.controller');
-const gf_matriculasController    = require('./gf-matricula.controller');
+const gf_matriculasController   = require('./gf-matricula.controller');
+const visitanteController       = require('./visitante.controller');        
 
 module.exports = { 
     moduloController,
@@ -24,4 +25,5 @@ module.exports = {
     igrejaController,
     ebdrelatorios,
     gf_matriculasController,
+    visitanteController,
 }

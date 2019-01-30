@@ -11,6 +11,7 @@ const {
     igrejaController,
     ebdrelatorios,
     gf_matriculasController,
+    visitanteController
 } = require('./../app/controller');
 
 module.exports = (router, passport) => {
@@ -204,8 +205,8 @@ module.exports = (router, passport) => {
             })
     })
 
-    // router.get('/membros', isLoggedIn, isAccessControl, (req, res) => {
-    router.get('/membros', (req, res) => {
+    router.get('/membros', isLoggedIn, isAccessControl, (req, res) => {
+    // router.get('/membros', (req, res) => {
         
         igrejaController
             .getAllIgrejas()
@@ -217,8 +218,8 @@ module.exports = (router, passport) => {
             })
     })
 
-    // router.post('/membros', isLoggedIn, isAccessControl, (req, res) => {
-    router.post('/membros', (req, res) => {
+    router.post('/membros', isLoggedIn, isAccessControl, (req, res) => {
+    // router.post('/membros', (req, res) => {
         membroController
             .gravaMembro(req.body)
             .then((result) => {
@@ -541,8 +542,19 @@ module.exports = (router, passport) => {
     })
 
     router.get('/ebd/relatorios', (req, res) => {
-
         res.render(`ebd-relatorios`)
+    })
+
+    router.post('/visitantes', (req, res) => {
+        visitanteController
+            .gravaVisitante(req.body)
+            .then((result) => {
+                if (result) {
+                    return res.status(200).json('ok');
+                } else {
+                    return res.status(403).json('ok');
+                }
+            })
     })
 
     router.get('/ebd/relatorios/presenca', (req, res) => {
@@ -657,10 +669,11 @@ module.exports = (router, passport) => {
                     });
                 }
             })
-            .then(() => {
+            .then( async () => {
 
                 if (diadeaulaArray.length > 0) {
-                    diadeaulaArray.forEach(diadeaula => {
+                    let result = await diadeaulaArray.sortBy('nome');
+                    result.forEach(diadeaula => {
                         let template = `<tr>
                             <td class="align-middle">
                                 ${diadeaula.nome}
@@ -737,80 +750,15 @@ module.exports = (router, passport) => {
     })    
     // ------------------------------------------------------------------//
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    // router.post('/signup', function(req, res, next) {
-    //     , (err, user, info) => {
-    //         if (err) { return next(err); }
-    //         if (!user) { return res.redirect('/login'); }
-    //         return res.redirect('/');
-    //     })(req, res, next);
-    // });
-
-
-
-    // router.get('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
-    // router.get('/usuarios', (req, res) => {
-
-    //     membroController
-    //         .getAllMembros()
-    //         .then(membros => {
-    //             res.render('usuarios', {
-    //                 data: membros
-    //             });
-    //         })
-    // })
-
     router.get('/401', isLoggedIn, (req, res) => {
         res.render('401')
     });
+}
 
-    // router.get('/signup', (req, res) => {
-    //     // res.render('signup', { message: req.flash('signupMessage') });
-    // })
-
-    // router.post('/signup', function (req, res, next) {
-    //     passport.authenticate('local-signup', (err, user, info) => {
-    //         if (err) {
-    //             return next(err);
-    //         }
-    //         if (!user) {
-    //             return res.redirect('/login');
-    //         }
-    //         return res.redirect('/');
-    //     })(req, res, next);
-    // });
+Array.prototype.sortBy = async function(p) {
+    return this.slice(0).sort(function(a,b) {
+        return (a[p] > b[p]) ? 1 : (a[p] < b[p]) ? -1 : 0;
+    });
 }
 
 function sleep(ms) {

@@ -8,7 +8,16 @@ lastWeek = async () => {
     dates.today = today;
     dates.lastWeek = lastWeek;
     return dates;
-  }
+}
+
+nextWeek = async () => {
+    let dates = {}
+    var today = new Date();
+    var nextWeek = new Date(today.getFullYear(), today.getMonth(), today.getDate() + 6);
+    dates.today = today;
+    dates.nextWeek = nextWeek;
+    return dates;
+}
 class MembrosController{
 
     getMembro(id){
@@ -61,9 +70,9 @@ class MembrosController{
         let mesI, mesF, dates;
         let aniverArray = [];
 
-        dates = await lastWeek();
-        mesI = ("00" + (dates.lastWeek.getMonth() + 1).toString()).slice(-2) + "-" + ("00" + dates.lastWeek.getDate()).slice(-2);
-        mesF = ("00" + (dates.today.getMonth() + 1).toString()).slice(-2) + "-" + ("00" + dates.today.getDate()).slice(-2);
+        dates = await nextWeek();
+        mesI = ("00" + (dates.today.getMonth() + 1).toString()).slice(-2) + "-" + ("00" + dates.today.getDate()).slice(-2);
+        mesF = ("00" + (dates.nextWeek.getMonth() + 1).toString()).slice(-2) + "-" + ("00" + dates.nextWeek.getDate()).slice(-2);
 
         return membros
             .findAll({ where: 

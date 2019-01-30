@@ -209,6 +209,32 @@ $(function () {
             })
     })
 
+    $('#btnVisitante').click((e) => {
+
+        validatedForm(e)
+            .then((result) => {
+
+                if (result) {
+                    let dados = {
+                        "diadeaulaSaladeaulaId": $('#saladeaulaId').text().trim(),
+                        "data": $('#diadeaula').val(),
+                        "quantidade": $('#quantidade').val()
+                    }
+                    $.ajax({
+                        type: 'POST',
+                        url: '/visitantes',
+                        data: dados,
+                        dataType: "json",
+                        success: ((result) => {
+                            $('.close').click();
+                        }),
+                        error: ((e) => {
+                            console.log(`Error -> ${JSON.stringify(e)}`)
+                        })
+                    });
+                }
+            })
+    })
 
     $(':reset').click((e) => {
 
