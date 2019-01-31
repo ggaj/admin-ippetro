@@ -561,10 +561,9 @@ module.exports = (router, passport) => {
         let data = new Date();
         ebdrelatorios
             .getPresencaSalasDia(data)
-            .then((presenca) => {
-                console.log(presenca);
+            .then((relatorio_presenca) => {
+                res.render(`ebd-presenca`, { relatorio_presenca, dia: req.flash('dia') });
             })
-        res.render(`ebd-presenca`);
     })
 
     router.get('/ebd/relatorios/aniversariantes', (req, res) => {

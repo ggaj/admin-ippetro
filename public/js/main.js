@@ -283,6 +283,18 @@ $(function () {
         getDiaDeAula(date);
     }
 
+    if ($('#diadeaula_relatorio').length) {
+
+        let date = getDomingo();
+
+        if (($('#diadeaula_relatorio').val() != date) && ($('#diadeaula_relatorio').val())) {
+            date = $('#diadeaula_relatorio').val();
+        } else {
+            $('#diadeaula_relatorio').val(date);
+        }
+        getDiaDePresenca(date);
+    }
+
     $("#btnDataAula").click(function () {
         getDiaDeAula($("#diadeaula").val());
     });
@@ -332,6 +344,17 @@ $(function () {
                 $('#presentesdodia').html(result);
             },
         });
+    }
+
+    function getDiaDePresenca(date) {
+        // let saladeaulaId = $("#saladeaulaId").text();
+        // $.ajax({
+        //     type: 'GET',
+        //     url: `/diadeaula/${saladeaulaId}/${date}`,
+        //     success: function (result) {
+        //         $('#presentesdodia').html(result);
+        //     },
+        // });
     }
 
     function getDomingo() {
