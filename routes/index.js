@@ -17,7 +17,6 @@ const {
 module.exports = (router, passport) => {
 
     router.get('/', isLoggedIn, isAccessControl, function (req, res) {
-        // console.log(req.user);
         res.render('index', {access: req.user.id_tipo_membro})
     })
 
@@ -70,6 +69,7 @@ module.exports = (router, passport) => {
         materiaController
             .getMateriasModulos()
             .then((materias) => {
+                console.log(materias);
                 res.render('materias-list', {
                     materias,
                     message: req.flash('materias')

@@ -33,15 +33,18 @@
   </thead>
   <tbody>
     <%for(var row in modulos){%>
-    <tr>
-      <td class="col">
-        <%=modulos[row].modulo%>
-      </td>
-      <td class="col text-center">
-          <%= modulos[row].ativo == '1' ? 'Sim' : 'Não'%>
-      </td>
-      <td class="col-1"><a href="/modulos-edit/<%=modulos[row].id%>" class="btn btn-outline-danger">Editar</a></td>
+      <%if(modulos[row].id > 0){%>
+        <tr>
+          <td class="col">
+            <%=modulos[row].modulo%>
+          </td>
+          <td class="col text-center">
+              <%= modulos[row].ativo == '1' ? 'Sim' : 'Não'%>
+          </td>
+          <td class="col-1"><a href="/modulos-edit/<%=modulos[row].id%>" class="btn btn-outline-danger">Editar</a>
+        </td>
       <%}%>
+    <%}%>
   </tbody>
 </table>
 

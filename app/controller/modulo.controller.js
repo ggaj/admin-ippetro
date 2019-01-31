@@ -11,6 +11,8 @@ class ModuloController{
             }); 
     }
 
+    
+
     getModulos(){
         let modulosArray = [];
         return modulos

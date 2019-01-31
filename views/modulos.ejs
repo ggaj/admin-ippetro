@@ -22,11 +22,22 @@
 <% } %>
 <form class="needs-validation" novalidate id="formModulo" method="POST" action="/modulos">
   <div class="row">
-    <div class="col-md-11 col-9 mb-md-3">
+    <div class="col-md-8 col-12 mb-3">
       <label for="modulo">Módulo:</label>
       <input type="text" class="form-control" name="modulo" id="modulo" required>
       <div class="invalid-feedback">
         Informe o nome do módulo.
+      </div>
+    </div>
+    <div class="col-md-3 col-9 mb-3 ">
+      <label for="grupoensino">Grupo de Ensino:</label>
+      <select class="custom-select d-block w-100" name="grupoensino" id="grupoensino" required>
+        <option value="">Escolha uma opção...</option>
+        <option value="EBD" >Escola Dominical</option>
+        <option value="GFU">Geração Futuro</option>
+      </select>
+      <div class="invalid-feedback">
+        Escolha o tipo de ensino.
       </div>
     </div>
     <div class="custom-control custom-checkbox col-md-1 col-2" style="margin-top:37px;">

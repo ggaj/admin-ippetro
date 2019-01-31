@@ -27,25 +27,24 @@
   <thead>
     <tr>
       <th scope="col" class="col-7">Materias</th>
-      <!-- <th scope="col" class="col-3">Módulo</th> -->
       <th scope="col" class="col-1 text-center">Ativo</th>
       <th scope="col" class="col-1"></th>
     </tr>
   </thead>
   <tbody>
     <%for(var row in materias){%>
-    <tr>
-      <td class="col">
-        <%=materias[row].materia%>
-      </td>
-      <!-- <td class="col-4">
-        <%=materias[row].modulo.modulo%>
-      </td> -->
-      <td class="col-1 text-center">
-          <%= materias[row].ativo == '1' ? 'Sim' : 'Não'%>
-      </td>
-      <td class="col-1"><a href="/materias-edit/<%=materias[row].id%>" class="btn btn-outline-danger">Editar</a></td>
+      <%if(materias[row].id > 0){%>
+        <tr>
+          <td class="col">
+            <%=materias[row].materia%>
+          </td>
+          <td class="col-1 text-center">
+              <%= materias[row].ativo == '1' ? 'Sim' : 'Não'%>
+          </td>
+          <td class="col-1"><a href="/materias-edit/<%=materias[row].id%>" class="btn btn-outline-danger">Editar</a>
+        </td>
       <%}%>
+    <%}%>
   </tbody>
 </table>
 
