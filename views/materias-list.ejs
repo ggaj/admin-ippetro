@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-2 col-6 mb-md-3 order-0">
     <div class="py-2 text-center">
-      <a class="btn btn-outline-primary btn-lg btn-block" href="/cadastros"><i class="fas fa-arrow-left"></i></a>
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/admin/cadastros"><i class="fas fa-arrow-left"></i></a>
     </div>
   </div>
   <div class="col-md-8 col-12 mb-md-3 order-md-1 order-3">
@@ -12,7 +12,7 @@
   </div>
   <div class="col-md-2 col-6 mb-md-3 order-2">
     <div class="py-2 text-center">
-      <a class="btn btn-outline-primary btn-lg btn-block" href="/materias"><i class="fas fa-file"></i></a>
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/admin/materias"><i class="fas fa-file"></i></a>
     </div>
   </div>
 </div>
@@ -41,7 +41,7 @@
           <td class="col-1 text-center">
               <%= materias[row].ativo == '1' ? 'Sim' : 'Não'%>
           </td>
-          <td class="col-1"><a href="/materias-edit/<%=materias[row].id%>" class="btn btn-outline-danger">Editar</a>
+          <td class="col-1"><a href="/admin/materias-edit/<%=materias[row].id%>" class="btn btn-outline-danger">Editar</a>
         </td>
       <%}%>
     <%}%>

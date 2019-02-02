@@ -16,17 +16,17 @@ const {
 
 module.exports = (router, passport) => {
 
-    router.get('/', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin', isLoggedIn, isAccessControl, function (req, res) {
         res.render('index', {access: req.user.id_tipo_membro})
     })
 
-    router.get('/cadastros', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/cadastros', isLoggedIn, isAccessControl, function (req, res) {
         res.render('cadastros');
     })
 
     // --------------------------Routes de Cadastros----------------------------- //
 
-    router.get('/modulos-list', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/modulos-list', isLoggedIn, isAccessControl, function (req, res) {
         moduloController
             .getModulos()
             .then(( modulos ) => {
@@ -37,7 +37,7 @@ module.exports = (router, passport) => {
             })
     });
 
-    router.get('/modulos-edit/:id', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/modulos-edit/:id', isLoggedIn, isAccessControl, function (req, res) {
         moduloController
             .getModulo(req.params.id)
             .then(( modulo ) => {
@@ -48,24 +48,30 @@ module.exports = (router, passport) => {
             })
     });
 
-    router.get('/modulos', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/modulos', isLoggedIn, isAccessControl, function (req, res) {
 
         res.render('modulos', {
             message: req.flash('modulos')
         });
     });
 
-    router.post('/modulos', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/modulosgrupoensino', isLoggedIn, isAccessControl, function (req, res) {
+
+        // moduloController
+        //     .
+    });
+
+    router.post('/admin/modulos', isLoggedIn, isAccessControl, (req, res) => {
 
         moduloController
             .gravaModulo(req.body)
             .then((result) => {
                 req.flash('modulos', [result.tipo, result.texto]);
-                res.redirect('/modulos-list')
+                res.redirect('/admin/modulos-list')
             });
     });
 
-    router.get('/materias-list', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/materias-list', isLoggedIn, isAccessControl, function (req, res) {
         materiaController
             .getMateriasModulos()
             .then((materias) => {
@@ -77,7 +83,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/materias-edit/:id', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/materias-edit/:id', isLoggedIn, isAccessControl, function (req, res) {
         materiaController
             .getMateria(req.params.id)
             .then((materia) => {
@@ -95,7 +101,7 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/materias', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/materias', isLoggedIn, isAccessControl, function (req, res) {
         moduloController
             .getModulosAtivos()
             .then(modulos => {
@@ -106,17 +112,17 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.post('/materias', isLoggedIn, isAccessControl, (req, res) => {
+    router.post('/admin/materias', isLoggedIn, isAccessControl, (req, res) => {
 
         materiaController
             .gravaMateria(req.body)
             .then((result) => {
                 req.flash('materias', [result.tipo, result.texto]);
-                res.redirect('/materias-list');
+                res.redirect('/admin/materias-list');
             });
     })
 
-    router.get('/licoes-list', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/licoes-list', isLoggedIn, isAccessControl, function (req, res) {
 
         licaoController
             .getLicoesMaterias()
@@ -128,7 +134,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/licoes-edit/:id', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/licoes-edit/:id', isLoggedIn, isAccessControl, function (req, res) {
 
         licaoController
             .getLicao(req.params.id)
@@ -148,7 +154,7 @@ module.exports = (router, passport) => {
     })
 
 
-    router.get('/licoes', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/licoes', isLoggedIn, isAccessControl, function (req, res) {
 
         materiaController
             .getMaterias()
@@ -160,17 +166,17 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/licoes', isLoggedIn, isAccessControl, (req, res) => {
+    router.post('/admin/licoes', isLoggedIn, isAccessControl, (req, res) => {
 
         licaoController
             .gravaLicao(req.body)
             .then((result) => {
                 req.flash('licoes', [result.tipo, result.texto]);
-                res.redirect('/licoes-list');
+                res.redirect('/admin/licoes-list');
             });
     })
 
-    router.get('/membros-edit/:id', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/membros-edit/:id', isLoggedIn, isAccessControl, (req, res) => {
         
         let id = req.params.id;
 
@@ -193,7 +199,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/membros-list', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/membros-list', isLoggedIn, isAccessControl, (req, res) => {
 
         membroController
             .getAllMembros()
@@ -205,8 +211,8 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/membros', isLoggedIn, isAccessControl, (req, res) => {
-    // router.get('/membros', (req, res) => {
+    router.get('/admin/membros', isLoggedIn, isAccessControl, (req, res) => {
+    // router.get('/admin/membros', (req, res) => {
         
         igrejaController
             .getAllIgrejas()
@@ -218,17 +224,17 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/membros', isLoggedIn, isAccessControl, (req, res) => {
-    // router.post('/membros', (req, res) => {
+    router.post('/admin/membros', isLoggedIn, isAccessControl, (req, res) => {
+    // router.post('/admin/membros', (req, res) => {
         membroController
             .gravaMembro(req.body)
             .then((result) => {
                 req.flash('membros', [result.tipo, result.texto]);
-                res.redirect('/membros-list');
+                res.redirect('/admin/membros-list');
             });
     })
 
-    router.get('/professores', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/professores', isLoggedIn, isAccessControl, (req, res) => {
 
         materiaController
             .getMaterias()
@@ -249,17 +255,17 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/professores', isLoggedIn, isAccessControl, (req, res) => {
+    router.post('/admin/professores', isLoggedIn, isAccessControl, (req, res) => {
 
         professorController
             .gravaProfessor(req.body)
             .then((result) => {
                 req.flash('professores', [result.tipo, result.texto]);
-                res.redirect('/professores');
+                res.redirect('/admin/professores');
             });
     })
 
-    router.get('/saladeaula', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/saladeaula', isLoggedIn, isAccessControl, (req, res) => {
 
         let saladeaula = {}
         let professoresArray = []
@@ -297,16 +303,16 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/saladeaula', isLoggedIn, isAccessControl, (req, res) => {
+    router.post('/admin/saladeaula', isLoggedIn, isAccessControl, (req, res) => {
         saladeaulaController
             .gravaSaladeaula(req.body)
             .then((result) => {
                 req.flash('saladeaula', [result.tipo, result.texto]);
-                res.redirect('/saladeaula');
+                res.redirect('/admin/saladeaula');
             });
     })
 
-    router.get('/matriculas', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/matriculas', isLoggedIn, isAccessControl, (req, res) => {
 
         let matriculas = {};
 
@@ -330,7 +336,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/matriculas/:sala', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/matriculas/:sala', isLoggedIn, isAccessControl, (req, res) => {
 
         let matriculasArray = []
         let tpMembro = ''
@@ -425,24 +431,24 @@ module.exports = (router, passport) => {
         }
     })
 
-    router.post('/matriculas', isLoggedIn, isAccessControl, (req, res) => {
+    router.post('/admin/matriculas', isLoggedIn, isAccessControl, (req, res) => {
         if (req.body.saladeaulaId > 0) {
 
             matriculaController
                 .gravaMatricula(req.body)
                 .then((result) => {
                     req.flash('matriculas', [`alert alert-info alert-dismissible fade show`, `Dados gravados com sucesso!`]);
-                    res.redirect('/matriculas');
+                    res.redirect('/admin/matriculas');
                 });
         } else {
             req.flash('matriculas', [`alert alert-danger alert-dismissible fade show`, `Selecione a sala de aula!s`]);
-            res.redirect('/matriculas');
+            res.redirect('/admin/matriculas');
         }
 
     })
 
-    router.get('/usuarios-list', isLoggedIn, isAccessControl, (req, res) => {
-    // router.get('/usuarios-list', (req, res) => {
+    router.get('/admin/usuarios-list', isLoggedIn, isAccessControl, (req, res) => {
+    // router.get('/admin/usuarios-list', (req, res) => {
         usuarioController
             .getUsuarios()
             .then((usuarios) => {
@@ -453,8 +459,8 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
-    // router.get('/usuarios', (req, res) => {
+    router.get('/admin/usuarios', isLoggedIn, isAccessControl, (req, res) => {
+    // router.get('/admin/usuarios', (req, res) => {
 
         let membros = []
 
@@ -476,7 +482,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/usuarios-edit/:id', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/usuarios-edit/:id', isLoggedIn, isAccessControl, (req, res) => {
 
         usuarioController
             .getUsuario( req.params.id )
@@ -488,50 +494,50 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/usuarios', isLoggedIn, isAccessControl, (req, res) => {
+    router.post('/admin/usuarios', isLoggedIn, isAccessControl, (req, res) => {
         usuarioController
             .gravarUsuario(req.body)
             .then((result) => {
                 req.flash('usuarios', [result.tipo, result.texto]);
-                res.redirect('/usuarios-list');
+                res.redirect('/admin/usuarios-list');
             });
     })
 
-    router.get('/igrejas', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/igrejas', isLoggedIn, isAccessControl, (req, res) => {
         res.render('igreja', {
             message: req.flash('igrejas')
         });
     })
 
-    router.post('/igrejas', isLoggedIn, isAccessControl, (req, res) => {
+    router.post('/admin/igrejas', isLoggedIn, isAccessControl, (req, res) => {
 
         igrejaController
             .gravarIgreja(req.body)
             .then((result) => {
                 req.flash('igrejas', [result.tipo, result.texto]);
-                res.redirect('/igrejas');
+                res.redirect('/admin/igrejas');
             });
     })
 
     // ------------------------ Login Page ------------------------------//
 
-    router.get('/login', (req, res) => {
+    router.get('/admin/login', (req, res) => {
         res.render('login', {
             message: req.flash('loginMessage')
         });
     })
 
-    router.post('/login',
+    router.post('/admin/login',
         passport.authenticate('local-login', {
-            successRedirect: '/',
-            failureRedirect: '/login',
+            successRedirect: '/admin',
+            failureRedirect: '/admin/login',
             failureFlash: true
         })
     );
 
     // ------------------- Escola Dominical Page ---------------------- -//
 
-    router.get('/ebd', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/ebd', isLoggedIn, isAccessControl, function (req, res) {
         saladeaulaController
             .getAllSalasdeaula()
             .then(saladeaula => {
@@ -541,11 +547,11 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.get('/ebd/relatorios', (req, res) => {
+    router.get('/admin/ebd/relatorios', (req, res) => {
         res.render(`ebd-relatorios`)
     })
 
-    router.post('/visitantes', (req, res) => {
+    router.post('/admin/visitantes', (req, res) => {
         visitanteController
             .gravaVisitante(req.body)
             .then((result) => {
@@ -557,7 +563,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/ebd/relatorios/presenca', (req, res) => {
+    router.get('/admin/ebd/relatorios/presenca', (req, res) => {
         let data = new Date();
         ebdrelatorios
             .getPresencaSalasDia(data)
@@ -566,7 +572,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/ebd/relatorios/aniversariantes', (req, res) => {
+    router.get('/admin/ebd/relatorios/aniversariantes', (req, res) => {
         membroController
             .getAniversariantes()
             .then((aniversariantes) => {
@@ -574,7 +580,7 @@ module.exports = (router, passport) => {
         })
     })
 
-    router.get('/ebd/:sala', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/ebd/:sala', isLoggedIn, isAccessControl, function (req, res) {
 
         let sala = req.params.sala;
         let saladeaula = {}
@@ -615,16 +621,16 @@ module.exports = (router, passport) => {
             });
     })
 
-    router.post('/diadeaula', isLoggedIn, isAccessControl, (req, res) => {
+    router.post('/admin/diadeaula', isLoggedIn, isAccessControl, (req, res) => {
         diadeaulaController
             .gravarAlunosPresentes(req.body)
             .then(() => {
                 req.flash('dia', req.body.diadeaula);
-                res.redirect(`/ebd/${req.body.saladeaulaId}`)
+                res.redirect(`/admin/ebd/${req.body.saladeaulaId}`)
             });
     })
 
-    router.get('/diadeaula/:sala/:diadeaula', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/diadeaula/:sala/:diadeaula', isLoggedIn, isAccessControl, (req, res) => {
 
         let sala = req.params.sala;
         let dia = req.params.diadeaula;
@@ -702,11 +708,11 @@ module.exports = (router, passport) => {
     // ------------------------------------------------------------------//
     
     // ------------------- Geracao Futuro Page --------------------------//
-    router.get('/geracao_futuro', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/geracao_futuro', isLoggedIn, isAccessControl, (req, res) => {
         res.render(`geracao_futuro`);
     })    
 
-    router.get('/gf_matriculas', isLoggedIn, isAccessControl, (req, res) => {
+    router.get('/admin/gf_matriculas', isLoggedIn, isAccessControl, (req, res) => {
 
         let membros = []
         membroController
@@ -740,7 +746,7 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.post('/gf_matriculas', isLoggedIn, isAccessControl, (req, res) => {
+    router.post('/admin/gf_matriculas', isLoggedIn, isAccessControl, (req, res) => {
         gf_matriculasController
             .gravaGFMatricula(req.body)
             .then(() => {
@@ -749,7 +755,7 @@ module.exports = (router, passport) => {
     })    
     // ------------------------------------------------------------------//
 
-    router.get('/401', isLoggedIn, (req, res) => {
+    router.get('/admin/401', isLoggedIn, (req, res) => {
         res.render('401')
     });
 }
@@ -770,7 +776,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
 
-    res.redirect('/login');
+    res.redirect('/admin/login');
 }
 
 function isAccessControl(req, res, next) {
@@ -780,5 +786,5 @@ function isAccessControl(req, res, next) {
     if (ac.includes(path))
         return next();
 
-    res.redirect('/401')    
+    res.redirect('/admin/401')    
 }

@@ -7,19 +7,19 @@
   <div class="row">
     <% if (access == 1){%>
       <div class="col-md mb-3">
-        <a class="btn btn-secondary btn-lg btn-block" href="/cadastros">Cadastros</a>
+        <a class="btn btn-secondary btn-lg btn-block" href="/admin/cadastros">Cadastros</a>
       </div>
     <%}%>
     <% if ((access == 1) || (access == 2)){%>
       <div class="col-md mb-3">
-        <a class="btn btn-secondary btn-lg btn-block" href="/ebd">EBD</a>
+        <a class="btn btn-secondary btn-lg btn-block" href="/admin/ebd">EBD</a>
       </div>
     <%}%>
   </div>
   <div class="row">
     <% if ((access == 1) || (access == 3)){%>
       <div class="col-md mb-3">
-        <a class="btn btn-secondary btn-lg btn-block" href="/geracao_futuro">Geração Futuro</a>
+        <a class="btn btn-secondary btn-lg btn-block" href="/admin/geracao_futuro">Geração Futuro</a>
       </div>
     <%}%>
   </div>

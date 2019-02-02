@@ -1,6 +1,9 @@
 const { modulos }           = require('./../model');
 const mensagemTemplate = require('./../../views/template/mensagem.template');
 
+moduloCombobox = async (row) => {
+    return dates;
+}
 class ModuloController{
 
     getModulo(id){
@@ -23,6 +26,15 @@ class ModuloController{
                 }); 
                 return modulosArray;
             });
+    }
+
+    getModulosByGrupoEnsino(tipo){
+        let modulosArray = [];
+        return modulos
+            .findAll({ where : { tipo } })
+            .then(() =>{
+                
+            })
     }
 
     getModulosAtivos(){

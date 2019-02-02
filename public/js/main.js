@@ -4,7 +4,7 @@ $(function () {
         console.log(dados);
         $.ajax({
             type: 'POST',
-            url: '/login',
+            url: '/admin/login',
             data: dados,
             dataType: "json",
             success: ((result) => {
@@ -30,7 +30,7 @@ $(function () {
                     let dados = $('#formModulo').serialize();
                     $.ajax({
                         type: 'POST',
-                        url: '/modulos/gravar',
+                        url: '/admin/modulos/gravar',
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
@@ -57,7 +57,7 @@ $(function () {
                     // console.log(dados);
                     $.ajax({
                         type: 'POST',
-                        url: '/materias/gravar',
+                        url: '/admin/materias/gravar',
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
@@ -84,7 +84,7 @@ $(function () {
                     // console.log(dados);
                     $.ajax({
                         type: 'POST',
-                        url: '/licoes/gravar',
+                        url: '/admin/licoes/gravar',
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
@@ -111,7 +111,7 @@ $(function () {
                     // console.log(dados);
                     $.ajax({
                         type: 'POST',
-                        url: '/membros/gravar',
+                        url: '/admin/membros/gravar',
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
@@ -138,7 +138,7 @@ $(function () {
                     // console.log(dados);
                     $.ajax({
                         type: 'POST',
-                        url: '/professores/gravar',
+                        url: '/admin/professores/gravar',
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
@@ -165,7 +165,7 @@ $(function () {
                     // console.log(dados);
                     $.ajax({
                         type: 'POST',
-                        url: '/saladeaula/gravar',
+                        url: '/admin/saladeaula/gravar',
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
@@ -192,7 +192,7 @@ $(function () {
                     // console.log(dados);
                     $.ajax({
                         type: 'POST',
-                        url: '/matriculas/gravar',
+                        url: '/admin/matriculas/gravar',
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
@@ -222,7 +222,7 @@ $(function () {
                     }
                     $.ajax({
                         type: 'POST',
-                        url: '/visitantes',
+                        url: '/admin/visitantes',
                         data: dados,
                         dataType: "json",
                         success: ((result) => {
@@ -307,12 +307,16 @@ $(function () {
         let sala = $( "#saladeaulaId option:selected" ).val();
         $.ajax({
             type: 'GET',
-            url: `/matriculas/${sala}`,
+            url: `/admin/matriculas/${sala}`,
             success: function (result) {
                 $('#matriculasTable').html(result);
             },
         });
     })
+
+    $("#grupoensino").change(() => {
+        getModulosByGrupoEnsino('Teste');
+    });
 
     $("#pesquisaMembro").on("keyup", function () {
         var value = $(this).val().toLowerCase();
@@ -335,11 +339,29 @@ $(function () {
         });
     });
 
+    function getModulosByGrupoEnsino(tipo) {
+        // let sala = $( "#saladeaulaId option:selected" ).val();
+        $.ajax({
+            type: 'GET',
+            url: `/admin/modulosgrupoensino`,
+            data: dados,
+            dataType: "json",
+            success: ((result) => {
+            // let result = `<option value="">Escolha uma opção...</option>`
+                $('#moduloId').html(result);
+            }),
+            error: ((e) => {
+                console.log(`Error -> ${JSON.stringify(e)}`)
+            })
+            
+        });
+    }
+
     function getDiaDeAula(date) {
         let saladeaulaId = $("#saladeaulaId").text();
         $.ajax({
             type: 'GET',
-            url: `/diadeaula/${saladeaulaId}/${date}`,
+            url: `/admin/diadeaula/${saladeaulaId}/${date}`,
             success: function (result) {
                 $('#presentesdodia').html(result);
             },
