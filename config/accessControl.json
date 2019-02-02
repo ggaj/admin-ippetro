@@ -1,6 +1,6 @@
 {
     "1" : [
-        "/admin","/cadastros",
+        "/","/cadastros",
         "/modulos","/modulos-list","/modulos-edit/:id",
         "/materias","/materias-list","/materias-edit/:id",
         "/licoes","/licoes-list", "/licoes-edit/:id",
@@ -14,11 +14,11 @@
         "/geracao_futuro", "/gf_matriculas"
     ],
     "2" : [
-        "",
+        "/",
         "/ebd","/ebd/:sala", "/diadeaula/:sala/:diadeaula","/diadeaula"
     ],
     "3" : [
-        "",
+        "/",
         "/geracao_futuro"
     ]
 }
