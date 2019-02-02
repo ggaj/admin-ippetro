@@ -1,24 +1,24 @@
 {
     "1" : [
-        "/admin","/admin/cadastros",
-        "/admin/modulos","/admin/modulos-list","/admin/modulos-edit/:id",
-        "/admin/materias","/admin/materias-list","/admin/materias-edit/:id",
-        "/admin/licoes","/admin/licoes-list", "/admin/licoes-edit/:id",
-        "/admin/membros","/admin/membros-list", "/admin/membros-edit/:id",
-        "/admin/professores","/admin/professores-list", "/admin/professores-edit/:id",
-        "/admin/saladeaula","/admin/saladeaula-list", "/admin/saladeaula-edit/:id",
-        "/admin/matriculas","/admin/matriculas-list", "/admin/matriculas-edit/:id", "/admin/matriculas/:sala",
-        "/admin/usuarios","/admin/usuarios-list", "/admin/usuarios-edit/:id",
-        "/admin/igrejas","/admin/igrejas-list", "/admin/igrejas-edit/:id",
-        "/admin/ebd","/admin/ebd/:sala", "/admin/diadeaula/:sala/:diadeaula", "/admin/diadeaula", 
-        "/admin/geracao_futuro", "/admin/gf_matriculas"
+        "/admin","/cadastros",
+        "/modulos","/modulos-list","/modulos-edit/:id",
+        "/materias","/materias-list","/materias-edit/:id",
+        "/licoes","/licoes-list", "/licoes-edit/:id",
+        "/membros","/membros-list", "/membros-edit/:id",
+        "/professores","/professores-list", "/professores-edit/:id",
+        "/saladeaula","/saladeaula-list", "/saladeaula-edit/:id",
+        "/matriculas","/matriculas-list", "/matriculas-edit/:id", "/matriculas/:sala",
+        "/usuarios","/usuarios-list", "/usuarios-edit/:id",
+        "/igrejas","/igrejas-list", "/igrejas-edit/:id",
+        "/ebd","/ebd/:sala", "/diadeaula/:sala/:diadeaula", "/diadeaula", 
+        "/geracao_futuro", "/gf_matriculas"
     ],
     "2" : [
-        "/admin",
-        "/admin/ebd","/admin/ebd/:sala", "/admin/diadeaula/:sala/:diadeaula","/admin/diadeaula"
+        "",
+        "/ebd","/ebd/:sala", "/diadeaula/:sala/:diadeaula","/diadeaula"
     ],
     "3" : [
-        "/admin",
-        "/admin/geracao_futuro"
+        "",
+        "/geracao_futuro"
     ]
 }

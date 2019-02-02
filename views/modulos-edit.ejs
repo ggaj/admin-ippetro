@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-2 mb-3">
     <div class="py-2 text-center">
-      <a class="btn btn-outline-primary btn-lg btn-block" href="/admin/modulos-list"><i class="fas fa-arrow-left"></i></a>
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/modulos-list"><i class="fas fa-arrow-left"></i></a>
     </div>
   </div>
   <div class="col-md-8 mb-3">
@@ -20,7 +20,7 @@
       <%= message[1] %>
   </div>
 <% } %>
-<form class="needs-validation" novalidate id="formModulo" method="POST" action="/admin/modulos">
+<form class="needs-validation" novalidate id="formModulo" method="POST" action="/modulos">
   <div class="row">
     <input type="text" class="form-control" name="id" id="id" value="<%=modulo.id%>" required hidden>
     <div class="col-md-8 col-12 mb-3">

@@ -2,7 +2,7 @@
 <div class="row">
   <div class="col-md-2 mb-md-3">
     <div class="py-2 text-center">
-      <a class="btn btn-outline-primary btn-lg btn-block" href="/admin/materias-list"><i class="fas fa-arrow-left"></i></a>
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/materias-list"><i class="fas fa-arrow-left"></i></a>
     </div>
   </div>
   <div class="col-md-8 mb-md-3">
@@ -13,7 +13,7 @@
   </div>
 </div>
 <% include ./share/msg.ejs %>
-<form class="needs-validation" novalidate id="formMateria" method="POST" action="/admin/materias">
+<form class="needs-validation" novalidate id="formMateria" method="POST" action="/materias">
   <div class="row">
     <input type="text" class="form-control" name="id" id="id" placeholder="" value="<%=materia.id%>" required hidden>
     <div class="col-md-4 mb-3">
