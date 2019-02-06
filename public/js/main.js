@@ -285,7 +285,7 @@ $(function () {
 
     if ($('#diadeaula_relatorio').length) {
 
-        let date = getDomingo();
+        let date = previusDomingo();
 
         if (($('#diadeaula_relatorio').val() != date) && ($('#diadeaula_relatorio').val())) {
             date = $('#diadeaula_relatorio').val();
@@ -301,6 +301,14 @@ $(function () {
 
     $("#diadeaula").change(function () {
         getDiaDeAula($("#diadeaula").val());
+    });
+
+    $("#btn_diadeaula_relatorio").click( () => {
+        getDiaDePresenca($("#diadeaula_relatorio").val());
+    });
+
+    $("#diadeaula_relatorio").change( () => {
+        getDiaDePresenca($("#diadeaula_relatorio").val());
     });
 
     $("#saladeaulaId").change(function () {
@@ -369,14 +377,17 @@ $(function () {
     }
 
     function getDiaDePresenca(date) {
-        // let saladeaulaId = $("#saladeaulaId").text();
-        // $.ajax({
-        //     type: 'GET',
-        //     url: `/diadeaula/${saladeaulaId}/${date}`,
-        //     success: function (result) {
-        //         $('#presentesdodia').html(result);
-        //     },
-        // });
+        $.ajax({
+            type: 'GET',
+            url: `/ebd/relatorios/presenca/${date}`,
+            dataType: "json",
+            success: ((result) => {
+                $('#relatorio_presenca').html(result);
+            }),
+            error: ((e) => {
+                console.log(`Error -> ${JSON.stringify(e)}`)
+            })
+        });
     }
 
     function getDomingo() {
@@ -384,6 +395,14 @@ $(function () {
         let dayOfWeek = dt.getDay();
         let lastday = dayOfWeek == 0 ? dt.getDate() : dt.getDate() - (dt.getDay() - 1) + 6;
         return toDate(new Date(dt.setDate(lastday)));
+    }
+
+    function previusDomingo() {
+        let now = new Date();
+        let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        let dayOfWeek = now.getDay();
+        let lastday = dayOfWeek == 0 ? now.getDate() : today.getDate() - today.getDay();
+        return toDate(new Date(now.setDate(lastday)));
     }
 
     function toDate(date) {
@@ -439,8 +458,62 @@ $(function () {
         }, 1500);
     }
 
-
     // function handleRequest(){
     //     console.log(request.responseText);
     // }
 });
+
+function sortTable(n, tableId) {
+    var table, rows, switching, i, x, y, shouldSwitch, dir, switchcount = 0;
+    table = document.getElementById(tableId);
+    switching = true;
+    // Set the sorting direction to ascending:
+    dir = "asc"; 
+    /* Make a loop that will continue until
+    no switching has been done: */
+    while (switching) {
+      // Start by saying: no switching is done:
+      switching = false;
+      rows = table.rows;
+      /* Loop through all table rows (except the
+      first, which contains table headers): */
+      for (i = 1; i < (rows.length - 1); i++) {
+        // Start by saying there should be no switching:
+        shouldSwitch = false;
+        /* Get the two elements you want to compare,
+        one from current row and one from the next: */
+        x = rows[i].getElementsByTagName("TD")[n];
+        y = rows[i + 1].getElementsByTagName("TD")[n];
+        /* Check if the two rows should switch place,
+        based on the direction, asc or desc: */
+        if (dir == "asc") {
+          if (x.innerHTML.toLowerCase() > y.innerHTML.toLowerCase()) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        } else if (dir == "desc") {
+          if (x.innerHTML.toLowerCase() < y.innerHTML.toLowerCase()) {
+            // If so, mark as a switch and break the loop:
+            shouldSwitch = true;
+            break;
+          }
+        }
+      }
+      if (shouldSwitch) {
+        /* If a switch has been marked, make the switch
+        and mark that a switch has been done: */
+        rows[i].parentNode.insertBefore(rows[i + 1], rows[i]);
+        switching = true;
+        // Each time a switch is done, increase this count by 1:
+        switchcount ++; 
+      } else {
+        /* If no switching has been done AND the direction is "asc",
+        set the direction to "desc" and run the while loop again. */
+        if (switchcount == 0 && dir == "asc") {
+          dir = "desc";
+          switching = true;
+        }
+      }
+    }
+  }

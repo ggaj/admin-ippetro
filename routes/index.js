@@ -410,7 +410,7 @@ module.exports = (router, passport) => {
                                         </td>
                                         <td class="align-middle">
                                             <label class="switch">
-                                            <input type="checkbox" name="${matriculas.id}" data-user="${matriculas.id}" id="${matriculas.id}" ${matriculas.matriculado}>
+                                            <input type="checkbox" name="${matriculas.id}" ${matriculas.matriculado} value="${matriculas.value}">
                                             <span class="slider round"></span>
                                             </label>
                                         </td>
@@ -564,11 +564,33 @@ module.exports = (router, passport) => {
     })
 
     router.get('/ebd/relatorios/presenca', (req, res) => {
-        let data = new Date();
+        res.render(`ebd-presenca`, { dia: req.flash('dia')});
+    })
+
+    router.get('/ebd/relatorios/presenca/:diadeaula', (req, res) => {
+        let dia = req.params.diadeaula;
+        let content = [];
         ebdrelatorios
-            .getPresencaSalasDia(data)
+            .getPresencaSalasDia(dia)
             .then((relatorio_presenca) => {
-                res.render(`ebd-presenca`, { relatorio_presenca, dia: req.flash('dia') });
+                if (relatorio_presenca.length > 0) {
+                    relatorio_presenca.forEach(rel_presenca => {
+                        let template = `<tr>
+                            <td>${rel_presenca.sala}</td>
+                            <td class="text-center">${rel_presenca.pre}</td>
+                            <td class="text-center">${rel_presenca.aus}</td>
+                            <td class="text-center">${rel_presenca.vis}</td>
+                            <td class="text-center">${rel_presenca.tot}</td>
+                        </tr>`
+                        content.push(template);
+                    });
+                }else{
+                    let template = `<tr>
+                        <td colspan="3" class="align-middle text-center text-muted pb-0 mb-0">Não há registro de presença.</td>
+                    </tr>`
+                    content.push(template);
+                }
+                res.send(content);  
             })
     })
 
@@ -666,8 +688,10 @@ module.exports = (router, passport) => {
 
                         if (alunosPresentes.some((presente) => { return presente.id_membro == aluno.id})){
                             diadeaulaRow.presente = 'checked';
+                            diadeaulaRow.value    = '1';
                         } else {
                             diadeaulaRow.presente = 'unchecked';
+                            diadeaulaRow.value    = '0';
                         }
                         
                         diadeaulaArray.push(diadeaulaRow);
@@ -688,7 +712,7 @@ module.exports = (router, passport) => {
                             </td>
                             <td class="align-middle">
                                 <label class="switch">
-                                    <input type="checkbox" name="${diadeaula.id}" id="${diadeaula.id}" ${diadeaula.presente}>
+                                    <input type="checkbox" name="${diadeaula.id}" ${diadeaula.presente} ${diadeaula.value}>
                                     <span class="slider round"></span>
                                 </label>
                             </td>

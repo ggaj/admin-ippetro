@@ -17,47 +17,22 @@
         <div class="input-group">
             <input type="date" class="form-control" id="diadeaula_relatorio" value="<%=dia%>" name="diadeaula" required>
             <div class="input-group-append">
-                <button class="btn btn-primary" type="button" id="btnDataAula">Pesquisar</button>
+                <button class="btn btn-primary" type="button" id="btn_diadeaula_relatorio">Pesquisar</button>
             </div>
         </div>
     </div>
   </div>
-<table class="table">
+<table class="table table-hover">
     <thead>
       <tr>
         <th scope="col">Sala</th>
-        <!-- <th scope="col">Matriculados</th> -->
         <th scope="col" class="text-center">Pre.</th>
         <th scope="col" class="text-center">Aus.</th>
         <th scope="col" class="text-center">Vis.</th>
         <th scope="col" class="text-center">Tot.</th>
       </tr>
     </thead>
-    <tbody>
-      <%if(relatorio_presenca.length > 0){%>
-        <%for(var row in relatorio_presenca){%>
-          <%if(relatorio_presenca[row].sala != ''){%>
-            <tr>
-              <td><%=relatorio_presenca[row].sala%></td>
-              <td class="text-center"><%=relatorio_presenca[row].pre%></td>
-              <td class="text-center"><%=relatorio_presenca[row].aus%></td>
-              <td class="text-center"><%=relatorio_presenca[row].vis%></td>
-              <td class="text-center"><%=relatorio_presenca[row].tot%></td>
-            </tr>
-          <%}%>
-        <%}%>
-        <%}else{%>
-          <tr>
-            <td>Nenhum dado encontrado</td>
-          </tr>
-        <%}%>
-      <!-- <tr>
-        <td>Jesis em tua presença</td>
-        <td>000</td>
-        <td>000</td>
-        <td>000</td>
-        <td>000</td>
-      </tr> -->
+    <tbody id="relatorio_presenca">
     </tbody>
   </table>
   <% include ./share/footer.ejs %>
