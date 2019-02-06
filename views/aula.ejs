@@ -25,13 +25,18 @@
 
 <form class="needs-validation" novalidate method="post" action="/diadeaula">
   <div class="row">
-    <div class="col-md-12 mb-3">
+    <div class="col-md-6 mb-3">
       <div class="input-group">
+        <!-- <label for="diadeaula">.</label> -->
         <input type="date" class="form-control" id="diadeaula" value="<%=dia%>" name="diadeaula" required>
         <div class="input-group-append">
           <button class="btn btn-primary" type="button" id="btnDataAula">Data da Aula</button>
         </div>
       </div>
+    </div>
+    <div class="col-md-6 mb-3">
+      <!-- <label for="saladeaulaebd">Nome para pesquisa:</label> -->
+      <input type="text" class="form-control" name="saladeaulaebd" id="saladeaulaebd" placeholder="Informe o nome para a pesquisa...">        
     </div>
   </div>
 

@@ -347,8 +347,14 @@ $(function () {
         });
     });
 
+    $("#saladeaulaebd").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#presentesdodia tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+
     function getModulosByGrupoEnsino(tipo) {
-        // let sala = $( "#saladeaulaId option:selected" ).val();
         $.ajax({
             type: 'GET',
             url: `/modulosgrupoensino`,
