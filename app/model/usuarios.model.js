@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
 
   usuarios.beforeSave(async (usuario, options) => {
     
-    if (usuario.changed('password')) {
+    // if (usuario.changed('password')) {
 
       let salt, hash
 
@@ -30,7 +30,20 @@ module.exports = (sequelize, DataTypes) => {
       hash = await bcrypt.hash(usuario.password, salt);
 
       usuario.password = hash;
-    }
+    // }
+  });
+
+  usuarios.beforeBulkUpdate(async (options) => {
+      console.log(options.attributes.password);
+    // if (usuario.changed('password')) {
+
+      let salt, hash
+
+      salt = await bcrypt.genSalt(10);
+      hash = await bcrypt.hash(options.attributes.password, salt);
+
+      options.attributes.password = hash;
+    // }
   });
 
   usuarios.prototype.comparePassword = function (pw) {
