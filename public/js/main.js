@@ -1,6 +1,6 @@
 $(function () {
 
-    $('#exampleModal').modal('toggle')
+    // $('#exampleModal').modal('toggle')
 
     $("#btnLogin").click(function () {
         let dados = $('#formLogin').serialize();
