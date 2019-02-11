@@ -1,0 +1,123 @@
+<% include ./share/header.ejs %>
+
+<!-- Button trigger modal -->
+<!-- <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal12">
+	Launch demo modal
+</button> -->
+  
+<!-- Modal -->
+<!-- <div class="modal fade" id="exampleModal12" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	<div class="modal-dialog" role="document">
+	  <div class="modal-content">
+		<div class="modal-header">
+		  <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+		  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+		  </button>
+		</div>
+		<div class="modal-body">
+		  ...
+		</div>
+		<div class="modal-footer">
+		  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+		  <button type="button" class="btn btn-primary">Save changes</button>
+		</div>
+	  </div>
+	</div>
+</div> -->
+
+<div class="row">
+	<div class="col-md-2 col-6 mb-md-3 order-0">
+		<div class="py-2 text-center">
+			<a class="btn btn-outline-primary btn-lg btn-block" href="/"><i class="fas fa-arrow-left"></i></a>
+		</div>
+	</div>
+	<div class="col-md-8 col-12 mb-md-3 order-md-1 order-3">
+		<div class="py-2 text-center">
+			<h2>Agenda</h2>
+		</div>
+	</div>
+	<div class="col-md-2 col-6 mb-md-3 order-2">
+		<div class="py-2 text-center">
+			<a class="btn btn-outline-primary btn-lg btn-block" data-toggle="modal" data-target="#modalAgenda" href="javascript:void(0)"><i class="fas fa-file"></i></a>
+		</div>
+	</div>
+</div>
+<!-- 
+<table class="table table-hover" style="margin-top: 20px;">
+	<thead>
+		<tr>
+			<th scope="col" width="12%">Data</th>
+			<th scope="col" width="33%">Título</th>
+			<th scope="col" width="45%">Mensagem</th>
+			<th scope="col" width="5%"></th>
+		</tr>
+	</thead>
+	<tbody>
+		<%for(var row in agenda){%>
+		<tr>
+			<td>
+				<%=new Date(agenda[row].data_agenda).toISOString().substr(0, 10).split('-').reverse().join('.') %>
+			</td>
+			<td>
+				<%=agenda[row].titulo%>
+			</td>
+			<td>
+				<%=agenda[row].mensagem%>
+			</td>
+			<td>
+				<a href="-ipp/agenda/<%=agenda[row]._id%>/delete" onclick="return confirm('Deseja realmente excluir este registro?')"
+				 class="btn btn-danger btn-xs">
+					<i class="fa fa-trash"></i> Excluir</a>
+			</td>
+		</tr>
+		<%}%>
+	</tbody>
+</table>-->
+
+<div class="col-md-9 ml-sm-auto">
+	<div class="row">
+		<div class="modal fade" id="modalAgenda" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+		 aria-hidden="true">
+			<div class="modal-dialog modal-lg" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title" id="exampleModalLongTitle">Agenda</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+							<span aria-hidden="true">&times;</span>
+						</button>
+					</div>
+					<div class="modal-body">
+						<form method="post" action="-ipp/agenda/save">
+							<div class="row">
+								<div class="col-md-4">
+									<label for="data">Data</label>
+									<input type="date" class="form-control" id="data" name="data">
+								</div>
+								<div class="col-md-8">
+									<label for="titulo">Título</label>
+									<input type="text" class="form-control" id="titulo" name="titulo" maxlength="100">
+								</div>
+							</div>
+
+							<div class="row">
+								<div class="col-md-12">
+									<label for="mensagem">Mensagem</label>
+									<textarea class="form-control" id="mensagem" name="mensagem" rows="3" maxlength="200"></textarea>
+								</div>
+							</div>
+
+							<div class="row" style="padding-top: 10px;">
+								<div class="modal-footer col-md-12">
+									<button type="submit" class="btn btn-primary btn-block">Salvar</button>
+									<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<% include ./share/footer.ejs %>

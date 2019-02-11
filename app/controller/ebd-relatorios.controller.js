@@ -16,7 +16,7 @@ class EBDRelatorios{
             { replacements: { diadeaula }, type: model.sequelize.QueryTypes.SELECT }
         )
 
-        let visitantes = await model.sequelize.query('SELECT saladeaula.id, saladeaula, visitantes.quantidade as qtd FROM saladeaula left join visitantes on visitantes.id = saladeaula.id WHERE data = :diadeaula group by saladeaula.id, saladeaula',
+        let visitantes = await model.sequelize.query('SELECT saladeaula.id, saladeaula, visitantes.quantidade as qtd FROM saladeaula left join visitantes on visitantes.diadeaulaSaladeaulaId = saladeaula.id WHERE data = :diadeaula group by saladeaula.id, saladeaula',
             { replacements: { diadeaula }, type: model.sequelize.QueryTypes.SELECT }
         )
         

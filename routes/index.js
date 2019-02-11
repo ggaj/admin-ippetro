@@ -778,6 +778,12 @@ module.exports = (router, passport) => {
             })
     })    
     // ------------------------------------------------------------------//
+    
+    router.get('/agenda', isLoggedIn, isAccessControl, (req, res) => {
+        res.render('agenda', {
+            agenda: ""
+        });
+    })
 
     router.get('/401', isLoggedIn, (req, res) => {
         res.render('401')
