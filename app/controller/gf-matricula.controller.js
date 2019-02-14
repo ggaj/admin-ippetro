@@ -1,4 +1,5 @@
 const { gf_matriculas } = require('../model');
+const { membros } = require('../model');
 const mensagemTemplate = require('../../views/template/mensagem.template');
 
 class MatriculasController{
@@ -15,6 +16,28 @@ class MatriculasController{
                 return matriculasArray;
             });
     }
+
+    getGFMembrosMatriculados(){
+
+        let matriculasArray = [], membrosArray = [];
+        return gf_matriculas
+            .findAll()
+            .then( result => {
+                result.forEach(matricula => {
+                    membrosArray.push(matricula.dataValues.membroId)
+                }); 
+            })
+            .then(() => {
+                return membros
+                    .findAll({ where: { id: { in: membrosArray }}})
+                    .then((membros) => {
+                        membros.forEach( membro => {
+                            matriculasArray.push( membro.dataValues );
+                        });
+                        return matriculasArray;
+                    })
+            });
+        }
 
     removeGFMatriculas(){
         return gf_matriculas.destroy({ truncate: true });

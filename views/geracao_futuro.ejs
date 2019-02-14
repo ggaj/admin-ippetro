@@ -20,12 +20,24 @@
 </div>
 <form class="needs-validation" novalidate method="post" action="/diadeaula">
   <div class="row">
-    <div class="col-md-12 mb-3">
-      <div class="input-group">
-        <input type="date" class="form-control" id="diadeaula"  name="diadeaula" required>
-        <div class="input-group-append">
-          <button class="btn btn-primary" type="button" id="btnDataAula">Data da Aula</button>
-        </div>
+    <div class="col-md-3 mb-3">
+        <label for="gf_diadeaula">Data da aula</label>
+        <input type="date" class="form-control" id="gf_diadeaula"  name="gf_diadeaula" required readonly>
+    </div>
+    <div class="col mb-3">
+      <label for="licaoId">Lição:</label>
+      <select class="custom-select d-block w-100" name="licaoId" id="licaoId" required>
+          <option value="">Escolha uma opção...</option>
+          <%for(var row in licoes){%>
+            <%if(licoes[row].id > 0){%>
+              <option value="<%=licoes[row].id%>">
+                <%=licoes[row].licao%>
+              </option>
+            <%}%>    
+          <%}%>
+      </select>
+      <div class="invalid-feedback">
+        Escolha o módulo.
       </div>
     </div>
   </div>
@@ -44,7 +56,7 @@
           </tr>
         </thead>
 
-        <tbody id="presentesdodia">
+        <tbody id="gf_presentesdodia">
         </tbody>
       </table>
     </div>

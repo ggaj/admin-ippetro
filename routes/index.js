@@ -55,10 +55,24 @@ module.exports = (router, passport) => {
         });
     });
 
-    router.get('/modulosgrupoensino', isLoggedIn, isAccessControl, function (req, res) {
+    router.post('/modulosgrupoensino', isLoggedIn, isAccessControl, function (req, res) {
 
-        // moduloController
-        //     .
+        let modulos = []
+
+        moduloController
+            .getModulosByGrupoEnsino(req.body.tipo)
+            .then((result) => { 
+                if (result.length > 0) {
+                    modulos.push(`<option value="">Escolha uma opção...</option>`);
+                    result.forEach(modulo => {
+                        modulos.push(`<option value="${modulo.id}">${modulo.modulo}</option>`);
+                    })    
+                }else{
+                    modulos.push(`<option value="">Nenhum módulo cadastrado</option>`);
+                }
+                res.send(modulos);
+            });
+        
     });
 
     router.post('/modulos', isLoggedIn, isAccessControl, (req, res) => {
@@ -87,17 +101,12 @@ module.exports = (router, passport) => {
         materiaController
             .getMateria(req.params.id)
             .then((materia) => {
-
-                moduloController
-                    .getModulosAtivos()
-                    .then((modulos) => {
-                        res.render('materias-edit', {
-                            modulos,
-                            materia,
-                            message: req.flash('materias')
-                        })
-                    })
-
+                res.render('materias-edit', {
+                    grupoensino: materia.modulo.grupoensino,
+                    modulo: materia.modulo,
+                    materia,
+                    message: req.flash('materias')
+                })
             });
     })
 
@@ -733,8 +742,58 @@ module.exports = (router, passport) => {
     
     // ------------------- Geracao Futuro Page --------------------------//
     router.get('/geracao_futuro', isLoggedIn, isAccessControl, (req, res) => {
-        res.render(`geracao_futuro`);
+        licaoController
+            .getLicoesByGrupoensino('GFU')
+            .then(( licoes ) => {
+                console.log(licoes);
+                res.render(`geracao_futuro`, { licoes });
+            });    
     })    
+
+    router.post('/geracao_futuro/diadeaula', isLoggedIn, isAccessControl, (req, res) => {
+
+        let content = [];
+        gf_matriculasController
+            .getGFMembrosMatriculados()
+            .then(( matriculados ) => {
+                if (matriculados.length > 0) {
+                    matriculados.forEach(membrosMatriculados => {
+
+                        let tipomembro = '';
+                        
+                        if ( membrosMatriculados.tipodemembro == 1 ){
+                            tipomembro = 'Comungante';
+                        } else if ( membrosMatriculados.tipodemembro == 2 ){
+                            tipomembro = 'Não Comungante';
+                        } else {
+                            tipomembro = 'Congregado';
+                        }
+
+                    let template = `<tr>
+                        <td class="align-middle">
+                            ${membrosMatriculados.nome}
+                        </td>
+                        <td class="align-middle">
+                            ${tipomembro}
+                        </td>
+                        <td class="align-middle">
+                            <label class="switch">
+                                <input type="checkbox" name="${membrosMatriculados.id}">
+                                <span class="slider round"></span>
+                            </label>
+                        </td>
+                    </tr>`
+                        content.push(template);
+                    });    
+                }else{
+                    let template = `<tr>
+                        <td colspan="3" class="align-middle text-center text-muted pb-0 mb-0">Não há alunos matriculados.</td>
+                    </tr>`
+                    content.push(template);
+                }
+                res.send(content);    
+            })
+    })
 
     router.get('/gf_matriculas', isLoggedIn, isAccessControl, (req, res) => {
 

@@ -14,8 +14,6 @@ class ModuloController{
             }); 
     }
 
-    
-
     getModulos(){
         let modulosArray = [];
         return modulos
@@ -28,12 +26,15 @@ class ModuloController{
             });
     }
 
-    getModulosByGrupoEnsino(tipo){
+    getModulosByGrupoEnsino(grupoensino){
         let modulosArray = [];
         return modulos
-            .findAll({ where : { tipo } })
-            .then(() =>{
-                
+            .findAll({ where: { grupoensino: grupoensino, ativo: 1 }})
+            .then((modulos) =>{
+                modulos.forEach(modulo => {
+                    modulosArray.push(modulo.dataValues)
+                });
+                return modulosArray;
             })
     }
 

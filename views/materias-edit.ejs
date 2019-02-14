@@ -16,21 +16,29 @@
 <form class="needs-validation" novalidate id="formMateria" method="POST" action="/materias">
   <div class="row">
     <input type="text" class="form-control" name="id" id="id" placeholder="" value="<%=materia.id%>" required hidden>
-    <div class="col-md-4 mb-3">
-      <label for="moduloId">Módulo:</label>
-      <select class="custom-select d-block w-100" name="moduloId" id="moduloId" required>
-        <option value="">Escolha uma opção...</option>
-        <%for(var row in modulos){%>
-        <option value="<%=modulos[row].id%>" <%= materia.moduloId == modulos[row].id ? 'selected' : '' %>>
-          <%=modulos[row].modulo%>
-        </option>
-        <%}%>
+    <div class="col-md-3 mb-3">
+      <label for="grupoensino">Grupo de Ensino:</label>
+      <select class="custom-select d-block w-100" name="grupoensino" id="grupoensino" required>
+          <option value="">Escolha uma opção...</option>
+          <option value="EBD" <%= grupoensino == 'EBD' ? 'selected' : ''%>>Escola Dominical</option>
+          <option value="GFU" <%= grupoensino == 'GFU' ? 'selected' : ''%>>Geração Futuro</option>
       </select>
       <div class="invalid-feedback">
         Escolha o módulo.
       </div>
     </div>
-    <div class="col-md-7 col-9 mb-3">
+    <div class="col-md-3 mb-3">
+      <label for="moduloId">Módulo:</label>
+      <select class="custom-select d-block w-100" name="moduloId" id="moduloId" required>
+        <option value="<%=modulo.id%>" <%= materia.moduloId == modulo.id ? 'selected' : '' %>>
+          <%=modulo.modulo%>
+        </option>
+      </select>
+      <div class="invalid-feedback">
+        Escolha o módulo.
+      </div>
+    </div>
+    <div class="col-md-5 col-9 mb-3">
       <label for="materia">Matéria:</label>
       <input type="text" class="form-control" name="materia" id="materia" placeholder="" value="<%=materia.materia%>" required>
       <div class="invalid-feedback">

@@ -11,7 +11,7 @@
         "/usuarios","/usuarios-list", "/usuarios-edit/:id",
         "/igrejas","/igrejas-list", "/igrejas-edit/:id",
         "/ebd","/ebd/:sala", "/diadeaula/:sala/:diadeaula", "/diadeaula", 
-        "/geracao_futuro", "/gf_matriculas",
+        "/geracao_futuro", "/gf_matriculas", "/modulosgrupoensino", "/geracao_futuro/diadeaula",
 
         "/agenda"
     ],

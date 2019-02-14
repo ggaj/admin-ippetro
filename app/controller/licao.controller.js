@@ -1,4 +1,5 @@
 const { licoes } = require('../model');
+const { modulos } = require('../model');
 const { materias } = require('../model');
 const mensagemTemplate = require('./../../views/template/mensagem.template');
 
@@ -38,6 +39,31 @@ class LicoesController{
                 }); 
                 return licoesArray;
             });
+    }
+
+    getLicoesByGrupoensino(grupoensino){
+        let licoesArray = [];
+
+        let moduloId = [];
+        return modulos
+            .findAll( {where:{ grupoensino }} )
+            .then((modulos) => {
+                modulos.forEach( modulo => {
+                    moduloId.push(modulo.dataValues.id);
+                });
+            })
+            .then(() => {
+                return licoes
+                    .findAll({ include: [{ model:  materias, where:{ moduloId : { in : moduloId }} }]})
+                    .then((licoes) => {
+                        licoes.forEach( licao => {
+                            licoesArray.push({ id:licao.dataValues.id, licao: licao.dataValues.licao});
+                        });
+                    })
+                    .then(() => {
+                        return licoesArray;
+                    })
+            })
     }
 
     async gravaLicao(licao){

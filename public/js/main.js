@@ -274,6 +274,17 @@ $(function () {
         });
     }
 
+    if ($('#gf_diadeaula').length) {
+
+        let date = getDomingo();
+
+        if (($('#gf_diadeaula').val() != date) && ($('#gf_diadeaula').val())) {
+            date = $('#gf_diadeaula').val();
+        } else {
+            $('#gf_diadeaula').val(date);
+        }
+    }
+
     if ($('#diadeaula').length) {
 
         let date = getDomingo();
@@ -306,6 +317,12 @@ $(function () {
         getDiaDeAula($("#diadeaula").val());
     });
 
+    $("#licaoId").change(function () {
+        let date = $('#gf_diadeaula').val();
+        let licaoId = $("#licaoId").val();
+        getGFDiaDeAula(licaoId, date);
+    });
+
     $("#btn_diadeaula_relatorio").click( () => {
         getDiaDePresenca($("#diadeaula_relatorio").val());
     });
@@ -326,7 +343,7 @@ $(function () {
     })
 
     $("#grupoensino").change(() => {
-        getModulosByGrupoEnsino('Teste');
+        getModulosByGrupoEnsino($('#grupoensino').val());
     });
 
     $("#pesquisaMembro").on("keyup", function () {
@@ -356,13 +373,14 @@ $(function () {
             $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
         });
     });
-
+    
     function getModulosByGrupoEnsino(tipo) {
+        var dados = { tipo }
         $.ajax({
-            type: 'GET',
+            type: 'POST',
             url: `/modulosgrupoensino`,
             data: dados,
-            dataType: "json",
+            // dataType: "json",
             success: ((result) => {
             // let result = `<option value="">Escolha uma opção...</option>`
                 $('#moduloId').html(result);
@@ -382,6 +400,25 @@ $(function () {
             success: function (result) {
                 $('#presentesdodia').html(result);
             },
+        });
+    }
+
+    function getGFDiaDeAula(licaoId,date){
+        // let licaoId = $("#saladeaulaId").text();
+        let dados = {
+            licaoId,
+            date
+        }
+        $.ajax({
+            type: 'POST',
+            url: '/geracao_futuro/diadeaula',
+            data: dados,
+            success: ((result) => {
+                $('#gf_presentesdodia').html(result);
+            }),
+            error: ((e) => {
+                console.log(`Error -> ${JSON.stringify(e)}`)
+            })
         });
     }
 
