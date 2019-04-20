@@ -20,11 +20,11 @@ const {
 
 module.exports = (router, passport) => {
 
-    router.get('/', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin', isLoggedIn, isAccessControl, function (req, res) {
         res.render('index', {access: req.user.id_tipo_membro})
     })
 
-    router.get('/cadastros', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/cadastros', isLoggedIn, isAccessControl, function (req, res) {
         res.render('cadastros');
     })
 
@@ -534,16 +534,16 @@ module.exports = (router, passport) => {
 
     // ------------------------ Login Page ------------------------------//
 
-    router.get('/login', (req, res) => {
+    router.get('/admin/login', (req, res) => {
         res.render('login', {
             message: req.flash('loginMessage')
         });
     })
 
-    router.post('/login',
+    router.post('/admin/login',
         passport.authenticate('local-login', {
-            successRedirect: '/',
-            failureRedirect: '/login',
+            successRedirect: '/admin',
+            failureRedirect: '/admin/login',
             failureFlash: true
         })
     );
@@ -884,59 +884,42 @@ module.exports = (router, passport) => {
             })
     })
 
-    router.get('/pequenosgrupos-membros/:id', (req, res) => {
+    router.get('/pequenosgrupos-membros/:id', async (req, res) => {
         
         let content = [];
-        pequenosGruposMembrosController
-            .getMembrosByPequenosGrupos(req.params.id)
-            .then( async pequenosGruposMembos => {
-                console.log("111111" + pequenosGruposMembos.length + req.params.id);
-                if (pequenosGruposMembos.length > 0) {
-                    await pequenosGruposMembos.forEach( PGMatriculados => {
-                    console.log(PGMatriculados.membro);    
-                    let template = `<tr>
-                        <td class="align-middle">
-                            ${PGMatriculados.membro.nome}
-                        </td>
-                        <td class="align-middle" style="text-align:center;">
-                            <label class="switch">
-                                <input type="checkbox" name="${PGMatriculados.membro.id}" checked>
-                                <span class="slider round"></span>
-                            </label>
-                        </td>
-                    </tr>`
-                        content.push(template);
-                    });    
-                }
+        let pequenosGruposMembos = await pequenosGruposMembrosController.getMembrosByPequenosGrupos(req.params.id)
+        let pequenosGruposMembosAusentes = await pequenosGruposMembrosController.getMembrosOutPequenosGrupos()
+        
+        pequenosGruposMembos.forEach( PGMatriculados => {
+            let template = `<tr>
+                <td class="align-middle">
+                    ${PGMatriculados.membro.nome}
+                </td>
+                <td class="align-middle" style="text-align:center;">
+                    <label class="switch">
+                        <input type="checkbox" name="${PGMatriculados.membro.id}" checked>
+                        <span class="slider round"></span>
+                    </label>
+                </td>
+            </tr>`
+                content.push(template);
+            })
 
-                // res.send(content);
-
-            // pequenosGruposMembrosController
-            //     .getMembrosOutPequenosGrupos()
-            //     .then( async pequenosGruposMembosAusentes => {
-
-            //         console.log("22222")
-            //         await pequenosGruposMembosAusentes.forEach( PGMatriculadosAusente => {     
-            //         let template = `<tr>
-            //             <td class="align-middle">
-            //                 ${PGMatriculadosAusente.nome}
-            //             </td>
-            //             <td class="align-middle" style="text-align:center;">
-            //                 <label class="switch">
-            //                     <input type="checkbox" name="${PGMatriculadosAusente.id}" unchecked>
-            //                     <span class="slider round"></span>
-            //                 </label>
-            //             </td>
-            //         </tr>`
-            //             content.push(template);
-            //         })
-            //     })    
-            //     .then( async () => {
-            //         console.log("333333")
-            //         res.send(content);
-            //     })
-        })            
-                
+            pequenosGruposMembosAusentes.forEach( PGMatriculadosAusente => {     
+                let template = `<tr>
+                    <td class="align-middle">
+                        ${PGMatriculadosAusente.nome}
+                    </td>
+                    <td class="align-middle" style="text-align:center;">
+                        <label class="switch">
+                            <input type="checkbox" name="${PGMatriculadosAusente.id}" unchecked>
+                            <span class="slider round"></span>
+                        </label>
+                    </td>
+                </tr>`
+                content.push(template);
+            })
+            res.send(content);
     })
 
     router.get('/pequenosgrupos/:id', (req, res) => {
@@ -1129,7 +1112,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
 
-    res.redirect('/login');
+    res.redirect('/admin/login');
 }
 
 function isAccessControl(req, res, next) {

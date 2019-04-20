@@ -1,6 +1,6 @@
 {
     "1" : [
-        "/","/cadastros",
+        "/admin","/admin/cadastros",
         "/modulos","/modulos-list","/modulos-edit/:id",
         "/materias","/materias-list","/materias-edit/:id",
         "/licoes","/licoes-list", "/licoes-edit/:id",
@@ -16,11 +16,11 @@
         "/agenda"
     ],
     "2" : [
-        "/",
+        "/admin",
         "/ebd","/ebd/:sala", "/diadeaula/:sala/:diadeaula","/diadeaula"
     ],
     "3" : [
-        "/",
+        "/admin",
         "/geracao_futuro"
     ]
 }
