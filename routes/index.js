@@ -542,8 +542,8 @@ module.exports = (router, passport) => {
 
     router.post('/login',
         passport.authenticate('local-login', {
-            successRedirect: '/',
-            failureRedirect: '/login',
+            successRedirect: '/admin',
+            failureRedirect: '/admin/login',
             failureFlash: true
         })
     );
