@@ -1,0 +1,56 @@
+<% include ./share/header.ejs %>
+<div class="row">
+  <div class="col-md-2 mb-md-3">
+    <div class="py-2 text-center">
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/pequenosgrupos-list"><i class="fas fa-arrow-left"></i></a>
+    </div>
+  </div>
+  <div class="col-md-8 mb-md-3">
+    <div class="py-2 text-center">
+      <h2>Novo Pequeno Grupo</h2>
+      <!-- <p class="lead">Below is an example.</p> -->
+    </div>
+  </div>
+</div>
+<form class="needs-validation" novalidate id="formModulo" method="POST" action="/pequenosgrupos">
+  <div class="row">
+    <div class="col-md-7 col-12 mb-3">
+      <label for="nome">Nome do Grupo:</label>
+      <input type="text" class="form-control" name="nome" id="nome" required>
+      <div class="invalid-feedback">
+        Informe o nome do grupo.
+      </div>
+    </div>
+    <div class="col-md-5 col-12 mb-3">
+      <label for="anfitriao">Anfitrião:</label>
+      <input type="text" class="form-control" name="anfitriao" id="anfitriao" required>
+      <div class="invalid-feedback">
+        Informe o nome do Anfitrião.
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-12 mb-3">
+      <label for="lider">Líder:</label>
+      <input type="text" class="form-control" name="lider" id="lider" required>
+      <div class="invalid-feedback">
+        Informe o nome do Líder.
+      </div>
+    </div>
+    <div class="col-md-6 col-12 mb-3">
+      <label for="co_lider">Colíder:</label>
+      <input type="text" class="form-control" name="co_lider" id="co_lider">
+    </div>
+  </div>
+  <hr class="mb-4">
+  <div class="row">
+    <div class="col-6 mb-3">
+      <!-- <a href="javascript:void(0)" class="btn btn-primary btn-lg btn-block btnGravar" id="btnModulo" >Gravar</a> -->
+      <button class="btn btn-primary btn-lg btn-block btnGravar" type="submit" >Salvar</button>
+    </div>
+    <div class="col-6 mb-3">
+      <button class="btn btn-danger btn-lg btn-block" type="reset">Cancelar</button>
+    </div>
+  </div>
+</form>
+<% include ./share/footer.ejs %>

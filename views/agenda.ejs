@@ -43,7 +43,7 @@
 		</div>
 	</div>
 </div>
-<!-- 
+
 <table class="table table-hover" style="margin-top: 20px;">
 	<thead>
 		<tr>
@@ -53,11 +53,11 @@
 			<th scope="col" width="5%"></th>
 		</tr>
 	</thead>
-	<tbody>
+ 	<tbody> 
 		<%for(var row in agenda){%>
 		<tr>
 			<td>
-				<%=new Date(agenda[row].data_agenda).toISOString().substr(0, 10).split('-').reverse().join('.') %>
+				<%=agenda[row].data%>
 			</td>
 			<td>
 				<%=agenda[row].titulo%>
@@ -73,7 +73,7 @@
 		</tr>
 		<%}%>
 	</tbody>
-</table>-->
+</table>
 
 <div class="col-md-9 ml-sm-auto">
 	<div class="row">
@@ -88,7 +88,7 @@
 						</button>
 					</div>
 					<div class="modal-body">
-						<form method="post" action="-ipp/agenda/save">
+						<form method="post" action="agenda">
 							<div class="row">
 								<div class="col-md-4">
 									<label for="data">Data</label>

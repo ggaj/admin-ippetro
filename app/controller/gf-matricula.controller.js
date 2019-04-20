@@ -1,5 +1,6 @@
 const { gf_matriculas } = require('../model');
 const { membros } = require('../model');
+const { diadeaula } = require('../model');
 const mensagemTemplate = require('../../views/template/mensagem.template');
 
 class MatriculasController{
@@ -17,23 +18,44 @@ class MatriculasController{
             });
     }
 
-    getGFMembrosMatriculados(){
+    getGFMembrosMatriculados(licaoId, data){
 
-        let matriculasArray = [], membrosArray = [];
+        let matriculasArray = [], membrosArray = [], diadeaulaArray = [], presente = '';
         return gf_matriculas
             .findAll()
             .then( result => {
                 result.forEach(matricula => {
                     membrosArray.push(matricula.dataValues.membroId)
-                }); 
+                });
+            })
+            .then(async() => {
+                diadeaula
+                    .findAll({ where: { diadeaula: data, licaoId, grupoensino: 'GFU' }}) 
+                    .then(( aulas ) => {
+                        aulas.forEach(aula => {
+                            diadeaulaArray.push(aula.dataValues);
+                        });
+                    })
             })
             .then(() => {
                 return membros
                     .findAll({ where: { id: { in: membrosArray }}})
                     .then((membros) => {
                         membros.forEach( membro => {
-                            matriculasArray.push( membro.dataValues );
+                            if (diadeaulaArray.some((dia) => (dia.id_membro == membro.id))){
+                                presente = 'checked';
+                            } else {
+                                presente = 'unchecked';
+                            }
+
+                            let alunos = {
+                                id: membro.id,
+                                nome: membro.nome,
+                                presente
+                            }
+                            matriculasArray.push( alunos );
                         });
+                        console.log(matriculasArray);
                         return matriculasArray;
                     })
             });

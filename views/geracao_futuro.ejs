@@ -22,19 +22,18 @@
   <div class="row">
     <div class="col-md-3 mb-3">
         <label for="gf_diadeaula">Data da aula</label>
-        <input type="date" class="form-control" id="gf_diadeaula"  name="gf_diadeaula" required readonly>
+        <input type="date" class="form-control" id="gf_diadeaula"  name="gf_diadeaula" required>
     </div>
     <div class="col mb-3">
       <label for="licaoId">Lição:</label>
       <select class="custom-select d-block w-100" name="licaoId" id="licaoId" required>
-          <option value="">Escolha uma opção...</option>
-          <%for(var row in licoes){%>
-            <%if(licoes[row].id > 0){%>
-              <option value="<%=licoes[row].id%>">
-                <%=licoes[row].licao%>
-              </option>
-            <%}%>    
-          <%}%>
+        <%for(var row in licoes){%>
+          <%if(licoes[row].id > 0){%>
+            <option value="<%=licoes[row].id%>">
+              <%=licoes[row].licao%>
+            </option>
+          <%}%>    
+        <%}%>
       </select>
       <div class="invalid-feedback">
         Escolha o módulo.
@@ -50,8 +49,7 @@
       <table class="table" id="tableGeracaoFuturo">
         <thead>
           <tr>
-            <th scope="col" width="75%" onclick="sortTable(0,'tableGeracaoFuturo')">Nome</th>
-            <th scope="col" width="75%" onclick="sortTable(0,'tableGeracaoFuturo')">Tipo de membro</th>
+            <th scope="col" width="90%" onclick="sortTable(0,'tableGeracaoFuturo')">Nome</th>
             <th scope="col" width="10%" onclick="sortTable(0,'tableGeracaoFuturo')">Presença</th>
           </tr>
         </thead>

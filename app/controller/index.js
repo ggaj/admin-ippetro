@@ -10,7 +10,11 @@ const usuarioController         = require('./usuario.controller');
 const igrejaController          = require('./igreja.controller');
 const ebdrelatorios             = require('./ebd-relatorios.controller');
 const gf_matriculasController   = require('./gf-matricula.controller');
-const visitanteController       = require('./visitante.controller');        
+const visitanteController       = require('./visitante.controller');    
+const agendaController          = require('./agenda.controller');    
+const pequenosGruposController          = require('./pequenosgrupos.controller');    
+const pequenosGruposMembrosController   = require('./pequenosgrupos-membros.controller');
+const pequenosGruposPresencaController  = require('./pequenosgrupos-presenca.controller');
 
 module.exports = { 
     moduloController,
@@ -26,4 +30,8 @@ module.exports = {
     ebdrelatorios,
     gf_matriculasController,
     visitanteController,
+    agendaController,
+    pequenosGruposController,
+    pequenosGruposMembrosController,
+    pequenosGruposPresencaController,
 }

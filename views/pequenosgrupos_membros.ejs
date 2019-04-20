@@ -1,0 +1,66 @@
+<% include ./share/header.ejs %>
+<div class="row">
+  <div class="col-md-2 mb-3">
+    <div class="py-2 text-center">
+      <a class="btn btn-outline-primary btn-lg btn-block" href="/cadastros"><i class="fas fa-arrow-left"></i></a>
+    </div>
+  </div>
+  <div class="col-md-8 mb-3">
+    <div class="py-2 text-center">
+      <h2>Pequenos Grupos x Membros</h2>
+      <!-- <p class="lead">Below is an example.</p> -->
+    </div>
+  </div>
+</div>
+<% include ./share/msg.ejs %>
+<form class="needs-validation" novalidate id="formMatricula" method="POST" action="/pequenosgrupos-membros">
+  <div class="row">
+    <div class="col-md-6 mb-3">
+      <label for="pequenosGruposMembros">Pequenos Grupos:</label>
+      <select class="custom-select d-block w-100" name="pequenosGruposMembros" id="pequenosGruposMembros" required>
+        <option value="">Escolha uma opção...</option>
+        <%for(var row in pequenosgrupos){%>
+          <%if(pequenosgrupos[row].id > 0){%>
+            <option value="<%=pequenosgrupos[row].id%>">
+              <%=pequenosgrupos[row].nome%>
+            </option>
+          <%}%>
+        <%}%>
+      </select>
+      <div class="invalid-feedback">
+        Escolha um Pequeno Grupo.
+      </div>
+    </div>
+    <div class="col-md-6 mb-3">
+        <label for="saladeaulaId">Nome para pesquisa:</label>
+        <input type="text" class="form-control" name="pesquisaMatriculas" id="pesquisaMatriculas" placeholder="Informe o nome para a pesquisa...">        
+      </div>
+    <div class="col-md-12 mb-3">
+      <table class="table table-hover">
+        <thead>
+          <tr>
+            <th scope="col" width="90%">Nome</th>
+            <th scope="col" class="center" width="10%">Matriculado</th>
+          </tr>
+        </thead>
+
+        <tbody id="pequenosGruposMembrosTable">
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+
+  <hr class="mb-4">
+  <div class="row">
+    <div class="col-6 mb-3">
+      <!-- <a href="javascript:void(0)" class="btn btn-primary btn-lg btn-block btnGravar" id="btnMatricula" >Gravar</a> -->
+      <button type="submit" class="btn btn-primary btn-lg btn-block btnGravar" id="btnMatricula" >Salvar</button>
+    </div>
+    <div class="col-6 mb-3">
+      <button class="btn btn-danger btn-lg btn-block" type="reset">Cancelar</button>
+    </div>
+  </div>
+</form>
+
+<% include ./share/footer.ejs %>

@@ -276,7 +276,7 @@ $(function () {
 
     if ($('#gf_diadeaula').length) {
 
-        let date = getDomingo();
+        let date = previusDomingo();
 
         if (($('#gf_diadeaula').val() != date) && ($('#gf_diadeaula').val())) {
             date = $('#gf_diadeaula').val();
@@ -285,9 +285,21 @@ $(function () {
         }
     }
 
+    if ($('#pequenosgrupos-aula-date').length) {
+
+        let date = previusDomingo();
+
+        if (($('#pequenosgrupos-aula-date').val() != date) && ($('#pequenosgrupos-aula-date').val())) {
+            date = $('#pequenosgrupos-aula-date').val();
+        } else {
+            $('#pequenosgrupos-aula-date').val(date);
+        }
+        getDiaDeCelula(date);
+    }
+
     if ($('#diadeaula').length) {
 
-        let date = getDomingo();
+        let date = previusDomingo();
 
         if (($('#diadeaula').val() != date) && ($('#diadeaula').val())) {
             date = $('#diadeaula').val();
@@ -309,6 +321,9 @@ $(function () {
         getDiaDePresenca(date);
     }
 
+    if ($('#pequenosGruposMembrosTable').length) {
+    }
+
     $("#btnDataAula").click(function () {
         getDiaDeAula($("#diadeaula").val());
     });
@@ -321,7 +336,7 @@ $(function () {
         let date = $('#gf_diadeaula').val();
         let licaoId = $("#licaoId").val();
         getGFDiaDeAula(licaoId, date);
-    });
+    }).change();
 
     $("#btn_diadeaula_relatorio").click( () => {
         getDiaDePresenca($("#diadeaula_relatorio").val());
@@ -338,6 +353,18 @@ $(function () {
             url: `/matriculas/${sala}`,
             success: function (result) {
                 $('#matriculasTable').html(result);
+            },
+        });
+    })
+
+    $("#pequenosGruposMembros").change(function () {
+        let pequenosGruposMembros = $( "#pequenosGruposMembros option:selected" ).val();
+        // getPequenosGruposMembros(pequenosGruposMembros);
+        $.ajax({
+            type: 'GET',
+            url: `/pequenosgrupos-membros/${pequenosGruposMembros}`,
+            success: function (result) {
+                $('#pequenosGruposMembrosTable').html(result);
             },
         });
     })
@@ -374,6 +401,21 @@ $(function () {
         });
     });
     
+    function getPequenosGruposMembros(pequenoGrupo){
+        var dados = { pequenoGrupo }
+        $.ajax({
+            type: 'POST',
+            url: `/dadosPequenosGruposMembros`,
+            data: dados,
+            success: ((result) => {
+                $('#pequenosGruposMembrosTable').html(result);
+            }),
+            error: ((e) => {
+                console.log(`Error -> ${JSON.stringify(e)}`)
+            })
+        })
+    }
+
     function getModulosByGrupoEnsino(tipo) {
         var dados = { tipo }
         $.ajax({
@@ -399,6 +441,18 @@ $(function () {
             url: `/diadeaula/${saladeaulaId}/${date}`,
             success: function (result) {
                 $('#presentesdodia').html(result);
+            },
+        });
+    }
+
+    function getDiaDeCelula(date) {
+        let pequenosgrupos_aula_id = $("#pequenosgrupos-aula-id").text().trim();
+        $.ajax({
+            type: 'GET',
+            url: `/pequenosgrupos/${pequenosgrupos_aula_id}/${date}`,
+            success: function (result) {
+                // console.log(result);
+                $('#pequenosgrupos-aula').html(result);
             },
         });
     }
