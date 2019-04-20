@@ -20,7 +20,8 @@ const {
 
 module.exports = (router, passport) => {
 
-    router.get('/', isLoggedIn, isAccessControl, function (req, res) {
+    // router.get('/admin', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin', function (req, res) {
         res.render('index', {access: req.user.id_tipo_membro})
     })
 
