@@ -1,6 +1,6 @@
 {
     "1" : [
-        "/","/cadastros",
+        "/admin","/admin/cadastros",
         "/modulos","/modulos-list","/modulos-edit/:id",
         "/materias","/materias-list","/materias-edit/:id",
         "/licoes","/licoes-list", "/licoes-edit/:id",
