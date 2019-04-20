@@ -24,7 +24,7 @@ module.exports = (router, passport) => {
         res.render('index', {access: req.user.id_tipo_membro})
     })
 
-    router.get('/cadastros', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/admin/cadastros', isLoggedIn, isAccessControl, function (req, res) {
         res.render('cadastros');
     })
 
