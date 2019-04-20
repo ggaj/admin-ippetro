@@ -20,11 +20,11 @@ const {
 
 module.exports = (router, passport) => {
 
-    router.get('/admin', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/', isLoggedIn, isAccessControl, function (req, res) {
         res.render('index', {access: req.user.id_tipo_membro})
     })
 
-    router.get('/admin/cadastros', isLoggedIn, isAccessControl, function (req, res) {
+    router.get('/cadastros', isLoggedIn, isAccessControl, function (req, res) {
         res.render('cadastros');
     })
 
@@ -534,16 +534,16 @@ module.exports = (router, passport) => {
 
     // ------------------------ Login Page ------------------------------//
 
-    router.get('/admin/login', (req, res) => {
+    router.get('/login', (req, res) => {
         res.render('login', {
             message: req.flash('loginMessage')
         });
     })
 
-    router.post('/admin/login',
+    router.post('/login',
         passport.authenticate('local-login', {
-            successRedirect: '/admin',
-            failureRedirect: '/admin/login',
+            successRedirect: '/',
+            failureRedirect: '/login',
             failureFlash: true
         })
     );
@@ -1112,7 +1112,7 @@ function isLoggedIn(req, res, next) {
     if (req.isAuthenticated())
         return next();
 
-    res.redirect('/admin/login');
+    res.redirect('/login');
 }
 
 function isAccessControl(req, res, next) {
