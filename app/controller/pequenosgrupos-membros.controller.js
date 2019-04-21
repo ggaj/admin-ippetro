@@ -2,14 +2,14 @@ const model = require('../model');
 const { pequenosgruposmembros, membros } = require('../model');
 const mensagemTemplate = require('../../views/template/mensagem.template');
 
-class PequenosGrupos{
+class PequenosGruposMembros{
 
     getMembrosByPequenosGrupos( id ){
         let pequenosGruposArray = []
         return pequenosgruposmembros
             .findAll( {where:{ pequenosgrupoId: id }, include: [membros]} )
             .then( result => {
-                console.log(result);
+                // console.log(result);
                 result.forEach( pG => {
                     pequenosGruposArray.push( pG.dataValues)
                 }); 
@@ -41,8 +41,7 @@ class PequenosGrupos{
 
         let tipo, result;
         let template = {}
-
-        // console.log(pg);
+        
         this.removePequenosGruposMembros(pg.pequenosGruposMembros)
             .then( async () => {
                 for (const k in pg) {
@@ -79,4 +78,4 @@ class PequenosGrupos{
         // return template;
     }
 }
-module.exports = new PequenosGrupos();
+module.exports = new PequenosGruposMembros();

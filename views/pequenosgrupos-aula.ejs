@@ -23,11 +23,11 @@
   </div>
 </div>
 
-<form class="needs-validation" novalidate method="post" action="/diadeaula">
+<form class="needs-validation" novalidate method="post" action="/pequenosgrupos-aula">
   <div class="row">
     <div class="col-md-3 mb-3">
       <div class="input-group">
-        <input type="date" class="form-control" id="pequenosgrupos-aula-date" value="" name="diadeaula" required>
+        <input type="date" class="form-control" id="pequenosgrupos-aula-date" value="" name="data" required>
         <div class="input-group-append">
           <button class="btn btn-primary" type="button" id="pequenosgrupos-aula-btn">Pesquisar</button>
         </div>
@@ -36,8 +36,9 @@
   </div>
 
   <div class="row">
-    <input type="text" id="" name="" value="<%=pequenoGrupo.id%>" hidden>
+    <input type="text" id="pequenogrupoId" name="pequenosgrupoId" value="<%=pequenoGrupo.id%>" hidden>
   </div>
+  
   <div class="row">
     <div class="col-md-12 order-md-1">
       <table class="table">

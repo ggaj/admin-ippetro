@@ -39,10 +39,10 @@ class VisitanteController{
             .then( async (result) => {
                 // console.log(result.dataValues);
                 if (result) {
-                    console.log('update');
+                    // console.log('update');
                     result = await visitantes.update(visitante, {where: { id :result.id }});
                 } else {
-                    console.log('create');
+                    // console.log('create');
                     result = await visitantes.create(visitante);
                 }
             })

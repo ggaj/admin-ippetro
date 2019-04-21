@@ -55,7 +55,7 @@ class MatriculasController{
                             }
                             matriculasArray.push( alunos );
                         });
-                        console.log(matriculasArray);
+                        // console.log(matriculasArray);
                         return matriculasArray;
                     })
             });

@@ -3,7 +3,8 @@
 module.exports = (sequelize, DataTypes) => {
   const pequenosgrupospresenca = sequelize.define('pequenosgrupospresenca', {
     id         : { primaryKey: true, type: DataTypes.INTEGER, autoIncrement: true, unique: true },
-    data       : { type: DataTypes.STRING(10) }
+    data       : { type: DataTypes.STRING(10) },
+    registro   : { type: DataTypes.STRING(1) }
   })
 
   pequenosgrupospresenca.associate = (models) => {

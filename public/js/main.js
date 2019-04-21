@@ -332,6 +332,14 @@ $(function () {
         getDiaDeAula($("#diadeaula").val());
     });
 
+    $("#pequenosgrupos-aula-btn").click(function () {
+        getDiaDeCelula($("#pequenosgrupos-aula-date").val());
+    });
+
+    $("#pequenosgrupos-aula-date").change(function () {
+        getDiaDeCelula($("#pequenosgrupos-aula-date").val());
+    });
+
     $("#licaoId").change(function () {
         let date = $('#gf_diadeaula').val();
         let licaoId = $("#licaoId").val();
@@ -450,6 +458,9 @@ $(function () {
         $.ajax({
             type: 'GET',
             url: `/pequenosgrupos/${pequenosgrupos_aula_id}/${date}`,
+            beforeSend: function () {
+                // $('#pgLoading').show();
+            },
             success: function (result) {
                 // console.log(result);
                 $('#pequenosgrupos-aula').html(result);

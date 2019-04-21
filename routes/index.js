@@ -93,7 +93,7 @@ module.exports = (router, passport) => {
         materiaController
             .getMateriasModulos()
             .then((materias) => {
-                console.log(materias);
+                // console.log(materias);
                 res.render('materias-list', {
                     materias,
                     message: req.flash('materias')
@@ -152,11 +152,11 @@ module.exports = (router, passport) => {
         licaoController
             .getLicao(req.params.id)
             .then((licao) => {
-                console.log(licao);
+                // console.log(licao);
                 materiaController
                     .getMateriasAtivas()
                     .then((materias) => {
-                        console.log(materias);
+                        // console.log(materias);
                         res.render('licoes-edit', {
                             licao,
                             materias,
@@ -748,7 +748,7 @@ module.exports = (router, passport) => {
         licaoController
             .getLicoesByGrupoensino('GFU')
             .then(( licoes ) => {
-                console.log(licoes);
+                // console.log(licoes);
                 res.render(`geracao_futuro`, { licoes });
             });    
     })    
@@ -935,96 +935,66 @@ module.exports = (router, passport) => {
     router.get('/pequenosgrupos/:id/:data', (req, res) => {
         
         let content = [];
-
+        // let presencaPG = await pequenosGruposPresencaController.getMembrosPequenosGrupoPresenca(req.params.id, req.params.data)
         pequenosGruposPresencaController
             .getMembrosPequenosGrupoPresenca(req.params.id, req.params.data)
-            .then( async pequenosGruposPresenca => {
+            .then( async presencaPG => {
 
-                let pequenosGruposMembros = await pequenosGruposMembrosController.getMembrosByPequenosGrupos(req.params.id);
+                presencaPG.sort()
 
-                if ( pequenosGruposPresenca.length > 0 ) {
-
-                    await pequenosGruposPresenca.forEach( PGMatriculados => {
-
-                        let presente = ""
-                        if (pequenosGruposMembros.some(pgm => pgm.membroId == PGMatriculados.membroId)) {
-                            presente = "checked";
-                        }else{
-                            presente = "unchecked";
-                        }
-                        
-                        let template = `<tr>
-                            <td class="align-middle">
-                                ${PGMatriculados.nome}
-                            </td>
-                            <td class="align-middle" style="text-align:center;">
-                                <label class="switch">
-                                    <input type="checkbox" name="${PGMatriculados.membroId}" checked>
-                                    <span class="slider round"></span>
-                                </label>
-                            </td>
-                        </tr>`
-                            content.push(template);
-                    });    
-                }
-
-            }).then( async () => {
-
-                pequenosGruposPresencaController
-                    .getMembrosPequenosGrupoPresenca(req.params.id, req.params.data)
-                    .then( async pequenosGruposPresenca => {
-                        if ( pequenosGruposPresenca.length > 0 ) {
-        
-                            await pequenosGruposPresenca.forEach( PGMatriculados => {
-        
-                            let template = `<tr>
-                                <td class="align-middle">
-                                    ${PGMatriculados.nome}
-                                </td>
-                                <td class="align-middle" style="text-align:center;">
-                                    <label class="switch">
-                                        <input type="checkbox" name="${PGMatriculados.membroId}" checked>
-                                        <span class="slider round"></span>
-                                    </label>
-                                </td>
-                            </tr>`
-                                content.push(template);
-                            });    
-                        }
-                    })
+                if (presencaPG.length > 0){
+                presencaPG.forEach( membro => {
+                    let template = 
+                    `<tr>
+                    <td class="align-middle">
+                        ${membro.nome}
+                        </td>
+                    <td class="align-middle" style="text-align:center;">
+                    <label class="switch">
+                    <input type="checkbox" name="${membro.membroId}" ${membro.registro}>
+                    <span class="slider round"></span>
+                    </label>
+                    </td>
+                    </tr>`
+                    content.push(template);
+                });
                 
-            }).then( async () => {
+            }else {
+                    
+                    let membrosPG = await pequenosGruposMembrosController.getMembrosByPequenosGrupos(req.params.id)
+
+                    membrosPG.forEach(membro => {
+                        let template = 
+                        `<tr>
+                        <td class="align-middle">
+                        ${membro.membro.nome}
+                        </td>
+                        <td class="align-middle" style="text-align:center;">
+                        <label class="switch">
+                        <input type="checkbox" name="${membro.membroId}" uncheked>
+                        <span class="slider round"></span>
+                        </label>
+                        </td>
+                        </tr>`
+                        content.push(template);
+                    });
+                }
+            })
+            .then( () => {
                 res.send(content);
-            })    
-
-        // let content = [];
-        // pequenosGruposMembrosController
-        //     .getMembrosByPequenosGrupos(req.params.id)
-        //     .then( async pequenosGruposMembos => {
-
-        //         if (pequenosGruposMembos.length > 0) {
-        //             await pequenosGruposMembos.forEach( PGMatriculados => {
-
-        //             let template = `<tr>
-        //                 <td class="align-middle">
-        //                     ${PGMatriculados.membro.nome}
-        //                 </td>
-        //                 <td class="align-middle" style="text-align:center;">
-        //                     <label class="switch">
-        //                         <input type="checkbox" name="${PGMatriculados.membro.id}" checked>
-        //                         <span class="slider round"></span>
-        //                     </label>
-        //                 </td>
-        //             </tr>`
-        //                 content.push(template);
-        //             });    
-        //         }
-        //     })
-        //     .then( async () => {
-        //         res.send(content);
-            // })    
+            })
+        
+        // await sleep(200);
     })
-
+    
+    router.post('/pequenosgrupos-aula',(req, res) => {
+        
+        pequenosGruposPresencaController
+            .gravaPequenosGrupoPresenca(req.body)
+            .then( () => {
+                res.redirect(`/pequenosgrupos/${req.body.pequenosgrupoId}`);
+            });
+    })
 
     router.get('/pequenosgrupos-membros', (req, res) => {
 
@@ -1054,7 +1024,7 @@ module.exports = (router, passport) => {
             .gravaPequenosGruposMembros(req.body)
             .then( pequenosgrupos => {
 
-                console.log(pequenosgrupos);
+                // console.log(pequenosgrupos);
         //         // membroController
         //         //     .getAllMembros()
         //         //     .then( membros => {

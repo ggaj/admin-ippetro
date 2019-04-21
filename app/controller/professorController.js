@@ -14,7 +14,7 @@ class ProfessorController{
                 distinct: 'id_membro'
             })
             .then( result => {
-                console.log('0');
+                // console.log('0');
                 result.forEach( professor => {
                     
                     // membros
