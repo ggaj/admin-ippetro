@@ -287,7 +287,8 @@ $(function () {
 
     if ($('#pequenosgrupos-aula-date').length) {
 
-        let date = previusDomingo();
+        let date = previusQuinta();
+        console.log(date)
 
         if (($('#pequenosgrupos-aula-date').val() != date) && ($('#pequenosgrupos-aula-date').val())) {
             date = $('#pequenosgrupos-aula-date').val();
@@ -402,6 +403,13 @@ $(function () {
         });
     });
 
+    $("#filtroPequenosGruposMembros").on("keyup", function () {
+        var value = $(this).val().toLowerCase();
+        $("#pequenosGruposMembrosTable tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+    });
+
     $("#saladeaulaebd").on("keyup", function () {
         var value = $(this).val().toLowerCase();
         $("#presentesdodia tr").filter(function () {
@@ -506,6 +514,14 @@ $(function () {
         let dayOfWeek = dt.getDay();
         let lastday = dayOfWeek == 0 ? dt.getDate() : dt.getDate() - (dt.getDay() - 1) + 6;
         return toDate(new Date(dt.setDate(lastday)));
+    }
+
+    function previusQuinta() {
+        let now = new Date();
+        let today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+        let dayOfWeek = now.getDay();
+        let lastday = dayOfWeek == 4 ? now.getDate() : today.getDate() - (today.getDay() -1) - 4;
+        return toDate(new Date(now.setDate(lastday)));
     }
 
     function previusDomingo() {

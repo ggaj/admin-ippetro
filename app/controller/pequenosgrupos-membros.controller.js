@@ -38,44 +38,21 @@ class PequenosGruposMembros{
     }
 
     async gravaPequenosGruposMembros(pg){
+       
+        console.log(pg);
 
-        let tipo, result;
-        let template = {}
-        
         this.removePequenosGruposMembros(pg.pequenosGruposMembros)
             .then( async () => {
                 for (const k in pg) {
-                    if (k != 'pequenosGruposMembros' && k != 'pesquisaMatriculas') {
+                    if ( parseInt(k) ) {
                         let pequenoGrupo = {}
                         pequenoGrupo.pequenosgrupoId = pg.pequenosGruposMembros 
                         pequenoGrupo.membroId        = k
                         await pequenosgruposmembros.create( pequenoGrupo )
                     }
                 }
-
-                template = await mensagemTemplate.tTipo('s');
-                return template;
+                return mensagemTemplate.tTipo('s');
             })
-
-    //     // if (modulo.ativo == 'on') {
-    //     //     modulo.ativo = 1;
-    //     // } else {
-    //     //     modulo.ativo = 0;
-    //     // }
-
-        // if (pg.id) {
-        //     result = await pequenosgruposmembros.update(pg, {where: { id :pg.id }});
-        // } else {
-        //     result = await pequenosgruposmembros.create(pg);
-        // }
-
-    //     if (result){
-    //         tipo = 's';
-    //     }else{
-    //         tipo = 'e';
-    //     }
-    //     template = mensagemTemplate.tTipo(tipo);
-        // return template;
     }
 }
 module.exports = new PequenosGruposMembros();

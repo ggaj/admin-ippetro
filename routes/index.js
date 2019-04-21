@@ -935,7 +935,6 @@ module.exports = (router, passport) => {
     router.get('/pequenosgrupos/:id/:data', (req, res) => {
         
         let content = [];
-        // let presencaPG = await pequenosGruposPresencaController.getMembrosPequenosGrupoPresenca(req.params.id, req.params.data)
         pequenosGruposPresencaController
             .getMembrosPequenosGrupoPresenca(req.params.id, req.params.data)
             .then( async presencaPG => {
@@ -983,8 +982,6 @@ module.exports = (router, passport) => {
             .then( () => {
                 res.send(content);
             })
-        
-        // await sleep(200);
     })
     
     router.post('/pequenosgrupos-aula',(req, res) => {
@@ -1001,43 +998,20 @@ module.exports = (router, passport) => {
         pequenosGruposController
             .getAllPequenosGrupos()
             .then( pequenosgrupos => {
-
-                // membroController
-                //     .getAllMembros()
-                //     .then( membros => {
-
-                        res.render( 'pequenosgrupos_membros' , { 
-                            pequenosgrupos,
-                            // membros,
-                            message: req.flash('pequenosgrupos-membros')
-                        });
-
-                    // })
-
+                res.render( 'pequenosgrupos_membros' , { 
+                    pequenosgrupos,
+                    message: req.flash('pequenosgrupos-membros')
+                });
             })
     })
 
     router.post('/pequenosgrupos-membros', (req, res) => {
 
-        // console.log(req.body);
         pequenosGruposMembrosController
             .gravaPequenosGruposMembros(req.body)
-            .then( pequenosgrupos => {
-
-                // console.log(pequenosgrupos);
-        //         // membroController
-        //         //     .getAllMembros()
-        //         //     .then( membros => {
-
-        //                 res.render( 'pequenosgrupos_membros' , { 
-        //                     pequenosgrupos,
-        //                     // membros,
-        //                     message: req.flash('pequenosgrupos-membros')
-        //                 });
-
-        //             // })
-
-            })
+            .then( () => { 
+                res.redirect('/pequenosgrupos-membros');
+             })
     })
 
     router.get('/dadosPequenosGruposMembros', (req, res) => {
